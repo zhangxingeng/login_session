@@ -6,7 +6,7 @@ public class List_item_data {
 	private String title;
 	private String description;
 	private String category;
-	private char status;
+	private String status;
 	private float start_price;
 	private java.util.Date date;
 	private int item_bidamount;
@@ -14,7 +14,7 @@ public class List_item_data {
 	
 	
 	
-	public List_item_data(String email, String title, String description, String category, char status,
+	public List_item_data(String email, String title, String description, String category, String status,
 			float start_price, Date date, int item_bidamount, String item_num) {
 		super();
 		this.email = email;
@@ -59,10 +59,10 @@ public class List_item_data {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public float getStart_price() {

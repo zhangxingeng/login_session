@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="data.Login_data"%>
+<%@page import="java.util.Iterator"%>
+<%@ page import="data.List_item_data"%>
 
 <html>
 <head>
@@ -16,14 +18,16 @@
 </div>
 
 <div class="search">
-	<form action="search.jsp">
+	<form action="Search_process.jsp">
       <input type="text" placeholder="Search.." name="search">
       <button type="submit">Submit</button>
     </form>
 </div>
 
 <div class="item_list">
-	
+<%
+
+%>
 </div>
 </body>
 </html>

@@ -1,8 +1,10 @@
-package bean;
+package data;
 
-public class Login_Bean {
+public class Login_data {
 	private String username;
 	private String password;
+	
+	
 	public String getUsername() {
 		return username;
 	}

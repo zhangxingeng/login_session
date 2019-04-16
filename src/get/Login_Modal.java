@@ -1,10 +1,11 @@
-package modal;
+package get;
 import java.sql.*;
-import bean.Login_Bean;
+
 import connect.DBConnect;
+import data.Login_data;
 
 public class Login_Modal {
-	public boolean checkUserName(Login_Bean loginfo) {
+	public boolean checkUserName(Login_data loginfo) {
 		boolean flag = false;
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();

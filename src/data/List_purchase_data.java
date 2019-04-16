@@ -8,6 +8,17 @@ public class List_purchase_data {
 	private int fdbk_seller;
 	
 	
+	
+	public List_purchase_data(String item_num, String buyer_num, String seller_num, int fdbk_buyer, int fdbk_seller) {
+		super();
+		this.item_num = item_num;
+		this.buyer_num = buyer_num;
+		this.seller_num = seller_num;
+		this.fdbk_buyer = fdbk_buyer;
+		this.fdbk_seller = fdbk_seller;
+	}
+	
+	
 	public String getItem_num() {
 		return item_num;
 	}

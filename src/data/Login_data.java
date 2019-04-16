@@ -5,6 +5,14 @@ public class Login_data {
 	private String password;
 	
 	
+	
+	public Login_data(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	
+	
 	public String getUsername() {
 		return username;
 	}

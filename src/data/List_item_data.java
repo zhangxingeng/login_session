@@ -12,6 +12,23 @@ public class List_item_data {
 	private int item_bidamount;
 	private String item_num;
 	
+	
+	
+	public List_item_data(String email, String title, String description, String category, char status,
+			float start_price, Date date, int item_bidamount, String item_num) {
+		super();
+		this.email = email;
+		this.title = title;
+		this.description = description;
+		this.category = category;
+		this.status = status;
+		this.start_price = start_price;
+		this.date = date;
+		this.item_bidamount = item_bidamount;
+		this.item_num = item_num;
+	}
+	
+	
 	public String getItem_num() {
 		return item_num;
 	}

@@ -23,11 +23,12 @@ Extra Notes:
 	2. please make sure all attributes and table names are used universally! The file Xingeng created has a schema and that should 
 		always be the name of all attributes written in all other places because when coding, these names are used to retrieve data, 
 		once they are wrong, unexpected error will occur and it will take many time to figure it out.
-		
-Here are the links toward:
-	1. Database_Relevant: https://docs.google.com/document/d/1joPyV_RWVn34sxIFpIuClJ57Dbq2NNbX1IWVn1Z0CpU/edit?usp=sharing
-	2. Project_Github: https://github.com/zhangxingeng/login_session.git
-		
+
+
+All Relavant Files has been put inside of this project. Mysql related informations are stored inside 336_project_database_constructor.rtf
+
 		
 EOF
 created by: XingengZhang on: 04/15/2019
+edited by: XingengZhang on: 04/16/2019
+

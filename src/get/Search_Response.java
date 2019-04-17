@@ -49,11 +49,13 @@ public class Search_Response extends HttpServlet {
 			ps.setString(1, input);
 			rs = ps.executeQuery();
 			while(rs.next()) {
+				float curr_price = calc_curr_price(rs.getString("item_num"));
+				
 				List_item_data curr = new List_item_data(rs.getString("email"), 
 						rs.getString("title"), rs.getString("description"), 
 						rs.getString("category"), rs.getString("status"), 
 						rs.getFloat("start_price"), rs.getDate("date"), 
-						rs.getInt("item_bidamount"), rs.getString("item_num"));
+						rs.getInt("item_bidamount"), rs.getString("item_num"), curr_price);
 				item_info.add(curr);//add the object into Linked List
 			}
 		}
@@ -68,6 +70,20 @@ public class Search_Response extends HttpServlet {
 		response.sendRedirect("login_control/index.jsp");
 		
 	}
+	
+	
+	
+	
+	/*
+	 * this function generates the current price of an item using item_num
+	 * return = highest bid
+	 */
+	private float calc_curr_price(String string) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 }
 
 

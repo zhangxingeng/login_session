@@ -11,11 +11,13 @@ public class List_item_data {
 	private java.util.Date date;
 	private int item_bidamount;
 	private String item_num;
+	//data beneath here is generated
+	private float curr_price;
 	
 	
 	
 	public List_item_data(String email, String title, String description, String category, String status,
-			float start_price, Date date, int item_bidamount, String item_num) {
+			float start_price, Date date, int item_bidamount, String item_num, float curr_price) {
 		super();
 		this.email = email;
 		this.title = title;
@@ -26,6 +28,8 @@ public class List_item_data {
 		this.date = date;
 		this.item_bidamount = item_bidamount;
 		this.item_num = item_num;
+		
+		this.curr_price =curr_price;
 	}
 	
 	
@@ -82,6 +86,14 @@ public class List_item_data {
 	}
 	public void setItem_bidamount(int item_bidamount) {
 		this.item_bidamount = item_bidamount;
+	}
+	
+	
+	public float getCurr_price() {
+		return curr_price;
+	}
+	public void setCurr_price(float curr_price) {
+		this.curr_price = curr_price;
 	}
 	
 }

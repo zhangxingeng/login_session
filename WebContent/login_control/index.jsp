@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="data.Login_data"%>
 <%@page import="java.util.Iterator"%>
@@ -25,9 +26,20 @@
 </div>
 
 <div class="item_list">
-<%
 
-%>
+<c:forEach item="${search_result}" var="item">
+	<tr>
+		<td>${item.getTitle()}</td>
+		<td>${item.getDescription}</td>
+		<td>${item.getDate()}</td>
+		<td>${item.getCurr_price()}</td>
+		<td><input name="bid_price"></td>
+		<td><button>Bid</button></td>
+	</tr>
+</c:forEach>
+
+
+
 </div>
 </body>
 </html>

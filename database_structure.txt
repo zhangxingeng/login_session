@@ -1,0 +1,27 @@
+E: user(varchar(50) email, varchar(20) password, varchar(20)name,varchar(50) address, char(2) state, varchar(6) zip, varchar(10) phone_num) 
+
+R: buyer(char(8) buyer_num, (FK) email, int fdbk_buyer)
+
+R: seller(char(8) seller_num, (FK) email, int fdbk_seller)
+
+E: card((FK)email, varchar(16) card_num,varchar(20) name, ,varchar(50) address, char(2) state, varchar(6) zip,char(4) expiration_date, char(3) cvv)
+
+E: cus_rep(varchar(50) email,varchar(20)  password)
+
+R: cr_responsible_for_user((FK) cus_rep_email, (FK) user_email)
+
+E: admin(varchar(50) email, varchar(20) password)
+
+E: item(char(10) item_num, (FK) email,varchar(50) title, varchar(500) description, varchar(10) category, char(1) status, float start_price, varchar(20) pic1, varchar(20) pic2, varchar(20) pic3) 
+
+R: bids((FK) item_num, (FK) email, float price, date date)
+
+R: purchase((FK) item_num, (FK)buyer_num, (FK)seller_num, int fdbk_buyer, int fdbk_seller)
+
+E: question(char(11) question_num, (FK)item_num, (FK)email, varchar(100) question)
+
+E: answer((FK) question_num, (FK) email ,varchar(500) answer)
+
+E: alert((FK) email, (FK) item_num)
+
+E: watchlist((FK) email, (FK) item_num)

@@ -143,7 +143,7 @@ CREATE TABLE alerts(
     PRIMARY KEY(email, item_num)
 );
 
-CREATE TABLE wishlist(
+CREATE TABLE watchlist(
 	email VARCHAR(50) NOT NULL,
 	item_num CHAR(10),
     FOREIGN KEY (email) REFERENCES user(email)

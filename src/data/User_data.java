@@ -1,8 +1,7 @@
 package data;
-
-public class User_data {
-	private String email;
-	private String password;
+import data.Account_data;
+public class User_data extends Account_data{
+	
 	private String name;
 	private String address;
 	private String state;
@@ -11,9 +10,7 @@ public class User_data {
 	
 	public User_data(String email, String password, String name, String address, String state, String zip,
 			String phone_num) {
-		super();
-		this.email = email;
-		this.password = password;
+		super(email,password,"user");
 		this.name = name;
 		this.address = address;
 		this.state = state;
@@ -21,19 +18,10 @@ public class User_data {
 		this.phone_num = phone_num;
 	}
 	
+	public String getType() {
+		return super.type;
+	}
 	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getName() {
 		return name;
 	}

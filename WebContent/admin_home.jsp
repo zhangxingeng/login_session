@@ -7,9 +7,9 @@
 </head>
 <body>
 <%
-if( ((String)session.getAttribute("account_type")).equals("admin") ){
+if( ((String)((session.getAttribute("account_info"))  )).equals("admin") ){
 %>
-	<h5>Hello,<%=(String)session.getAttribute("account_type")%>!</h5>
+	<h5>Hello, admin!</h5>
 	<button onclick="logout_handler">logout</button>
 
 

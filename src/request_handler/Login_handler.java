@@ -14,19 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
+import data.Admin_data;
+import data.Staff_data;
 import data.User_data;
 
-/**
- * Servlet implementation class Login_handler
- */
 @WebServlet("/Login_handler")
 public class Login_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    
+	
     public Login_handler() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -40,33 +37,64 @@ public class Login_handler extends HttpServlet {
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT * FROM users WHERE email=? AND password=?";
-
+		
 		try {
+			String query = "SELECT * FROM ? WHERE email=? AND password=?";
 			ps = conn.prepareStatement(query);
-			ps.setString(1, request.getParameter("email"));
-			ps.setString(2, request.getParameter("password"));
+			String accountinfo = null;
+			
+			if( ((String)request.getParameter("identity")).equals("staff") ) {
+				ps.setString(1, request.getParameter("cus_rep"));
+				accountinfo = "staff";
+			}else if( ((String)request.getParameter("identity")).equals("admin") ) {
+				ps.setString(1, request.getParameter("admin"));
+				accountinfo = "admin";
+			}else { //user
+				ps.setString(1, request.getParameter("user"));
+				accountinfo = "user";	
+			}
+			
+			ps.setString(2, request.getParameter("email"));
+			ps.setString(3, request.getParameter("password"));
 			rs = ps.executeQuery();
 			
-			if(rs.next()) {
-				User_data userinfo = new User_data (rs.getString("email"), rs.getString("password"), 
-						rs.getString("name"), rs.getString("address"), rs.getString("state"), 
-						rs.getString("zip"), rs.getString("phone_num"));
-				session.setAttribute("user_info", userinfo);
-			}
-			response.sendRedirect("login_control/index.jsp");
 			
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		} finally {
+			if(rs.next()) {	
+				String email = rs.getString("email");
+				String password = rs.getString("password");
+				if(accountinfo.equals("staff")){
+					Staff_data stf = new Staff_data(email,password);
+					session.setAttribute("account_info", stf);
+					response.sendRedirect("login_control/staff_home.jsp");
+				}else if(accountinfo.equals("admin")){
+					Admin_data adm = new Admin_data(email,password);
+					session.setAttribute("account_info", adm);
+					response.sendRedirect("login_control/admin_home.jsp");
+				}else{
+					User_data usr = new User_data(email, password,rs.getString("name"), 
+						rs.getString("address"), rs.getString("state"), 
+						rs.getString("zip"), rs.getString("phone_num"));
+					session.setAttribute("account_info", usr);
+				}
+				
+			}
+		} catch (SQLException e1) {}
+		
+		finally {
 			try {
 				if(conn != null) {
 					conn.close();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			} catch (SQLException e) {}
 		}
+		response.sendRedirect("login_control/index.jsp");
 	}
-
 }
+
+
+
+
+
+
+
+

@@ -1,17 +1,17 @@
 package data;
 
-public class cusrep_data {
-	private String email;
-	private String password;
+
+public class Staff_data{
+	protected String email;
+	protected String password;
+	protected String type;
 	
-	
-	public cusrep_data(String email, String password) {
-		super();
+	public Staff_data(String email, String password, String type) {
 		this.email = email;
 		this.password = password;
+		this.type = type;
 	}
-	
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -24,6 +24,11 @@ public class cusrep_data {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 }
+

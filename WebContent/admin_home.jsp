@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="data.Account_data" %>
 
 <html>
 <head>
@@ -7,9 +8,9 @@
 </head>
 <body>
 <%
-if( ((String)session.getAttribute("account_type")).equals("admin") ){
+if(((Account_data)session.getAttribute("Account_data")).getType().equals("admin")){
 %>
-	<h5>Hello,<%=(String)session.getAttribute("account_type")%>!</h5>
+	<h5>Hello, Administrator!</h5>
 	<button onclick="logout_handler">logout</button>
 
 

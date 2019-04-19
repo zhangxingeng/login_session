@@ -80,9 +80,19 @@ CREATE TABLE item(
 	pic3 VARCHAR(20),
 	PRIMARY KEY(item_num),
 	FOREIGN KEY (email)
-    REFERENCES user(email)
+        REFERENCES user(email)
 		ON DELETE CASCADE
 );
+
+CREATE TABLE phon_type(
+	brand VARCHAR(25),
+	model VARCHAR(50) NOT NULL,
+	ram INT NOT NULL,
+	rom INT NOT NULL,
+	cpu_core INT NOT NULL,
+    	os VARCHAR(20),
+	PRIMARY KEY(brand)
+);	
 
 CREATE TABLE bids(
 	item_num CHAR(10),
@@ -93,8 +103,10 @@ CREATE TABLE bids(
 		ON DELETE CASCADE,
 	FOREIGN KEY (item_num) REFERENCES item(item_num)
 		ON DELETE CASCADE,
-    PRIMARY KEY(email, item_num)
+        PRIMARY KEY(email, item_num)
 );
+
+
 
 CREATE TABLE purchase(
 	item_num CHAR(10),

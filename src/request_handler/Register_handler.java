@@ -58,3 +58,4 @@ public class Register_handler<String> extends HttpServlet {
 			request.sendRedirect("index.jsp").forward(request, response);
 		}
 	}}
+

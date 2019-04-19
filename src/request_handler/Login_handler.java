@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
-import data.Admin_data;
-import data.Staff_data;
-import data.User_data;
+
+import data.Account_data;
+
 
 @WebServlet("/Login_handler")
 public class Login_handler extends HttpServlet {
@@ -63,15 +63,15 @@ public class Login_handler extends HttpServlet {
 				String email = rs.getString("email");
 				String password = rs.getString("password");
 				if(accountinfo.equals("staff")){
-					Staff_data stf = new Staff_data(email,password);
+					Account_data stf = new Account_data(email,password,"staff");
 					session.setAttribute("account_info", stf);
 					response.sendRedirect("login_control/staff_home.jsp");
 				}else if(accountinfo.equals("admin")){
-					Admin_data adm = new Admin_data(email,password);
+					Account_data adm = new Account_data(email,password,"admin");
 					session.setAttribute("account_info", adm);
 					response.sendRedirect("login_control/admin_home.jsp");
 				}else{
-					User_data usr = new User_data(email, password,rs.getString("name"), 
+					Account_data usr = new Account_data(email, password,rs.getString("name"), 
 						rs.getString("address"), rs.getString("state"), 
 						rs.getString("zip"), rs.getString("phone_num"));
 					session.setAttribute("account_info", usr);

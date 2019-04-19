@@ -9,22 +9,22 @@ values
 (666666,'Emma@yahoo.com','sowhat','Much is at stake for Mr. Barr in Thursday’s expected release','phone','gun',1,3.3,NULL,NULL,NULL),
 (777777,'Olivia@scarletmail.rutgers.edu','ok','The information that Justice Department officials have provided to the White House could potentially be valuable for Mr. Trump’s legal team as it finalizes a rebuttal to the Mueller report','phone',0,77.7,NULL,NULL,NULL),
 (888888,'Ava@gmail.com','which','Mr. Trump','phone',0,5555.4,NULL,NULL,NULL),
-(999999,'Isabella@outlook.com','with','The discussions between Justice Department officials and White House lawyers have also added to questions about the propriety of the decisions by Attorney General William P. Barr','phone',1,66.9,NULL,NULL,NULL),
+(999999,'Isabella@outlook.com','with','The discussions between Justice Department officials and White House lawyers have also added to questions about the propriety of the decisions by Attorney General William P. Barr','phone',1, 66.9,"","","");
 
 
 insert into user(email,password,name,address,state,zip,phone_num) 
 values
-('Tom@gmail.com','password','Tom','10 Bayberry close','NJ','08854','7326685517')
+('336','88888888','Tom','10 Bayberry close','NJ','08854','7326685517');
 
 
 insert into cus_rep(cus_email,password) 
 values
-('cus_rep1@gmail.com','password')
+('336','88888888');
 
 
 insert into admin(mail,password) 
 values
-('admin1@gmail.com','password')
+('336','88888888');
 
 
 show tables;
@@ -36,3 +36,8 @@ show columns from item;
 show columns from user;
 show columns from cus_rep;
 show columns from admin;
+
+/*comment: items belong to noone. need to create more user nick james...*/
+/*
+
+*/

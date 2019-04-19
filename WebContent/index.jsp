@@ -18,6 +18,7 @@ if(session.getAttribute("account_info") != null){
 %>
 		<h5>Hello,<%= ((Account_data)session.getAttribute("account_info")).getType() %>!</h5>
 		<button onclick="logout_handler">logout</button>
+		<button onclick="item_upload">upload new items</button>
 <%
 }else{
 %>
@@ -32,6 +33,7 @@ if(session.getAttribute("account_info") != null){
 			Password
 			<input type="password" name="password" required><br>
 			<input type="submit" value="Submit">
+			</div>
 		</form>
 		<button onclick="register.jsp">register</button>
 <%
@@ -41,7 +43,23 @@ if(session.getAttribute("account_info") != null){
 		
 		<div class="search">
 			<form action="Search_handler.jsp">
-		      <input type="text" placeholder="Search.." name="search">
+		      	keyword:<input type="text" name="keyword"><br>
+				Name<input type="text" name="name"><br>
+				Description<input type="text" name="description"><br>
+				Brand:
+				<select>
+					<option value="apple">Apple</option>
+					<option value="samsung">Samsung</option>
+					<option value="google">google</option>
+					<option value="sony">Sony</option>
+					<option value="huawei">Huawei</option>
+					<option value="other">Other</option>
+				</select><br>
+				model<input type="text" name="model"><br>
+				min_price<input type="text" name="min_price"><br>
+				max_price<input type="text" name="max_price"><br>
+				<input type="checkbox" name="active" value="Bike"checked>active item<br>
+  				<input type="checkbox" name="history" value="Car">history item<br>
 		      <button type="submit">Submit</button>
 		    </form>
 		</div>

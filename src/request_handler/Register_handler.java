@@ -1,6 +1,12 @@
 package request_handler;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,17 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class Register_handler
- * @param <String>
- */
+import connect.DBConnect;
+
+
 @WebServlet("/Register_handler")
-public class Register_handler<String> extends HttpServlet {
+public class Register_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	
     public Register_handler() {
         super();
         // TODO Auto-generated constructor stub
@@ -26,36 +28,67 @@ public class Register_handler<String> extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String name=request.getParameter("name");
-		String password=request.getParameter("password");
-		UserDao uDao=new UserDao();
-		User user = null;
+		
+		String input_email=(String)request.getParameter("email");
+		String input_password=(String)request.getParameter("password");
+		String input_username=(String)request.getParameter("username");
+		String input_address=(String)request.getParameter("address");
+		DBConnect DB = new DBConnect();
+		Connection con = DB.getConn();
+		PreparedStatement prepst = null;
+		ResultSet rs = null;
+		
+
 		try {
-			user = uDao.findByName(name);
+			String selectSQL = "SELECT email FROM user WHERE email=?";
+			prepst = con.prepareStatement(selectSQL);
+			prepst.setString(1,input_email);
+
+			// execute select SQL stetement
+		   rs = prepst.executeQuery();
+
+			if (!rs.next()) {
+				String insertSQL = "INSERT INTO user(email, password,username,address) VALUES (?, ?, ?, ?)";
+				prepst = con.prepareStatement(insertSQL);
+				prepst.setString(1,input_email);
+				prepst.setString(2,input_password);
+				prepst.setString(3,input_username);
+				prepst.setString(4,input_address);
+                int i= prepst.executeUpdate();
+                if(i != 0 ) {
+                	System.out.println("successed!");//success
+                	response.sendRedirect("index.jsp");//redirect index
+                }else {
+                	System.out.println("error occurred");//error occurred
+                	response.sendRedirect("register.jsp");//redirict register
+                }
+			}else {
+				System.out.println("this email alreay exists!");//this email alreay exists
+				response.sendRedirect("register.jsp");//redirct register
+			}
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+
 		}
-		 System.out.println(user.getName());
-		 System.out.println("Determine if the username is duplicated");
-		if(name.equals(user.getName())){
-			String msg=name+"This name already have it, change it!";
-			request.setAttribute("msg", msg);
-			request.sendRedirect("register.jsp").forward(request, response);
-		}else{
-			System.out.println("saved！");
-			User user1=new User();
-			user1.setName(name);
-			user1.setPassword(pwd);
+		
+	finally {
+
 			try {
-				uDao.saveUser(user1);
+				if(con != null) {
+					con.close();
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String msg=name+"Already registered, please log in again.";
-			request.setAttribute("msg", msg);
-			request.sendRedirect("index.jsp").forward(request, response);
 		}
-	}}
-
+		
+	}
+}
+		
+		
+		
+		
+	
+		

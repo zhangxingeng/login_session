@@ -11,7 +11,7 @@
         <form action="Register_handler" method="POST">
             Email<input type="text" name="email" required><br>
     		Address<input type="text" name="address"><br>
-            User_name<input type="text" name="username" id="username"><br>
+            User_name<input type="text" name="username" ><br>
     		Password <input type="password" name="password" required> <br>
     		confirm_password<input type="password" name="confirm_password"><br>
             <input type="submit" value="Register">

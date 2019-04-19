@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="data.Login_data"%>
 <%@page import="java.util.Iterator"%>
 <%@ page import="data.List_item_data"%>
+<%@ page import="data.Account_data"%>
 
 <html>
 	<head>
@@ -14,9 +14,9 @@
 	<body>
 		<div class="account">
 <%
-if(session.getAttribute("account_type") != null){
+if(session.getAttribute("account_info") != null){
 %>
-		<h5>Hello,<%=(String)session.getAttribute("account_type")%>!</h5>
+		<h5>Hello,<%= ((Account_data)session.getAttribute("account_info")).getType() %>!</h5>
 		<button onclick="logout_handler">logout</button>
 <%
 }else{
@@ -26,6 +26,7 @@ if(session.getAttribute("account_type") != null){
 			<input type="radio" name="identity" value="user">user
 			<input type="radio" name="identity" value="staff">staff
 			<input type="radio" name="identity" value="admin">admin
+			<div>
 			Username
 			<input type="text" name="username" required> <br>
 			Password

@@ -30,7 +30,6 @@
 			Start Price<input type="text" name="start_price" required><br>
 			Minimum reserve Proce<input type="text" name="description"><br>
 
-			<input type="submit" value="Register">
 		</form>
 
 	</div>

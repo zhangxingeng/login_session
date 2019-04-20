@@ -19,13 +19,18 @@
 
     <div>
         
-        <table align="center" cellpadding="5" cellspacing="5" border="1">
-		<tr>
-		</tr>
-		<tr>
-		<td><b>Title</b></td>
-		<td><b>Description</b></td>
-		<td><b>Brand</b></td>
+
+        
+        
+        <%
+				DBConnect DBC = new DBConnect();
+				Connection conn = DBC.getConn();
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+		%>
+		
+		<table align="center" cellpadding="5" cellspacing="5" border="1">
+
 		<td><b>Model</b></td>
 		<td><b>RAM</b></td>
 		<td><b>ROM</b></td>

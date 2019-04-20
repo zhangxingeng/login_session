@@ -10,30 +10,60 @@
 	</head>
 <body>
     <h1 class="content center big">Item Page</h1>
-<%
-if(((Account_data)session.getAttribute("Account_data")).getType() = null ) { 
-	response.sendRedirect("Login_handler");
-} else {
-%>
-    <div class="conetent leftpad">
+
+    <div>
+        
+        
+        
         <%
 				DBConnect DBC = new DBConnect();
 				Connection conn = DBC.getConn();
 				PreparedStatement ps = null;
 				ResultSet rs = null;
-						
+		%>
+		
+		<table align="center" cellpadding="5" cellspacing="5" border="1">
+		<tr>
+		</tr>
+		<tr>
+		<td><b>Title</b></td>
+		<td><b>Description</b></td>
+		<td><b>Brand</b></td>
+		<td><b>Model</b></td>
+		<td><b>Starting Price</b></td>
+		</tr>
+        
+		
+		<% 				
 				try {
+					
 					String user = ((Account_data)session.getAttribute("account_info")).getName();
-					//get item_numbr from buttons value(string) and query from database of all other info
-					String itemQuery = "SELECT * FROM item i, phone_type t WHERE t.brand = i.brand AND t.model = i.model";
-					ps1 = conn.prepareStatement(itemQuery);
-					rs = ps1.executeQuery();
+					String item_number = request.getParameter("detail");
+					String itemQuery = "SELECT * FROM item i, phone_type pt WHERE AND item_num = ? pt.brand = i.brand AND pt.model = i.model";
+					ps = conn.prepareStatement(itemQuery);
+					ps.addString(item_number);
+					rs = ps.executeQuery();
 					while (rs.next()) {
-						//print out all attributes from item table and phone type table
-					} 
-			%>
-				
- 
-    </div>
+					%>
+						
+						<tr>
+						<td><%=rs.getString("title") %></td>
+						<td><%=rs.getString("description") %></td>
+						<td><%=rs.getString("model") %></td>
+						<td><%=rs.getString("os") %></td>
+						<td><%=rs.getString("brand") %></td>
+						<td><%=rs.getInteger("ram") %></td>
+						<td><%=rs.getInteger("rom") %></td>
+						<td><%=rs.getString("cpu_core") %></td>
+						<td><%=rs.getInteger("start_price") %></td>
+						</tr>
+						<% 
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}				
+						%>
+		</table>
+	</div>
 </body>
 </html>

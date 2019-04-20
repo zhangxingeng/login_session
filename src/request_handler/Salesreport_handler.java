@@ -41,36 +41,53 @@ public class Salesreport_handler extends HttpServlet {
 		PreparedStatement prepst = null;
 		ResultSet rs = null;
 		try {
-			float start_price = 0;
-			float soldprice = 0;
-			float total_earning = 0; 
-			String Sumsql = "SELECT item_num,SUM(start_price) FROM item GROUP BY item_num HAVING status = 'sold'";
-			prepst = con.prepareStatement(Sumsql);
-			
-			prepst.setLong(1,(long) start_price);
-			
-			String Soldsql = "SELECT item_num,SUM(curr_price) FROM item GROUP BY item_num HAVING status ='sold'";
-			prepst = con.prepareStatement(Soldsql);
-			prepst.setLong(1,(long) soldprice);
-			
-			rs = prepst.executeQuery();
-			if(!rs.next()) {
+			String report = request.getParameter("report");
+			if(report.equals("totalearning")) {
+				float start_price = 0;
+				float sold_price = 0;
+				float total_earning = 0; 
 				
-				total_earning = soldprice - start_price;
+				float curr_price= 000000;//TODO: calc curr price from all bids
+				String query_start = "SELECT item_num,SUM(start_price) FROM item AND status = 'sold'";
+				String query_end = "SELECT item_num,SUM(?) FROM item AND status ='sold'";
 				
-				String insertSQL = "INSERT INTO item(item_bidamount) VALUES (?)";
-				prepst = con.prepareStatement(insertSQL);
-				prepst.setLong(1,(long) total_earning);
-				
-				prepst.executeUpdate();
+				PreparedStatement ps_start = con.prepareStatement(query_start);
+				PreparedStatement ps_end = con.prepareStatement(query_end);
 				
 				
-			}else {
-				System.out.println("error occurred");//error occurred
-            	response.sendRedirect("admin_home.jsp");//redirict register
-			
-			
-		}}
+				ResultSet rs_start = ps_start.executeQuery();
+				ResultSet rs_end = ps_end.executeQuery();
+				
+				
+				start_price = rs_start.getFloat(1);
+				sold_price = rs_end.getFloat(1);
+				total_earning = sold_price - start_price;
+				
+				session.setAttribute("total_earning", total_earning);
+				
+			}else if(report.equals("earnperitem")) {
+				
+				
+				
+				
+				
+				
+				
+			}else if(report.equals("earnpertype")) {
+				
+				
+				
+				
+				
+			}else if(report.equals("earnperuser")) {
+				
+			}else if(report.equals("bestsellitem")) {
+				
+			}else if(report.equals("bestuser")) {
+				
+			}else {}
+            response.sendRedirect("admin_home.jsp");	
+		}
 		catch(SQLException e){
 			e.printStackTrace();
 		}

@@ -84,7 +84,7 @@ CREATE TABLE item(
 		ON DELETE CASCADE
 );
 
-CREATE TABLE phon_type(
+CREATE TABLE phone_type(
 	brand VARCHAR(25),
 	model VARCHAR(50) NOT NULL,
 	ram INT NOT NULL,

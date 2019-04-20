@@ -16,7 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 import data.List_item_data;
+import java.text.NumberFormat; 
 
+
+import java.util.Locale; 
 
 @WebServlet("/Search_Response")
 public class Search_handler extends HttpServlet {
@@ -33,24 +36,39 @@ public class Search_handler extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<List_item_data> item_info=new ArrayList<List_item_data>();
 		
+		Float min_price = Float.parseFloat(request.getParameter("min_price"));
+		Float max_price = Float.parseFloat(request.getParameter("max_price"));
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String input = request.getParameter("search");
-		String query = "SELECT * FROM item WHERE (title OR description) LIKE '%?%'" ;
+		String k = request.getParameter("keyword");
+		String b = request.getParameter("brand");
+		String m = request.getParameter("model");
+		String status = request.getParameter("status");
+		String query = "SELECT * FROM item, phone_type WHERE (title OR description) LIKE '%?%' AND brand LIKE '%?%' AND model LIKE '%?%' AND curr_price > ? AND curr_price < ? AND status = ?";
 		try {
 			ps = conn.prepareStatement(query);
-			ps.setString(1, input);
+			ps.setString(1, k);
+			ps.setString(2, b);
+			ps.setString(3, m);
+			ps.setFloat(4, min_price);
+			ps.setFloat(5, max_price);
+			ps.setString(6, status);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				float curr_price = calc_curr_price(rs.getString("item_num"));
+				
+				//todo:query from bid for highest price save into curr_price
 				
 				List_item_data curr = new List_item_data(rs.getString("email"), 
 						rs.getString("title"), rs.getString("description"), 
 						rs.getString("category"), rs.getString("status"), 
 						rs.getFloat("start_price"), rs.getDate("date"), 
-						rs.getInt("item_bidamount"), rs.getString("item_num"), curr_price);
+						rs.getInt("item_bidamount"), rs.getString("item_num"), 
+						rs.getString("brand"), rs.getString("model"),
+						rs.getInt("ram"), rs.getInt("rom"),
+						rs.getString("os"),
+						curr_price);
 				item_info.add(curr);//add the object into Linked List
 			}
 		}
@@ -68,26 +86,12 @@ public class Search_handler extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("search_result") != null) {
-			session.removeAttribute("search_resultsearch_result");
+			session.removeAttribute("search_result");
 		}
 		session.setAttribute("search_result", item_info);
 		response.sendRedirect("login_control/index.jsp");
 		
 	}
-	
-	
-	
-	
-	/*
-	 * this function generates the current price of an item using item_num
-	 * return = highest bid
-	 */
-	private float calc_curr_price(String string) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
 }
 
 

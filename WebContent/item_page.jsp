@@ -75,6 +75,8 @@
 					e.printStackTrace();
 				}				
 						%>
+						
+	<!--TODO:Set alert form and add to watch list form!!!!!  --> 
 		</table>
 	</div>
 </body>

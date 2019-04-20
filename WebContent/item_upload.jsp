@@ -19,6 +19,8 @@
 		<form action="Seller_handler" method="POST">
 			Name<input type="text" name="title" required><br>
 			Description<input type="text" name="description" required><br>
+			
+			<%  //need to change follow db updates  %>
 			Brand: <select>
 				<option value="apple">Apple</option>
 				<option value="samsung">Samsung</option>
@@ -30,6 +32,7 @@
 			Start Price<input type="text" name="start_price" required><br>
 			Minimum reserve Proce<input type="text" name="description"><br>
 
+			<input type="submit" value="Submit">
 		</form>
 
 	</div>

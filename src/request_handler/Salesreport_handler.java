@@ -64,15 +64,45 @@ public class Salesreport_handler extends HttpServlet {
 			
 			}else if(report.equals("earnpertype")) {
 				
-				
+			String earing_per_itemtype = "SELECT brand,model ,SUM(curr.max)*0.04 FROM (SELECT brand, model, MAX(b.price) max FROM item i, bid b WHERE i.brand = b.brand, i.model = b.model GROUP BY item_num) AS curr GROUP BY(curr.brand,curr.model) SORT BY i.brand, i.model";
+			
+			PreparedStatement ps_earing_per_itemtype= con.prepareStatement(earing_per_itemtype);
+			ResultSet rs_earing_per_itemtype = ps_earing_per_itemtype.executeQuery();
+			float earing_per_item_type = rs_earing_per_itemtype.getFloat(1); 
+			
+			session.setAttribute("earing_per_item_type", earing_per_item_type);
 				
 				
 				
 			}else if(report.equals("earnperuser")) {
 				
+				String earing_per_enduser = "";
+				
+				PreparedStatement ps_earing_per_enduser= con.prepareStatement(earing_per_enduser);
+				ResultSet rs_earing_per_enduser = ps_earing_per_enduser.executeQuery();
+				float earing_per_end_user = rs_earing_per_enduser.getFloat(1); 
+				
+				session.setAttribute("earing_per_end_user", earing_per_end_user);
+				
 			}else if(report.equals("bestsellitem")) {
 				
+				String bestsellitem = "";
+				
+				PreparedStatement ps_bestsellitem= con.prepareStatement(bestsellitem);
+				ResultSet rs_bestsellitem = ps_bestsellitem.executeQuery();
+				float bestselling_item = rs_bestsellitem.getFloat(1); 
+				
+				session.setAttribute("bestselling_item", bestselling_item);
+				
 			}else if(report.equals("bestuser")) {
+				
+				String earing_per_itemtype = "";
+				
+				PreparedStatement ps_earing_per_itemtype= con.prepareStatement(earing_per_itemtype);
+				ResultSet rs_earing_per_itemtype = ps_earing_per_itemtype.executeQuery();
+				float earing_per_item_type = rs_earing_per_itemtype.getFloat(1); 
+				
+				session.setAttribute("earning_per_item", earing_per_item_type);
 				
 			}else {}
             response.sendRedirect("admin_home.jsp");	

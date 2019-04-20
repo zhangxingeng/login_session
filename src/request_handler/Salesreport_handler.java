@@ -53,9 +53,9 @@ public class Salesreport_handler extends HttpServlet {
 				
 			}else if(report.equals("earnperitem")) {
 				
-				String earningper_item= "SELECT item_num,Max(b.price)*0.04 maxp FROM bid b WHERE b.status = 's' GROUP BY item_num";
+				String q_earning_per_item= "SELECT item_num,Max(b.price)*0.04 maxp FROM bid b WHERE b.status = 's' GROUP BY item_num";
 				
-				PreparedStatement ps_earningper_item= con.prepareStatement(earningper_item);
+				PreparedStatement ps_earningper_item= con.prepareStatement(q_earning_per_item);
 				ResultSet rs_earningper_item = ps_earningper_item.executeQuery();
 				float earning_per_item = rs_earningper_item.getFloat(1); 
 				
@@ -64,15 +64,14 @@ public class Salesreport_handler extends HttpServlet {
 			
 			}else if(report.equals("earnpertype")) {
 				
-			String earing_per_itemtype = "SELECT brand,model ,SUM(curr.max)*0.04 FROM (SELECT brand, model, MAX(b.price) max FROM item i, bid b WHERE i.brand = b.brand, i.model = b.model GROUP BY item_num) AS curr GROUP BY(curr.brand,curr.model) SORT BY i.brand, i.model";
+			String earing_per_itemtype = "SELECT brand, model ,SUM(curr.max)*0.04 FROM (SELECT brand, model, MAX(b.price) max FROM item i, bids b WHERE i.brand = b.brand, i.mpodel = b.model GROUP BY item_num) AS curr GROUP BY(curr.brand,curr.model) SORT BY i.brand, i.model";
 			
 			PreparedStatement ps_earing_per_itemtype= con.prepareStatement(earing_per_itemtype);
 			ResultSet rs_earing_per_itemtype = ps_earing_per_itemtype.executeQuery();
 			float earing_per_item_type = rs_earing_per_itemtype.getFloat(1); 
 			
 			session.setAttribute("earing_per_item_type", earing_per_item_type);
-				
-				
+
 				
 			}else if(report.equals("earnperuser")) {
 				

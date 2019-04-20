@@ -38,8 +38,6 @@ public class Salesreport_handler extends HttpServlet {
         
 		DBConnect DB = new DBConnect();
 		Connection con = DB.getConn();
-		PreparedStatement prepst = null;
-		ResultSet rs = null;
 		try {
 			String report = request.getParameter("report");
 			if(report.equals("totalearning")) {

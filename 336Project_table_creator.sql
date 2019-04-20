@@ -233,7 +233,8 @@ CREATE TABLE item(
 	email VARCHAR(50),
 	title VARCHAR(50),
 	description VARCHAR(500),
-	category VARCHAR(10) NOT NULL,
+	brand VARCHAR(25),
+	model VARCHAR(50) NOT NULL,
 	status CHAR(1),
 	start_price FLOAT NOT NULL,
 	pic1 VARCHAR(20),
@@ -242,6 +243,9 @@ CREATE TABLE item(
 	PRIMARY KEY(item_num),
 	FOREIGN KEY (email)
         REFERENCES user(email)
+		ON DELETE CASCADE,
+	FOREIGN KEY (brand, model)
+        REFERENCES phone_type(brand, model)
 		ON DELETE CASCADE
 );
 
@@ -252,7 +256,7 @@ CREATE TABLE phone_type(
 	rom INT NOT NULL,
 	cpu_core INT NOT NULL,
     	os VARCHAR(20),
-	PRIMARY KEY(brand)
+	PRIMARY KEY(brand, model)
 );	
 
 CREATE TABLE bids(

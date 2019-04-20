@@ -108,7 +108,6 @@ public class List_item_data {
 	private String email;
 	private String title;
 	private String description;
-	private String category;
 	private String status;
 	private float start_price;
 	private java.util.Date date;
@@ -125,14 +124,13 @@ public class List_item_data {
 	
 	
 	
-	public List_item_data(String email, String title, String description, String category, String status,
+	public List_item_data(String email, String title, String description, String status,
 			float start_price, Date date, int item_bidamount, String item_num, String brand, String model, int ram,
 			int rom, String os, float curr_price) {
 		super();
 		this.email = email;
 		this.title = title;
 		this.description = description;
-		this.category = category;
 		this.status = status;
 		this.start_price = start_price;
 		this.date = date;
@@ -172,12 +170,7 @@ public class List_item_data {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	
 	public String getStatus() {
 		return status;
 	}

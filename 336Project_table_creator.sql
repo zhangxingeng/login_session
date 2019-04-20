@@ -88,7 +88,7 @@ CREATE TABLE bids(
 	item_num CHAR(10),
 	email VARCHAR(50) NOT NULL,
 	price FLOAT NOT NULL,
-    date date,
+    date TIMESTAMP DEFAULT NOW(),
 	FOREIGN KEY (email) REFERENCES user(email)
 		ON DELETE CASCADE,
 	FOREIGN KEY (item_num) REFERENCES item(item_num)

@@ -54,7 +54,7 @@ public class Bid_handler extends HttpServlet {
 				ps.setTimestamp(4, now);
 				ps.executeUpdate();
 				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
-				setalert();
+				email_alert(String Connection conn);
 				
 			} catch (SQLException e) {}
 			//TODO: add help method to send email to all people in watchlist and alert

@@ -23,6 +23,7 @@ Extra Notes:
 	2. please make sure all attributes and table names are used universally! The file Xingeng created has a schema and that should 
 		always be the name of all attributes written in all other places because when coding, these names are used to retrieve data, 
 		once they are wrong, unexpected error will occur and it will take many time to figure it out.
+<<<<<<< HEAD
 		
 Here are the links toward:
 	1. Database_Relevant: https://docs.google.com/document/d/1joPyV_RWVn34sxIFpIuClJ57Dbq2NNbX1IWVn1Z0CpU/edit?usp=sharing
@@ -31,3 +32,32 @@ Here are the links toward:
 		
 EOF
 created by: XingengZhang on: 04/15/2019
+=======
+
+
+All Relavant Files has been put inside of this project. Mysql related informations are stored inside 336_project_database_constructor.rtf
+
+
+/************added on 17/04/2019***********/
+
+For everyone:
+To do: based on the structure of login_handler, we can now create servlets with the endings of _handler in request_handler package.
+We need to discuss who to do which.
+All data objects are stored in data package, and has the attribute of data, and all variables inside should have the same name as 
+the attribute name in Mysql database.
+
+
+
+For Haoran Wen
+Besides, We still need a page that shows the items of one person(which includes alert and questions)
+and a page for customer reps. This jsp file should be uploaded by Haoran. Notice: when create a form, please try to combine as much
+options into one form, which means less servlets will need to be created. 
+
+
+
+EOF
+created by: XingengZhang on: 04/15/2019
+edited by: XingengZhang on: 04/16/2019
+			XingengZhang on: 04/17/2019
+
+>>>>>>> branch 'master' of https://github.com/zhangxingeng/336_project_buyme.git

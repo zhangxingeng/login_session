@@ -43,36 +43,25 @@ public class Salesreport_handler extends HttpServlet {
 		try {
 			String report = request.getParameter("report");
 			if(report.equals("totalearning")) {
-				float start_price = 0;
-				float sold_price = 0;
-				float total_earning = 0; 
 				
-				float curr_price= 000000;//TODO: calc curr price from all bids
-				String query_start = "SELECT item_num,SUM(start_price) FROM item AND status = 'sold'";
-				String query_end = "SELECT item_num,SUM(?) FROM item AND status ='sold'";
-				
-				PreparedStatement ps_start = con.prepareStatement(query_start);
-				PreparedStatement ps_end = con.prepareStatement(query_end);
-				
-				
-				ResultSet rs_start = ps_start.executeQuery();
-				ResultSet rs_end = ps_end.executeQuery();
-				
-				
-				start_price = rs_start.getFloat(1);
-				sold_price = rs_end.getFloat(1);
-				total_earning = sold_price - start_price;
+				String query_sum= "SELECT SUM（T.maxp）*0.04 FROM (SELECT item_num,Max(b.price) maxp FROM bid b WHERE b.status = 's' GROUP BY item_num) AS T";
+				PreparedStatement ps_sum = con.prepareStatement(query_sum);
+				ResultSet rs_sum = ps_sum.executeQuery();
+				float total_earning = rs_sum.getFloat(1);
 				
 				session.setAttribute("total_earning", total_earning);
 				
 			}else if(report.equals("earnperitem")) {
 				
+				String earningper_item= "SELECT item_num,Max(b.price)*0.04 maxp FROM bid b WHERE b.status = 's' GROUP BY item_num";
 				
+				PreparedStatement ps_earningper_item= con.prepareStatement(earningper_item);
+				ResultSet rs_earningper_item = ps_earningper_item.executeQuery();
+				float earning_per_item = rs_earningper_item.getFloat(1); 
 				
+				session.setAttribute("earning_per_item", earning_per_item);
 				
-				
-				
-				
+			
 			}else if(report.equals("earnpertype")) {
 				
 				

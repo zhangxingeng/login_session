@@ -70,7 +70,7 @@ if(session.getAttribute("account_info") != null){
 				<td>Description: ${item.getDescription}</td>
 				<td>${item.getDate()}</td>
 				<td>${item.getCurr_price()}</td>
-				<td><button onclick="item_detail.jsp" name="submit" value="${item.getItem_num()}">view</button></td>
+				<td><button onclick="item_detail.jsp" name="detail" value="${item.getItem_num()}">view</button></td>
 			</tr>
 		</c:forEach>
 	</div>

@@ -17,7 +17,6 @@ if(((Account_data)session.getAttribute("Account_data")).getType() = null ) {
 %>
     <div class="conetent leftpad">
         <%
-		
 				DBConnect DBC = new DBConnect();
 				Connection conn = DBC.getConn();
 				PreparedStatement ps = null;

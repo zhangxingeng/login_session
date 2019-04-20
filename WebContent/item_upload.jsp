@@ -16,8 +16,13 @@
 	<div class="conetent leftpad">
 
 		<form action="Seller_handler" method="POST">
-			Name<input type="text" name="title" required><br>
-			Description<input type="text" name="description" required><br>
+			Name<input type="text" name="title" maxlength="50" required><br>
+			Description<input type="text" name="description" maxlength="500" required><br>
+			Phone Model<input type="text" name="model" maxlength = "50" required><br>
+			Phone OS<input type="text" name"os", maxlength="20" required><br>
+			RAM<input type="number" name="ram" required><br>
+			ROM<input type="number" name=="rom" required><br>
+			<%  //need to change follow db updates  %>
 			Brand: <select>
 				<option value="apple">Apple</option>
 				<option value="samsung">Samsung</option>
@@ -25,11 +30,14 @@
 				<option value="sony">Sony</option>
 				<option value="huawei">Huawei</option>
 				<option value="other">Other</option>
-			</select> model<input type="text" name="model" required><br>
-			Start Price<input type="text" name="start_price" required><br>
-			Minimum reserve Proce<input type="text" name="description"><br>
-
-			<input type="submit" value="Register">
+			</select><br>
+			CPU Core<input type="text" name="cpu_core" required><br>
+			Start Price<input type="number" name="start_price" required><br>
+			Minimum reserve Price<input type="text" name="description"><br>
+			
+			
+			
+			<input type="submit" value="Submit">
 		</form>
 
 	</div>

@@ -18,9 +18,9 @@
 
 		<form action="Seller_handler" method="POST">
 			Name<input type="text" name="title" maxlength="50" required><br>
-			Description<input type="text" name="description" maxlength="500" required><br>
-			Phone Model<input type="text" name="model" maxlength = "50" required><br>
-			Phone OS<input type="text" name="os" maxlength="20" required><br>
+			Description<input type="text" name="description" required><br>
+			Phone Model<input type="text" name="model" required><br>
+			Phone OS<input type="text" name="os" required><br>
 			RAM<input type="number" name="ram" required><br>
 			ROM<input type="number" name="rom" required><br>
 			<%  //need to change follow db updates  %>

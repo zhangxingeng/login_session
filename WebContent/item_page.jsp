@@ -3,6 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
+<%@ page import="connect.DBConnect"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.servlet.*"%>
+
+
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,17 +18,7 @@
 
     <div>
         
-        
-        
-        <%
-		
-				DBConnect DBC = new DBConnect();
-				Connection conn = DBC.getConn();
-				PreparedStatement ps = null;
-				ResultSet rs = null;
-		%>
-		
-		<table align="center" cellpadding="5" cellspacing="5" border="1">
+        <table align="center" cellpadding="5" cellspacing="5" border="1">
 		<tr>
 		</tr>
 		<tr>
@@ -31,11 +26,21 @@
 		<td><b>Description</b></td>
 		<td><b>Brand</b></td>
 		<td><b>Model</b></td>
+		<td><b>RAM</b></td>
+		<td><b>ROM</b></td>
+		<td><b>OS</b></td>
 		<td><b>Starting Price</b></td>
 		</tr>
         
 		
-		<% 				
+        
+        <%
+		
+				DBConnect DBC = new DBConnect();
+				Connection conn = DBC.getConn();
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+		 				
 				try {
 					
 					String user = ((Account_data)session.getAttribute("account_info")).getName();
@@ -53,10 +58,10 @@
 						<td><%=rs.getString("model") %></td>
 						<td><%=rs.getString("os") %></td>
 						<td><%=rs.getString("brand") %></td>
-						<td><%=rs.getInteger("ram") %></td>
-						<td><%=rs.getInteger("rom") %></td>
+						<td><%=rs.getInt("ram") %></td>
+						<td><%=rs.getInt("rom") %></td>
 						<td><%=rs.getString("cpu_core") %></td>
-						<td><%=rs.getInteger("start_price") %></td>
+						<id><%=rs.getInt("start_price") %></id>
 						</tr>
 						<% 
 					}

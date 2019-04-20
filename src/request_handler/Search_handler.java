@@ -59,7 +59,7 @@ public class Search_handler extends HttpServlet {
 			while(rs.next()) {
 				
 				//todo:query from bid for highest price save into curr_price
-				float curr_price = calc_curr_price(rs.getString("item_num"));
+				float curr_price = calc_curr_price(rs.getString("item_num"), conn);
 				
 				List_item_data curr = new List_item_data(rs.getString("email"), 
 						rs.getString("title"), rs.getString("description"), 
@@ -97,11 +97,15 @@ public class Search_handler extends HttpServlet {
 		
 	
 	
-	private float calc_curr_price(String number) {
-		// TODO Auto-generated method stub
-		String p = "SELECT MAX(price) FROM bids WHERE item_num = number";
-		float cp = Float.parseFloat(p);
-		return cp;
+	private float calc_curr_price(String item_num, Connection conn) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "SELECT MAX(price) FROM bids WHERE item_num = ?";
+		ps = conn.prepareStatement(query);
+		ps.setString(1, item_num);
+		rs = ps.executeQuery();
+		float curr_price = rs.getFloat("price");
+		return curr_price;
 	}
 }
 

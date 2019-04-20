@@ -29,7 +29,6 @@ if(((Account_data)session.getAttribute("Account_data")).getType() = null ) {
 				try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
 					conn = DriverManager.getConnection(url, "cs336admin", "cs336password");
-				
 					String user = (Account_data)session.getAttribute("user").toString();
 					int item_num = (List_item_data)Integer.parseInt(request.getParameter("item_num"));
 					String itemQuery = "SELECT title, description, catagory, pic1, pic2, pic3 FROM item WHERE item_num=?";

@@ -1,43 +1,38 @@
 package data;
 
-import java.util.Date;
-
-public class Card_data {
+public class User_data {
 	private String email;
-	private String card_num;
+	private String password;
 	private String name;
 	private String address;
 	private String state;
 	private String zip;
-	private java.util.Date experiation_date;
-	private String cvv;
+	private String phone_num;
 	
-	
-	public Card_data(String email, String card_num, String name, String address, String state, String zip,
-			Date experiation_date, String cvv) {
+	public User_data(String email, String password, String name, String address, String state, String zip,
+			String phone_num) {
 		super();
 		this.email = email;
-		this.card_num = card_num;
+		this.password = password;
 		this.name = name;
 		this.address = address;
 		this.state = state;
 		this.zip = zip;
-		this.experiation_date = experiation_date;
-		this.cvv = cvv;
-		
-		
+		this.phone_num = phone_num;
 	}
+	
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getCard_num() {
-		return card_num;
+	public String getPassword() {
+		return password;
 	}
-	public void setCard_num(String card_num) {
-		this.card_num = card_num;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getName() {
 		return name;
@@ -63,19 +58,11 @@ public class Card_data {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	public java.util.Date getExperiation_date() {
-		return experiation_date;
+	public String getPhone_num() {
+		return phone_num;
 	}
-	public void setExperiation_date(java.util.Date experiation_date) {
-		this.experiation_date = experiation_date;
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
 	}
-	public String getCvv() {
-		return cvv;
-	}
-	public void setCvv(String cvv) {
-		this.cvv = cvv;
-	}
-	
 	
 }
-

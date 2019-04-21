@@ -3,7 +3,7 @@ package request_handler;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class AdminCRM_handler extends HttpServlet {
      */
     public AdminCRM_handler() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Auto-generated connstructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -36,22 +36,22 @@ public class AdminCRM_handler extends HttpServlet {
         String input_email=(String)request.getParameter("email");
         String input_password=(String)request.getParameter("password");
         
-		DBConnect DB = new DBConnect();
-		Connection con = DB.getConn();
-		PreparedStatement prepst = null;
+		DBConnect DBC = new DBConnect();
+		Connection conn = DBC.getConn();
+		PreparedStatement ps = null;
 		
 		
 		try {
 			 String insertSQL = "INSERT INTO user(email, password) VALUES (?, ?)";
-			 prepst = con.prepareStatement(insertSQL);
-				prepst.setString(1,input_email);
-				prepst.setString(2,input_password);
-				prepst.executeUpdate();
+			 ps = conn.prepareStatement(insertSQL);
+				ps.setString(1,input_email);
+				ps.setString(2,input_password);
+				ps.executeUpdate();
 			
 			String DeleteSQL = "delete from user WHERE email = ?";
-			prepst = con.prepareStatement(DeleteSQL);
-			prepst.setString(1,input_email);
-			prepst.executeUpdate();
+			ps = conn.prepareStatement(DeleteSQL);
+			ps.setString(1,input_email);
+			ps.executeUpdate();
 			
 		}
 		catch (Exception e){
@@ -62,8 +62,8 @@ public class AdminCRM_handler extends HttpServlet {
 		finally {
 
 			try {
-				if(con != null) {
-					con.close();
+				if(conn != null) {
+					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

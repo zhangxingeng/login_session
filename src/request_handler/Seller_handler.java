@@ -1,8 +1,11 @@
 package request_handler;
 
 import java.util.*;
+import java.util.Date;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +16,18 @@ import javax.servlet.http.HttpSession;
 import connect.DBConnect;
 import data.Account_data;
 
+
 @WebServlet("/Seller_handler")
 public class Seller_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	public static Date addDay(Date date) {
+	        Calendar cal = Calendar.getInstance();
+	        cal.setTime(date);
+	        cal.add(Calendar.DAY_OF_YEAR, 7);
+	        return cal.getTime();
+	    }
+	
     public Seller_handler() {
         super();
     }
@@ -63,18 +74,19 @@ public class Seller_handler extends HttpServlet {
 			ps.setFloat(7, start_price);
 			ps.executeUpdate();
 			//
-			Timer timer = new Timer();
-            Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
-            calendar.add(Calendar.SECOND, 5);
-            Date date = calendar.getTime();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    test();
-                }
-            }, date);
-            
-            
+			
+			 Date now = new Date(System.currentTimeMillis());
+			 TimerTask task = new TimerTask() {
+		           @Override
+		           public void run() { 
+		          //Ð´º¯Êý
+		         
+		           }
+		       };
+		       Timer timer = new Timer();		     
+			   timer.schedule(task, addDay(now));
+		 
+	      
 		} catch (SQLException e1) {session.setAttribute("failure_info", "add item has failed. check Seller_handler.java");}
 		finally {
 			session.setAttribute("success_info", "add item is a success!");

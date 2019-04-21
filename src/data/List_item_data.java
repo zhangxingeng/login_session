@@ -5,7 +5,6 @@ public class List_item_data {
 	private String email;
 	private String title;
 	private String description;
-	private String category;
 	private String status;
 	private float start_price;
 	private java.util.Date date;
@@ -20,16 +19,14 @@ public class List_item_data {
 	//data beneath here is generated
 	private float curr_price;
 	
-	
-	
-	public List_item_data(String email, String title, String description, String category, String status,
+
+	public List_item_data(String email, String title, String description, String status,
 			float start_price, Date date, int item_bidamount, String item_num, String brand, String model, int ram,
 			int rom, String os, float curr_price) {
 		super();
 		this.email = email;
 		this.title = title;
 		this.description = description;
-		this.category = category;
 		this.status = status;
 		this.start_price = start_price;
 		this.date = date;
@@ -42,7 +39,6 @@ public class List_item_data {
 		this.os = os;
 		this.curr_price = curr_price;
 	}
-
 	
 	public String getItem_num() {
 		return item_num;
@@ -56,7 +52,6 @@ public class List_item_data {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -69,12 +64,7 @@ public class List_item_data {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	
 	public String getStatus() {
 		return status;
 	}
@@ -102,57 +92,33 @@ public class List_item_data {
 	public String getBrand() {
 		return brand;
 	}
-
-
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-
-
 	public String getModel() {
 		return model;
 	}
-
-
 	public void setModel(String model) {
 		this.model = model;
 	}
-
-
 	public int getRam() {
 		return ram;
 	}
-
-
 	public void setRam(int ram) {
 		this.ram = ram;
 	}
-
-
 	public int getRom() {
 		return rom;
 	}
-
-
 	public void setRom(int rom) {
 		this.rom = rom;
 	}
-
-
 	public String getOs() {
 		return os;
 	}
-
-
 	public void setOs(String os) {
 		this.os = os;
 	}
-
-
-	
-	
-	
-
 
 	public float getCurr_price() {
 		return curr_price;

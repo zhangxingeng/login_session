@@ -59,10 +59,11 @@ public class Search_handler extends HttpServlet {
 			while(rs.next()) {
 				
 				//todo:query from bid for highest price save into curr_price
+				float curr_price = calc_curr_price(rs.getString("item_num"), conn);
 				
 				List_item_data curr = new List_item_data(rs.getString("email"), 
 						rs.getString("title"), rs.getString("description"), 
-						rs.getString("category"), rs.getString("status"), 
+						rs.getString("status"), 
 						rs.getFloat("start_price"), rs.getDate("date"), 
 						rs.getInt("item_bidamount"), rs.getString("item_num"), 
 						rs.getString("brand"), rs.getString("model"),
@@ -72,6 +73,7 @@ public class Search_handler extends HttpServlet {
 				item_info.add(curr);//add the object into Linked List
 			}
 		}
+
  		catch (SQLException e1) {
  			System.out.println(e1);
  		}finally {
@@ -91,6 +93,19 @@ public class Search_handler extends HttpServlet {
 		session.setAttribute("search_result", item_info);
 		response.sendRedirect("login_control/index.jsp");
 		
+	}
+		
+	
+	
+	private float calc_curr_price(String item_num, Connection conn) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String query = "SELECT MAX(price) FROM bids WHERE item_num = ?";
+		ps = conn.prepareStatement(query);
+		ps.setString(1, item_num);
+		rs = ps.executeQuery();
+		float curr_price = rs.getFloat("price");
+		return curr_price;
 	}
 }
 

@@ -81,33 +81,21 @@ CREATE TABLE item(
 	pic3 VARCHAR(20),
 	PRIMARY KEY(item_num),
 	FOREIGN KEY (email)
-        REFERENCES user(email)
+    REFERENCES user(email)
 		ON DELETE CASCADE
 );
-
-CREATE TABLE phone_type(
-	brand VARCHAR(25),
-	model VARCHAR(50) NOT NULL,
-	ram INT NOT NULL,
-	rom INT NOT NULL,
-	cpu_core INT NOT NULL,
-    	os VARCHAR(20),
-	PRIMARY KEY(brand)
-);	
 
 CREATE TABLE bids(
 	item_num CHAR(10),
 	email VARCHAR(50) NOT NULL,
 	price FLOAT NOT NULL,
-    date date,
+  date TIMESTAMP,
+	PRIMARY KEY(email, item_num),
 	FOREIGN KEY (email) REFERENCES user(email)
 		ON DELETE CASCADE,
 	FOREIGN KEY (item_num) REFERENCES item(item_num)
-		ON DELETE CASCADE,
-        PRIMARY KEY(email, item_num)
+		ON DELETE CASCADE
 );
-
-
 
 CREATE TABLE purchase(
 	item_num CHAR(10),
@@ -146,7 +134,7 @@ CREATE TABLE answer(
 		ON DELETE CASCADE
 );
 
-CREATE TABLE alert(
+CREATE TABLE alerts(
 	email VARCHAR(50) NOT NULL,
 	item_num CHAR(10),
     FOREIGN KEY (email) REFERENCES user(email)
@@ -156,7 +144,7 @@ CREATE TABLE alert(
     PRIMARY KEY(email, item_num)
 );
 
-CREATE TABLE watchlist(
+CREATE TABLE wishlist(
 	email VARCHAR(50) NOT NULL,
 	item_num CHAR(10),
     FOREIGN KEY (email) REFERENCES user(email)
@@ -165,8 +153,12 @@ CREATE TABLE watchlist(
 		ON DELETE CASCADE,
     PRIMARY KEY(email, item_num)
 );
+
+
+
 
 =======
+
 DROP DATABASE IF EXISTS BuyMe;
 CREATE DATABASE IF NOT EXISTS BuyMe;
 USE BuyMe;
@@ -241,7 +233,8 @@ CREATE TABLE item(
 	email VARCHAR(50),
 	title VARCHAR(50),
 	description VARCHAR(500),
-	category VARCHAR(10) NOT NULL,
+	brand VARCHAR(25),
+	model VARCHAR(50) NOT NULL,
 	status CHAR(1),
 	start_price FLOAT NOT NULL,
 	pic1 VARCHAR(20),
@@ -250,24 +243,27 @@ CREATE TABLE item(
 	PRIMARY KEY(item_num),
 	FOREIGN KEY (email)
         REFERENCES user(email)
+		ON DELETE CASCADE,
+	FOREIGN KEY (brand, model)
+        REFERENCES phone_type(brand, model)
 		ON DELETE CASCADE
 );
 
-CREATE TABLE phon_type(
+CREATE TABLE phone_type(
 	brand VARCHAR(25),
 	model VARCHAR(50) NOT NULL,
 	ram INT NOT NULL,
 	rom INT NOT NULL,
 	cpu_core INT NOT NULL,
     	os VARCHAR(20),
-	PRIMARY KEY(brand)
-);	
+	PRIMARY KEY(brand, model)
+);
 
 CREATE TABLE bids(
 	item_num CHAR(10),
 	email VARCHAR(50) NOT NULL,
 	price FLOAT NOT NULL,
-    date TIMESTAMP DEFAULT NOW(),
+    date date,
 	FOREIGN KEY (email) REFERENCES user(email)
 		ON DELETE CASCADE,
 	FOREIGN KEY (item_num) REFERENCES item(item_num)
@@ -333,4 +329,3 @@ CREATE TABLE watchlist(
 		ON DELETE CASCADE,
     PRIMARY KEY(email, item_num)
 );
-

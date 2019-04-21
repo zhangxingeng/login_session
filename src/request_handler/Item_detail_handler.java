@@ -1,6 +1,6 @@
 package request_handler;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 
 import javax.servlet.ServletException;
@@ -62,6 +62,9 @@ public class Item_detail_handler extends HttpServlet {
 		double curr_bid = item_detail.getCurr_bid();
 		int bid_count = item_detail.getBid_count();
 		double your_bid = item_detail.getYour_bid();
+		List_question_data quest = (List_question_data)(session.getAttribute("List_question_info"));
+    	List_answer_data ans = (List_answer_data)(session.getAttribute("List_answer_info"));
+   		
 		
 		try {
 			String user = curr_user.getName();
@@ -82,21 +85,39 @@ public class Item_detail_handler extends HttpServlet {
 				rs.getDouble("start_price");
 			}
 		} catch (Exception e) {
-    		List_question_data quest = (List_question_data)(session.getAttribute("List_question_info"));
-    		List_answer_data ans = (List_answer_data)(session.getAttribute("List_answer_info"));
-    		try{
-    			String q_quest_num = quest.getQuestion_num();
-    			String q_item_num = quest.getItem_num();
-    			String a_quest_num = ans.getQuestion_num();
-    			String item_num = request.getParameter("detail");
+    	try{
+   			String q_quest_num = quest.getQuestion_num();
+   			String q_item_num = quest.getItem_num();
+   			String a_quest_num = ans.getQuestion_num();
+    		String item_num = request.getParameter("detail");
     			
-    			String q_and_a_query = "select q.question, a.answer from item i, question q, answer a whwre i.item_num = ? AND (i.item_num = q.item_num AND (q.question_num = a.question_num))"; 
-    			ps = conn.prepareStatement(q_and_a_query);
-				rs = ps.executeQuery();
-				while(rs.next()){
-		
-		
-		
+   			String q_and_a_query = "select q.question, a.answer from item i, question q, answer a whwre i.item_num = ? AND (i.item_num = q.item_num AND (q.question_num = a.question_num))"; 
+   			ps = conn.prepareStatement(q_and_a_query);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				rs.getString("question");
+				rs.getString("answer");
+			}
+   		} catch (Exception e) {
+   		try{
+   			String bid_count_query = "SELECT count(*) FROM bids b, item i WHERE i.item_num = ? ADN ? = b.item_num";
+   			ps = conn.prepareStatement(bid_count_query);
+   			rs = ps.executeQuery();
+   			String count="";
+   			while(rs.next()){
+   				count = rs.getString(1);
+   				out.println("Total Number of Bids: " +count);
+   			}
+   		}catch (Exception e){
+   		try{
+   			String curr_price_query = "SELECT MAX(price) FROM bids WHERE ";
+   			ps = conn.prepareStatement(curr_price_query);
+   			rs = ps.executeQuery();
+   			while(rs.next()){
+   				rs.getString("price");	
+   			}
+   		}catch (Exception e){
+   				
 		
 	}
 

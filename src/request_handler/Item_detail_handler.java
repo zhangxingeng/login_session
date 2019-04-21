@@ -1,6 +1,6 @@
 package request_handler;
 
-import java.io.IOException; 
+import java.io.*; 
 
 
 import javax.servlet.ServletException;
@@ -8,11 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util*;
+import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import data.Item_detail_data;
-import data.String;
 import connect.DBConnect;
 
 
@@ -30,7 +29,6 @@ public class Item_detail_handler extends HttpServlet {
      */
     public Item_detail_handler() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -117,7 +115,7 @@ public class Item_detail_handler extends HttpServlet {
    				rs.getString("price");	
    			}
    		}catch (Exception e){
-   		finally {
+   		} finally {
    			try {
    				if(conn != null) {conn.close();}
    			} catch (SQLException e) {}

@@ -117,7 +117,11 @@ public class Item_detail_handler extends HttpServlet {
    				rs.getString("price");	
    			}
    		}catch (Exception e){
-   				
+   		finally {
+   			try {
+   				if(conn != null) {conn.close();}
+   			} catch (SQLException e) {}
+   		}
 		
 	}
 

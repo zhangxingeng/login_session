@@ -26,7 +26,7 @@ import data.List_item_data;
 @WebServlet("/Bid_handler")
 public class Bid_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     public Bid_handler() {
         super();
     }
@@ -35,45 +35,61 @@ public class Bid_handler extends HttpServlet {
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
-		
+		ResultSet rs = null;
 		HttpSession session = request.getSession();
 		List_item_data curr_item = (List_item_data)(session.getAttribute("item_info"));
 		Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
-		
-		
+
+
 		float curr_price = curr_item.getCurr_price();
 		float bid_price = Float.parseFloat((String) request.getAttribute("bid_price"));
 		if(bid_price > curr_price) {
-			Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());	
+			Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
 			String query = "INSERT INTO bid(item_num, email, price, date) value(?, ?, ?, ?)";
 			try {
 				ps = conn.prepareStatement(query);
-				ps.setString(1, curr_item.getItem_num());
+				ps.setInt(1, curr_item.getItem_num());
 				ps.setString(2, curr_user.getEmail());
 				ps.setFloat(3, bid_price);
 				ps.setTimestamp(4, now);
 				ps.executeUpdate();
 				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
-				setalert();
-				
+				email_alert(curr_item.getItem_num(),conn);
+
 			} catch (SQLException e) {}
-			//TODO: add help method to send email to all people in watchlist and alert
+			finally {
+					try {
+						if(conn != null) {conn.close();}
+					} catch (SQLException e) {}
+			}
 		}
+	}
+
+	private void email_alert(int item_num, Connection conn) {
+		
+		String find_person_to_alert = "("
+				+ "SELECT * "
+				+ "FROM alert a "
+				+ "WHERE a.item_num = ? "
+				+ "ORDER BY date DESC) "
+				+ "INNER JOIN ("
+					+ "SELECT TOP 1 * "
+					+ "FROM bid b "
+					+ "WHERE b.item_num = ? "
+					+ "ORDER BY b.price DESC"
+				+ ") "
+				+ "ON (a.item_num = b.item_num)";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(find_person_to_alert);
+			ps.setInt(1, item_num);
+			ps.setInt(2, item_num);
+			rs = ps.executeQuery();
+			String email = rs.getString("email");
+			
+		} catch (SQLException e) {}
 		
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

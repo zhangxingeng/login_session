@@ -1,6 +1,8 @@
 package request_handler;
 
 import java.io.IOException;
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +25,7 @@ public class Register_handler extends HttpServlet {
 	
     public Register_handler() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Auto-generated connstructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -33,15 +35,15 @@ public class Register_handler extends HttpServlet {
 		String input_password=(String)request.getParameter("password");
 		String input_username=(String)request.getParameter("username");
 		String input_address=(String)request.getParameter("address");
-		DBConnect DB = new DBConnect();
-		Connection con = DB.getConn();
+		DBConnect DBC = new DBConnect();
+		Connection conn = DBC.getConn();
 		PreparedStatement prepst = null;
 		ResultSet rs = null;
 		
 
 		try {
 			String selectSQL = "SELECT email FROM user WHERE email=?";
-			prepst = con.prepareStatement(selectSQL);
+			prepst = conn.prepareStatement(selectSQL);
 			prepst.setString(1,input_email);
 
 			// execute select SQL stetement
@@ -49,7 +51,7 @@ public class Register_handler extends HttpServlet {
 
 			if (!rs.next()) {
 				String insertSQL = "INSERT INTO user(email, password,username,address) VALUES (?, ?, ?, ?)";
-				prepst = con.prepareStatement(insertSQL);
+				prepst = conn.prepareStatement(insertSQL);
 				prepst.setString(1,input_email);
 				prepst.setString(2,input_password);
 				prepst.setString(3,input_username);
@@ -76,8 +78,8 @@ public class Register_handler extends HttpServlet {
 	finally {
 
 			try {
-				if(con != null) {
-					con.close();
+				if(conn != null) {
+					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

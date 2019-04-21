@@ -14,6 +14,8 @@ import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
 import data.Item_detail_data;
+import data.List_answer_data;
+import data.List_question_data;
 import connect.DBConnect;
 
 
@@ -57,7 +59,7 @@ public class Item_detail_handler extends HttpServlet {
 			String item_num = request.getParameter("detail");
 			String itemQuery = "SELECT * FROM item i, phone_type pt WHERE AND item_num = ? pt.brand = i.brand AND pt.model = i.model";
 			ps = conn.prepareStatement(itemQuery);
-			ps.addString(item_num);
+			 ps.addString(item_num);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				rs.getString("title");

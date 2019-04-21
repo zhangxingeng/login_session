@@ -80,7 +80,7 @@ public class Login_handler extends HttpServlet {
 				
 			}
 		} catch (SQLException e1) {
-			session.setAttribute("failure_message", "Problem occur at Login_handler.java!");}
+			session.setAttribute("failure_message", "Problem occured at Login_handler.java!");}
 		
 		finally {
 			try {

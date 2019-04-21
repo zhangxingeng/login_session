@@ -51,7 +51,7 @@ public class Removeauction_handler extends HttpServlet {
 		  
 		  
 		}catch(SQLException e) {
-			session.setAttribute("failure_message", "Problem occur at Removeauction_handler.java!");
+			session.setAttribute("failure_message", "Problem occured at Removeauction_handler.java!");
 }finally {try {
 				if(conn != null) {conn.close();}
 			} catch (SQLException e) {}}}}

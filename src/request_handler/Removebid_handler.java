@@ -49,7 +49,7 @@ public class Removebid_handler extends HttpServlet {
 			  
 			  
 			}catch(SQLException e) {
-				session.setAttribute("failure_message", "Problem occur at Removebid_handler.java!");
+				session.setAttribute("failure_message", "Problem occured at Removebid_handler.java!");
 
 			}finally {try {if(conn != null) {conn.close();}
 				} catch (SQLException e) {}}}}

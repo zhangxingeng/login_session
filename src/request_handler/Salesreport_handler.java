@@ -106,7 +106,7 @@ public class Salesreport_handler extends HttpServlet {
             response.sendRedirect("admin_home.jsp");
 		}
 		catch(SQLException e){
-			session.setAttribute("failure_message", "Problem occur at Salesreport_handler.java!");
+			session.setAttribute("failure_message", "Problem occured at Salesreport_handler.java!");
 
 		}finally {try {if(conn != null) {conn.close();}
 	} catch (SQLException e) {}}}}

@@ -71,7 +71,7 @@ public class Register_handler extends HttpServlet {
 
 		} catch (SQLException e) {
 
-			session.setAttribute("failure_message", "Problem occur at Register_handler.java!");
+			session.setAttribute("failure_message", "Problem occured at Register_handler.java!");
 
 
 		}

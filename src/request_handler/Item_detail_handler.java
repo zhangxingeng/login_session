@@ -117,7 +117,7 @@ public class Item_detail_handler extends HttpServlet {
 
    		}catch (Exception e3){
    			
-			session.setAttribute("failure_message", "Problem occur at  Item_detail_handler.java!");
+			session.setAttribute("failure_message", "Problem occured at  Item_detail_handler.java!");
 
 
    		}}

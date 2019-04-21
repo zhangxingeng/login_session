@@ -55,7 +55,7 @@ public class Bid_handler extends HttpServlet {
 				email_alert(curr_item.getItem_num(),conn, session);
 
 			} catch (SQLException e) {
-				session.setAttribute("failure_message", "Problem occur at 1 Bid_handler.java!");
+				session.setAttribute("failure_message", "Problem occured at 1 Bid_handler.java!");
 				
 			}
 			finally {
@@ -95,7 +95,7 @@ public class Bid_handler extends HttpServlet {
 			ps.setString(3, message);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			session.setAttribute("failure_message", "Problem occur at 2 Bid_handler.java!");}
+			session.setAttribute("failure_message", "Problem occured at 2 Bid_handler.java!");}
 
                    finally {try {
                             if(conn != null) {conn.close();}

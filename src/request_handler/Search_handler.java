@@ -75,7 +75,7 @@ public class Search_handler extends HttpServlet {
 		}
 
  		catch (SQLException e1) {
- 			session.setAttribute("failure_message", "Problem occur at Search_handler.java!");
+ 			session.setAttribute("failure_message", "Problem occured at Search_handler.java!");
  			}finally {
 			try {
 				if(conn != null) {conn.close();}} 

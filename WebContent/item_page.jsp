@@ -20,11 +20,7 @@
 <body>
     <h1 class="content center big">Item Page</h1>
 
-    <div class="Item Info">
-        
-
-        
-        
+    <div class="Item Info">  
         <%
 				DBConnect DBC = new DBConnect();
 				Connection conn = DBC.getConn();
@@ -33,17 +29,18 @@
 		%>
 		
 		<table align="center" cellpadding="5" cellspacing="5" border="1">
+
 		<tr></tr>
 		<tr>
 		<td><b>Title</b></td>
 		<td><b>Description</b></td>
 		<td><b>Brand</b></td>
-		
 		<td><b>Model</b></td>
 		<td><b>RAM</b></td>
 		<td><b>ROM</b></td>
 		<td><b>OS</b></td>
 		<td><b>Starting Price</b></td>
+
 		<td><b>Tiem Left</b></td>
 		</tr>
         
@@ -55,7 +52,6 @@
 				Connection conn = DBC.getConn();
 				PreparedStatement ps = null;
 				ResultSet rs = null;
-		 		
 				Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
 				
 				try {
@@ -68,7 +64,6 @@
 					rs = ps.executeQuery();
 					while (rs.next()) {
 		%>
-					
 						<tr>
 						<td><%=rs.getString("title") %></td>
 						<td><%=rs.getString("description") %></td>
@@ -87,9 +82,8 @@
 					e.printStackTrace();
 				}				
 						%>
-		</table>
-	
-	
+
+		</table>	
 	<% //QUESITONA DN ANSWERS FOR THE ITEM %>
 	</div>
 	<div class="Questiona and Answers">
@@ -164,7 +158,7 @@
 				current price <label><%=rs.getString("price")%></label>
 				<%
 			} 
-			conn.close();
+			connection.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}

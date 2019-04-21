@@ -2,7 +2,6 @@ package request_handler;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,14 +27,14 @@ public class Removebid_handler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		    HttpSession session = request.getSession();
-			DBConnect DB = new DBConnect();
-			Connection con = DB.getConn();
+			DBConnect DBC = new DBConnect();
+			Connection conn = DBC.getConn();
 			PreparedStatement prepst = null;
 			
 			try {
 				
 				String deleteBid = "DELETE FROM bids ORDER BY date DESC LIMIT 1";
-				Statement delbid = con.createStatement();
+				Statement delbid = conn.createStatement();
 				int i =delbid.executeUpdate(deleteBid);
 
 				// execute select SQL statement
@@ -52,8 +51,8 @@ public class Removebid_handler extends HttpServlet {
 			}catch(SQLException e) {}finally {
 
 				try {
-					if(con != null) {
-						con.close();
+					if(conn != null) {
+						conn.close();
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

@@ -5,9 +5,13 @@
 <%@page import="java.util.Iterator"%>
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
-<%@ page inport="java.util.*" %>
-<%@ page inport="javax.servlet.*" %>
-<%@ page inport="java.sql.*" %>
+<%@ page import="connect.DBConnect"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.servlet.*"%>
+<%@page import="data.List_answer_data"%>
+<%@page import="data.List_question_data"%>
+<%@page import="data.Account_data"%>
+
 
 <html>
 <head>
@@ -47,7 +51,9 @@ if(session.getAttribute("account_info") != null){
 
 
 
-
+<%
+if( (Account_data)(session.getAttribute("account_info")).getType() != null){
+%>
 	<div class="email">
 		<h2>Message Inbox</h2>
 		<table border="1">
@@ -55,16 +61,41 @@ if(session.getAttribute("account_info") != null){
 			<td>From</td>
 			<td>Message</td>
 			</tr>
+<%  
+	Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
+	String curr_email = curr_user.getEmail();
+
+	DBConnect DBC = new DBConnect();
+	Connection conn = DBC.getConn();
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+	try{
+		String email_query = "SELECT e.from_email e.message FROM Email e, Account a WHERE e.to_email = a.email";
+		ps = conn.prepareStatement(email_query);
+		rs = ps.executeQuery();
+		while(rs.next()){
+			%>
 			
-<% 
-Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
-String name = 
+			<tr>
+			<td><%=rs.getString("from_email") %></td>
+			<td><%=rs.getString("message") %></td>
+			</tr>
+			
+			<% 
+		}
+		
+	}catch (Exception e){
+		e.printStackTrace();
+	}
 %>
 			
 		</table>
 	
 	</div>
-
+<%
+}
+%>
 
 	<div class="search">
 		<h2>Search</h2>

@@ -48,7 +48,7 @@ public class Bid_handler extends HttpServlet {
 			String query = "INSERT INTO bid(item_num, email, price, date) value(?, ?, ?, ?)";
 			try {
 				ps = conn.prepareStatement(query);
-				ps.setString(1, curr_item.getItem_num());
+				ps.setInt(1, curr_item.getItem_num());
 				ps.setString(2, curr_user.getEmail());
 				ps.setFloat(3, bid_price);
 				ps.setTimestamp(4, now);

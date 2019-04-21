@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	isELIgnored="false"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
+
 
 <html>
 <head>
@@ -63,16 +65,29 @@ if(session.getAttribute("account_info") != null){
 	</div>
 
 	<div class="item_list">
-
-		<c:forEach items="${search_result}" var="item">
-			<tr>
-				<td>title: ${item.getTitle()}</td>
-				<td>Description: ${item.getDescription}</td>
-				<td>${item.getDate()}</td>
-				<td>${item.getCurr_price()}</td>
-				<td><button onclick="item_detail.jsp" name="submit" value="${item.getItem_num()}">view</button></td>
-			</tr>
-		</c:forEach>
+		<table>
+			<c:forEach items="${search_result}" var="item">
+				<tr>
+				    <td>email: ${item.getEmail()}</td>
+					<td>title: ${item.getTitle()}</td>
+					<td>description: ${item.getDescription}</td>
+					<td>status: ${item.getStatus}</td>
+					<td>start_price: ${item.getStart_price}</td>
+					<td>date: ${item.getDate()}</td>
+					<td>item_bidamount: ${item.getItem_bidamount()}</td>
+					<td>item_num: ${item.getItem_bidamount()}</td>
+					<td>brand: ${item.getBrand()}</td>
+					<td>model: ${item.getModel()}</td>
+					<td>ram: ${item.getRam()}</td>
+					<td>rom: ${item.getRom()}</td>
+					<td>os: ${item.getOs()}</td>
+					<td>curr_price: ${item.getCurr_price()}</td>
+					<td>
+						<button onclick="item_detail.jsp?id=<%=item.getItem_num()%>" name="submit" value="${item.getItem_num()}">view</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

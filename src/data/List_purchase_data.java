@@ -1,15 +1,15 @@
 package data;
 
 public class List_purchase_data {
-	private String item_num;
-	private String buyer_num;
-	private String seller_num;
+	private int item_num;
+	private int buyer_num;
+	private int seller_num;
 	private int fdbk_buyer;
 	private int fdbk_seller;
 	
 	
 	
-	public List_purchase_data(String item_num, String buyer_num, String seller_num, int fdbk_buyer, int fdbk_seller) {
+	public List_purchase_data(int item_num, int buyer_num, int seller_num, int fdbk_buyer, int fdbk_seller) {
 		super();
 		this.item_num = item_num;
 		this.buyer_num = buyer_num;
@@ -19,22 +19,22 @@ public class List_purchase_data {
 	}
 	
 	
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
-	public String getBuyer_num() {
+	public int getBuyer_num() {
 		return buyer_num;
 	}
-	public void setBuyer_num(String buyer_num) {
+	public void setBuyer_num(int buyer_num) {
 		this.buyer_num = buyer_num;
 	}
-	public String getSeller_num() {
+	public int getSeller_num() {
 		return seller_num;
 	}
-	public void setSeller_num(String seller_num) {
+	public void setSeller_num(int seller_num) {
 		this.seller_num = seller_num;
 	}
 	public int getFdbk_buyer() {

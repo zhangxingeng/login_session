@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="java.util.Iterator"%>
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
 
@@ -43,7 +42,7 @@ if(session.getAttribute("account_info") != null){
 	</div>
 
 	<div class="search">
-		<form action="Search_handler.jsp">
+		<form action="Search_handler.jsp" method="post">
 			keyword:<input type="text" name="keyword"><br>
 			brand: 
 			<select>
@@ -67,12 +66,11 @@ if(session.getAttribute("account_info") != null){
 
 		<c:forEach items="${search_result}" var="item">
 			<tr>
-				<td>${item.getTitle()}</td>
-				<td>${item.getDescription}</td>
+				<td>title: ${item.getTitle()}</td>
+				<td>Description: ${item.getDescription}</td>
 				<td>${item.getDate()}</td>
 				<td>${item.getCurr_price()}</td>
-				<td><input name="bid_price"></td>
-				<td><button>Bid</button></td>
+				<td><button onclick="item_detail.jsp" name="detail" value="${item.getItem_num()}">view</button></td>
 			</tr>
 		</c:forEach>
 	</div>

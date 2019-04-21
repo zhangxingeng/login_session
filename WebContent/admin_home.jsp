@@ -27,14 +27,13 @@ if(((Account_data)session.getAttribute("Account_data")).getType().equals("admin"
 
 	<h3>Sales Reports</h3>
 	<form action="Salesreport_handler" method="post">
-		<input type="radio" name="rtype" value="totalearn">Total
-		Earnings<br> <input type="radio" name="rtype" value="earnperitem">Earnings
-		per Item<br> <input type="radio" name="rtype" value="earnpertype">Earnings
-		per Item Type<br> <input type="radio" name="rtype"
-			value="earnperuser">Earnings per End User<br> <input
-			type="radio" name="rtype" value="bestsellitem">Bestselling
-		Items<br> <input type="radio" name="rtype" value="bestuser">Best
-		Buyers<br> <input type="submit" value=Submit>
+		<input type="radio" name="report" value="totalearning">Total Earnings<br> 
+		<input type="radio" name="report" value="earnperitem">Earnings per Item<br> 
+		<input type="radio" name="report" value="earnpertype">Earnings per Item Type<br> 
+		<input type="radio" name="report" value="earnperuser">Earnings per End User<br> 
+		<input type="radio" name="report" value="bestsellitem">Bestselling Items<br> 
+		<input type="radio" name="report" value="bestuser">Best Buyers<br> 
+		<input type="submit" value=Submit>
 	</form>
 
 	<%

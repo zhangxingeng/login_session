@@ -30,7 +30,7 @@ public class Login_handler extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("user_info") != null) {
-			response.sendRedirect("login_control/index.jsp");
+			response.sendRedirect("index.jsp");
 		}
 		
 		DBConnect DBC = new DBConnect();

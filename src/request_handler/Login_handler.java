@@ -79,18 +79,14 @@ public class Login_handler extends HttpServlet {
 				}
 				
 			}
-		} catch (SQLException e1) {}
+		} catch (SQLException e1) {
+			session.setAttribute("failure_message", "Problem occur at Login_handler.java!");}
 		
 		finally {
 			try {
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {}
-		}
-		response.sendRedirect("login_control/index.jsp");
-	}
-}
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {}}
+		response.sendRedirect("login_control/index.jsp");}}
 
 
 

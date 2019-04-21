@@ -55,22 +55,8 @@ public class AdminCRM_handler extends HttpServlet {
 			
 		}
 		catch (Exception e){
-			
-			e.printStackTrace();
-			
-		}
-		finally {
-
-			try {
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+			session.setAttribute("failure_message", "Problem occur at AdminCRM_handler.java!");
 			}
-		}
-	
-	
-	
-	}
-}
+		finally {try {
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {}}}}

@@ -33,7 +33,7 @@ public class Bid_handler extends HttpServlet {
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
-		ResultSet rs = null;
+		
 		HttpSession session = request.getSession();
 		List_item_data curr_item = (List_item_data)(session.getAttribute("item_info"));
 		Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
@@ -54,14 +54,14 @@ public class Bid_handler extends HttpServlet {
 				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
 				email_alert(curr_item.getItem_num(),conn, session);
 
-			} catch (SQLException e) {}
+			} catch (SQLException e) {
+				session.setAttribute("failure_message", "Problem occur at 1 Bid_handler.java!");
+				
+			}
 			finally {
 					try {
-						if(conn != null) {conn.close();}
-					} catch (SQLException e) {}
-			}
-		}
-	}
+						if(conn != null) {conn.close();}} 
+					catch (SQLException e) {}}}}
 
 	private void email_alert(int item_num, Connection conn, HttpSession session) {
 		
@@ -94,9 +94,11 @@ public class Bid_handler extends HttpServlet {
 			ps.setString(2, receiver_email);
 			ps.setString(3, message);
 			ps.executeUpdate();
-		} catch (SQLException e) {}
-	}
-	
-	
-	
-}
+		} catch (SQLException e) {
+			session.setAttribute("failure_message", "Problem occur at 2 Bid_handler.java!");}
+
+                   finally {try {
+                            if(conn != null) {conn.close();}
+                       } catch (SQLException e) {}}}}
+
+

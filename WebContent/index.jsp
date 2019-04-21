@@ -38,8 +38,8 @@ if(session.getAttribute("account_info") != null){
 				type="radio" name="identity" value="staff">staff <input
 				type="radio" name="identity" value="admin">admin
 			<div>
-				Username <input type="text" name="username" required> <br>
-				Password <input type="password" name="password" required><br>
+				Username <input type="text" name="username" > <br>
+				Password <input type="password" name="password" ><br>
 				<input type="submit" value="Submit">
 			</div>
 		</form>
@@ -84,7 +84,7 @@ if( (Account_data)(session.getAttribute("account_info")).getType() != null){
 			
 			<% 
 		}
-		
+		conn.close();
 	}catch (Exception e){
 		e.printStackTrace();
 	}

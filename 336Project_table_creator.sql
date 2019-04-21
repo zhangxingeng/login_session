@@ -335,9 +335,6 @@ CREATE TABLE watchlist(
 );
 
 CREATE TABLE Email(
-	messageId INT AUTO_INCREMENT,
-	to_username VARCHAR(50),
-    from_username VARCHAR(50),
 	message_Id INT AUTO_INCREMENT,
 	to_email VARCHAR(50),
     from_email VARCHAR(50),

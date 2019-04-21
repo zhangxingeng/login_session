@@ -53,7 +53,7 @@ if(session.getAttribute("account_info") != null){
 
 
 <%
-if( (Account_data)(session.getAttribute("account_info")).getType() != null){
+if( ((Account_data)session.getAttribute("account_info")).getType() != null){
 %>
 	<div class="email">
 		<h2>Message Inbox</h2>

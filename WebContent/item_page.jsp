@@ -10,6 +10,36 @@
 	</head>
 <body>
     <h1 class="content center big">Item Page</h1>
+
+    <div class="Item Info">
+        
+
+        
+        
+        <%
+				DBConnect DBC = new DBConnect();
+				Connection conn = DBC.getConn();
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+		%>
+		
+		<table align="center" cellpadding="5" cellspacing="5" border="1">
+		<tr></tr>
+		<tr>
+		<td><b>Title</b></td>
+		<td><b>Description</b></td>
+		<td><b>Brand</b></td>
+		
+		<td><b>Model</b></td>
+		<td><b>RAM</b></td>
+		<td><b>ROM</b></td>
+		<td><b>OS</b></td>
+		<td><b>Starting Price</b></td>
+		<td><b>Tiem Left</b></td>
+		</tr>
+        
+		
+        
         <%
 		
 				DBConnect DBC = new DBConnect();

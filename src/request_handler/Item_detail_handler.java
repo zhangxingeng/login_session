@@ -50,7 +50,7 @@ public class Item_detail_handler extends HttpServlet {
 		
 		String title = item_detail.getTitle();
 		String description = item_detail.description();
-		String model = item_detail,getModel();
+		String model = item_detail.getModel();
 		String brand = item_detail.getBrand();
 		String os = item_detail.Os();
 		int ram = item_detail.getRam();

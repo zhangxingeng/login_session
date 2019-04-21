@@ -43,7 +43,7 @@ public class Salesreport_handler extends HttpServlet {
 			String report = request.getParameter("report");
 			if(report.equals("totalearning")) {
 
-				String query_sum= "SELECT SUM（T.maxp）*0.04 FROM (SELECT item_num,Max(b.price) maxp FROM bid b WHERE b.status = 's' GROUP BY item_num) AS T";
+				String query_sum= "SELECT SUM（T.maxp）*0.04 FROM (SELECT item_num,Max(b.price) maxp FROM bids b WHERE b.status = 's' GROUP BY item_num) AS T";
 				 ps = con.prepareStatement(query_sum);
 				 rs = ps.executeQuery();
 				float total_earning = rs.getFloat(1);
@@ -52,7 +52,7 @@ public class Salesreport_handler extends HttpServlet {
 
 			}else if(report.equals("earnperitem")) {
 
-				String q_earning_per_item= "SELECT item_num,Max(b.price)*0.04 maxp FROM bid b WHERE b.status = 's' GROUP BY item_num";
+				String q_earning_per_item= "SELECT item_num,Max(b.price)*0.04 maxp FROM bids b WHERE b.status = 's' GROUP BY item_num";
 
 				 ps= con.prepareStatement(q_earning_per_item);
 				 rs = ps.executeQuery();

@@ -2,7 +2,7 @@ package request_handler;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -48,23 +48,10 @@ public class Removebid_handler extends HttpServlet {
 	          }
 			  
 			  
-			}catch(SQLException e) {}finally {
+			}catch(SQLException e) {
+				session.setAttribute("failure_message", "Problem occured at Removebid_handler.java!");
 
-				try {
-					if(conn != null) {
-						conn.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		
-		}
-	
-
-		
-		
-		
-	}
+			}finally {try {if(conn != null) {conn.close();}
+				} catch (SQLException e) {}}}}
 
 

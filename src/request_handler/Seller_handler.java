@@ -1,90 +1,75 @@
 package request_handler;
 
 
+import java.io.IOException;
 import java.sql.*;
-import java.util.*;
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
+import data.Account_data;
 
-
-
-
-
-
-/**
- * Servlet implementation class Seller_handler
- */
 @WebServlet("/Seller_handler")
 public class Seller_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Seller_handler() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
-		
 		HttpSession session = request.getSession();
-		String email = (Account_info)session.getAttribute("account_info").getEmail();
+		String email = ((Account_data)session.getAttribute("account_info")).getEmail();
+		String title=(String)request.getParameter("title");
+		String description=(String)request.getParameter("description");
+		String brand=(String)request.getParameter("brand");
+		String model=(String)request.getParameter("model");
+		float start_price=Integer.parseInt(request.getParameter("start_price"));
 		
-		String input_title=(String)request.getParameter("title");
-		String input_description=(String)request.getParameter("description");
-		String input_brand=(String)request.getParameter("brand");
-		String input_model=(String)request.getParameter("model");
-		String input_item_num = subString(0,9,md5(System.currentTimeMillis()));
-		String input_os = (String)request.getParameter("os");
-		String input_cpu_core = (String)request.getParameter("cpu_core");
-		
-		int input_start_price=Integer.parseInt(request.getParameter("start_price"));
-		int input_rom=Integer.parseInt(request.getParameter("ram"));
-		int input_ram=Integer.parseInt(request.getParameter("rom"));
-		
-		String item_num = request.getParameter("detail");
-		//
-		//String email = 
-		
-		
-		DBConnect DB = new DBConnect();
-		Connection conn = DB.getConn();
-		PreparedStatement prepst = null;
-		ResultSet rs = null;
-		Statement st=conn.createStatement();
+		String os = (String)request.getParameter("os");
+		String cpu_core = (String)request.getParameter("cpu_core");
+		int rom=Integer.parseInt(request.getParameter("ram"));
+		int ram=Integer.parseInt(request.getParameter("rom"));
 
+		DBConnect dbc = new DBConnect();
+		Connection conn = dbc.getConn();
+		PreparedStatement ps = null;
+		
 		try {
-			int i = st.executeUpdate("insert into item(item_num,,description,'"+city_name+"','"+email+"')");
-			out.println("Data is successfully inserted!");
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		}
-		
-	finally {
-
-			try {
-				if(con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			String query_add_new_phone_type = "INSERT INTO phone_type (brand, model, ram, rom, cpu_core, os) VALUES (?,?,?,?,?,?)";
+			ps = conn.prepareStatement(query_add_new_phone_type);
+			ps.setString(1, brand);
+			ps.setString(2, model);
+			ps.setInt(3, ram);
+			ps.setInt(4, rom);
+			ps.setString(5, cpu_core);
+			ps.setString(6, os);
+			ps.executeUpdate();
+		} catch (SQLException e1) {session.setAttribute("duplicate_info", "this brand and type is already added.");}
+		try {
+			String query_upload_item = "INSERT INTO item (email,title,description,brand,model,status,start_price) VALUES (?,?,?,?,?,?,?)";
+			ps = conn.prepareStatement(query_upload_item);
+			ps.setString(1, email);
+			ps.setString(2, title);
+			ps.setString(3, description);
+			ps.setString(4, brand);
+			ps.setString(5, model);
+			ps.setString(6, "a");
+			ps.setFloat(7, start_price);
+			ps.executeUpdate();
+		} catch (SQLException e1) {session.setAttribute("failure_info", "add item has failed. check Seller_handler.java");}
+		finally {
+			session.setAttribute("success_info", "add item is a success!");
+				try {
+					if(conn != null) {conn.close();}
+				} catch (SQLException e) {}
 		}
 		
 	}

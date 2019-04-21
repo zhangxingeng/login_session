@@ -83,7 +83,7 @@ if(session.getAttribute("account_info") != null){
 					<td>os: ${item.getOs()}</td>
 					<td>curr_price: ${item.getCurr_price()}</td>
 					<td>
-						<button onclick="item_detail.jsp?id=<%=item.getItem_num()%>" name="submit" value="${item.getItem_num()}">view</button>
+						<button onclick="item_detail.jsp?id=${item.getItem_num()}" name="submit" value="${item.getItem_num()}">view</button>
 					</td>
 				</tr>
 			</c:forEach>

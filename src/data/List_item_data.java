@@ -1,5 +1,4 @@
 package data;
-import java.util.Date;
 import java.sql.Timestamp;
 
 public class List_item_data {
@@ -8,7 +7,7 @@ public class List_item_data {
 	private String description;
 	private String status;
 	private float start_price;
-	private Timestamp TIMESTAMP;
+	private Timestamp timestamp;
 	private int item_bidamount;
 	private int item_num;
 	
@@ -22,7 +21,7 @@ public class List_item_data {
 	
 
 	public List_item_data(String email, String title, String description, String status,
-			float start_price, Timestamp TIMESTAMP, int item_bidamount, int item_num, String brand, String model, int ram,
+			float start_price, Timestamp timestamp, int item_bidamount, int item_num, String brand, String model, int ram,
 			int rom, String os, float curr_price) {
 		super();
 		this.email = email;
@@ -30,7 +29,7 @@ public class List_item_data {
 		this.description = description;
 		this.status = status;
 		this.start_price = start_price;
-		this.TIMESTAMP = TIMESTAMP;
+		this.timestamp = timestamp;
 		this.item_bidamount = item_bidamount;
 		this.item_num = item_num;
 		this.brand = brand;
@@ -78,11 +77,11 @@ public class List_item_data {
 	public void setStart_price(float start_price) {
 		this.start_price = start_price;
 	}
-	public Timestamp getTIMESTAMP() {
-		return TIMESTAMP;
+	public Timestamp getTimestamp() {
+		return timestamp;
 	}
-	public void setTIMESTAMP(Timestamp TIMESTAMP) {
-		this.TIMESTAMP = TIMESTAMP;
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 	public int getItem_bidamount() {
 		return item_bidamount;

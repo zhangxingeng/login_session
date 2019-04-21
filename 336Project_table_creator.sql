@@ -86,6 +86,7 @@ CREATE TABLE item(
 	model VARCHAR(50) NOT NULL,
 	status CHAR(1),
 	start_price FLOAT NOT NULL,
+	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	pic1 VARCHAR(20),
 	pic2 VARCHAR(20),
 	pic3 VARCHAR(20),
@@ -105,7 +106,7 @@ CREATE TABLE bids(
 	item_num int,
 	email VARCHAR(50) NOT NULL,
 	price FLOAT NOT NULL,
-    Timestamp TIMESTAMP,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (email) REFERENCES user(email)
 		ON DELETE CASCADE,
 	FOREIGN KEY (item_num) REFERENCES item(item_num)

@@ -10,12 +10,6 @@
 	</head>
 <body>
     <h1 class="content center big">Item Page</h1>
-<%
-if(((Account_data)session.getAttribute("Account_data")).getType() = null ) { 
-	response.sendRedirect("Login_handler");
-} else {
-%>
-    <div class="conetent leftpad">
         <%
 		
 				DBConnect DBC = new DBConnect();

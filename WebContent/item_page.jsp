@@ -164,7 +164,7 @@
 				current price <label><%=rs.getString("price")%></label>
 				<%
 			} 
-			connection.close();
+			conn.close();
 		}catch (Exception e){
 			e.printStackTrace();
 		}

@@ -41,10 +41,7 @@ if(((Account_data)session.getAttribute("Account_data")).getType() = null ) {
 						response.sendRedirect("error_page.jsp"); // Occurs if there is no row in Product table with the given productId
 						return;
 					} 
-			%>
-				
-			
-				
+			%>	
 				<h2>Item Title: <%= rs.getString("title") %></h2> <br>
 				Title: <%= rs.getString("title") %> <br>
 				Description: <%= rs.getString("description") %> <br>
@@ -52,8 +49,6 @@ if(((Account_data)session.getAttribute("Account_data")).getType() = null ) {
 				Pic1: <%= rs.getString("pic2") %> <br>
 				Pic2: <%= rs.getString("pic3") %> <br>
 				End Date/Time: <%= rs.getString("endDate") %> <br>
-				
-   
     </div>
 </body>
 </html>

@@ -67,9 +67,4 @@ public class Seller_handler extends HttpServlet {
 			session.setAttribute("success_info", "add item is a success!");
 				try {
 					if(conn != null) {conn.close();}
-				} catch (SQLException e) {}
-		}
-
-	}
-
-}
+				} catch (SQLException e) {}}}}

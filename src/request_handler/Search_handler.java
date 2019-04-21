@@ -31,7 +31,7 @@ public class Search_handler extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<List_item_data> item_info=new ArrayList<List_item_data>();
-		
+		HttpSession session = request.getSession();
 		Float min_price = Float.parseFloat(request.getParameter("min_price"));
 		Float max_price = Float.parseFloat(request.getParameter("max_price"));
 		DBConnect DBC = new DBConnect();
@@ -78,18 +78,13 @@ public class Search_handler extends HttpServlet {
 		}
 
  		catch (SQLException e1) {
- 			System.out.println(e1);
- 		}finally {
+ 			session.setAttribute("failure_message", "Problem occured at Search_handler.java!");
+ 			}finally {
 			try {
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e2) {
-				System.out.println(e2);
-			}
-		}
+				if(conn != null) {conn.close();}} 
+			catch (SQLException e2) {}}
 		
-		HttpSession session = request.getSession();
+		
 		if(session.getAttribute("search_result") != null) {
 			session.removeAttribute("search_result");
 		}

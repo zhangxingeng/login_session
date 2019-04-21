@@ -96,7 +96,7 @@ public class Item_detail_handler extends HttpServlet {
 				rs.getString("question");
 				rs.getString("answer");
 			}
-   		} catch (Exception e) {
+   		} catch (Exception e1) {
    		try{
    			String bid_count_query = "SELECT count(*) FROM bids b, item i WHERE i.item_num = ? ADN ? = b.item_num";
    			ps = conn.prepareStatement(bid_count_query);
@@ -104,9 +104,9 @@ public class Item_detail_handler extends HttpServlet {
    			String count="";
    			while(rs.next()){
    				count = rs.getString(1);
-   				out.println("Total Number of Bids: " +count);
+   				System.out.println("Total Number of Bids: " +count);
    			}
-   		}catch (Exception e){
+   		}catch (Exception e2){
    		try{
    			String curr_price_query = "SELECT MAX(price) FROM bids WHERE ";
    			ps = conn.prepareStatement(curr_price_query);
@@ -114,13 +114,13 @@ public class Item_detail_handler extends HttpServlet {
    			while(rs.next()){
    				rs.getString("price");	
    			}
-   		}catch (Exception e){
-   		} finally {
-   			try {
-   				if(conn != null) {conn.close();}
-   			} catch (SQLException e) {}
-   		}
-		
-	}
 
-}
+   		}catch (Exception e3){
+   			
+			session.setAttribute("failure_message", "Problem occured at  Item_detail_handler.java!");
+
+
+   		}}
+   		finally {
+   			try {if(conn != null) {conn.close();}
+   			} catch (Exception e4) {}}}}}}

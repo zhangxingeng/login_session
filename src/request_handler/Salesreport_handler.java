@@ -27,7 +27,7 @@ public class Salesreport_handler extends HttpServlet {
      */
     public Salesreport_handler() {
         super();
-        // TODO Auto-generated connstructor stub
+        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -106,9 +106,7 @@ public class Salesreport_handler extends HttpServlet {
             response.sendRedirect("admin_home.jsp");
 		}
 		catch(SQLException e){
-			e.printStackTrace();
-		}
+			session.setAttribute("failure_message", "Problem occured at Salesreport_handler.java!");
 
-
-	}
-	}
+		}finally {try {if(conn != null) {conn.close();}
+	} catch (SQLException e) {}}}}

@@ -2,7 +2,7 @@ package request_handler;
 
 import java.io.IOException;
 import java.sql.Connection;
-
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 
@@ -20,10 +21,8 @@ public class Removebid_handler extends HttpServlet {
     public Removebid_handler() {
         super();
     }
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		    HttpSession session = request.getSession();
 			DBConnect DBC = new DBConnect();
 			Connection conn = DBC.getConn();
 			PreparedStatement ps = null;
@@ -35,7 +34,9 @@ public class Removebid_handler extends HttpServlet {
 				ps.setInt(1,item_num);
 				ps.executeUpdate();
 			response.sendRedirect("staff_home.jsp");
-			}catch(SQLException e) {}
+			}catch(SQLException e) {
+				session.setAttribute("failure_message", "Problem occured at Removebid_handler.java!");
+			}
 			finally {
 				try {
 					if(conn != null) {conn.close();}

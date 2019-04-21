@@ -94,7 +94,8 @@ CREATE TABLE item(
         REFERENCES user(email)
 		ON DELETE CASCADE,
 	FOREIGN KEY (brand, model)
-        REFERENCES phone_type
+        REFERENCES phone_type(brand, model)
+		ON DELETE CASCADE
 	
 );
 

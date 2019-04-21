@@ -46,7 +46,7 @@ if(session.getAttribute("account_info") != null){
 	<div class="search">
 		<form action="Search_handler.jsp" method="post">
 			keyword:<input type="text" name="keyword"><br>
-			brand:
+			brand: 
 			<select>
 				<option value="apple">Apple</option>
 				<option value="samsung">Samsung</option>
@@ -54,11 +54,11 @@ if(session.getAttribute("account_info") != null){
 				<option value="sony">Sony</option>
 				<option value="huawei">Huawei</option>
 				<option value="other">Other</option>
-			</select><br>
+			</select><br> 
 			model<input type="text" name="model"><br>
 			min_price<input type="text" name="min_price"><br>
-			max_price<input type="text" name="max_price"><br>
-			<input type="radio" name="status" value="active">active item<br>
+			max_price<input type="text" name="max_price"><br> 
+			<input type="radio" name="status" value="active">active item<br> 
 			<input type="radio" name="status" value="history">history item<br>
 			<button type="submit">Submit</button>
 		</form>
@@ -75,7 +75,7 @@ if(session.getAttribute("account_info") != null){
 					<td>start_price: ${item.getStart_price}</td>
 					<td>date: ${item.getDate()}</td>
 					<td>item_bidamount: ${item.getItem_bidamount()}</td>
-					<td>item_num: ${item.getItem_bidamount()}</td>
+					<td>item_num: ${item.getItem_num()}</td>
 					<td>brand: ${item.getBrand()}</td>
 					<td>model: ${item.getModel()}</td>
 					<td>ram: ${item.getRam()}</td>

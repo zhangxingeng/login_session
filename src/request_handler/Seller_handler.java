@@ -16,13 +16,13 @@ import data.Account_data;
 @WebServlet("/Seller_handler")
 public class Seller_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     public Seller_handler() {
         super();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
 		String email = ((Account_data)session.getAttribute("account_info")).getEmail();
 		String title=(String)request.getParameter("title");
@@ -30,7 +30,7 @@ public class Seller_handler extends HttpServlet {
 		String brand=(String)request.getParameter("brand");
 		String model=(String)request.getParameter("model");
 		float start_price=Integer.parseInt(request.getParameter("start_price"));
-		
+
 		String os = (String)request.getParameter("os");
 		String cpu_core = (String)request.getParameter("cpu_core");
 		int rom=Integer.parseInt(request.getParameter("ram"));
@@ -39,7 +39,7 @@ public class Seller_handler extends HttpServlet {
 		DBConnect dbc = new DBConnect();
 		Connection conn = dbc.getConn();
 		PreparedStatement ps = null;
-		
+
 		try {
 			String query_add_new_phone_type = "INSERT INTO phone_type (brand, model, ram, rom, cpu_core, os) VALUES (?,?,?,?,?,?)";
 			ps = conn.prepareStatement(query_add_new_phone_type);
@@ -69,7 +69,7 @@ public class Seller_handler extends HttpServlet {
 					if(conn != null) {conn.close();}
 				} catch (SQLException e) {}
 		}
-		
+
 	}
-		
+
 }

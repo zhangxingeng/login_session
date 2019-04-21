@@ -5,6 +5,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
+<%@ page import="connect.DBConnect"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.servlet.*"%>
+<%@page import="data.List_answer_data"%>
+<%@page import="data.List_question_data"%>
+<%@page import="data.Account_data"%>
+
 
 
 <html>
@@ -32,8 +39,8 @@ if(session.getAttribute("account_info") != null){
 				type="radio" name="identity" value="staff">staff <input
 				type="radio" name="identity" value="admin">admin
 			<div>
-				Username <input type="text" name="username" required> <br>
-				Password <input type="password" name="password" required><br>
+				Username <input type="text" name="username" > <br>
+				Password <input type="password" name="password" ><br>
 				<input type="submit" value="Submit">
 			</div>
 		</form>
@@ -42,6 +49,54 @@ if(session.getAttribute("account_info") != null){
 }
 %>
 	</div>
+
+
+
+<%
+if( (Account_data)(session.getAttribute("account_info")).getType() != null){
+%>
+	<div class="email">
+		<h2>Message Inbox</h2>
+		<table border="1">
+			<tr>
+			<td>From</td>
+			<td>Message</td>
+			</tr>
+<%
+	Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
+	String curr_email = curr_user.getEmail();
+
+	DBConnect DBC = new DBConnect();
+	Connection conn = DBC.getConn();
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+
+	try{
+		String email_query = "SELECT e.from_email e.message FROM Email e, Account a WHERE e.to_email = a.email";
+		ps = conn.prepareStatement(email_query);
+		rs = ps.executeQuery();
+		while(rs.next()){
+			%>
+
+			<tr>
+			<td><%=rs.getString("from_email") %></td>
+			<td><%=rs.getString("message") %></td>
+			</tr>
+
+			<%
+		}
+		conn.close();
+	}catch (Exception e){
+		e.printStackTrace();
+	}
+%>
+
+		</table>
+
+	</div>
+<%
+}
+%>
 
 	<div class="search">
 		<form action="Search_handler.jsp" method="post">
@@ -89,5 +144,6 @@ if(session.getAttribute("account_info") != null){
 			</c:forEach>
 		</table>
 	</div>
+
 </body>
 </html>

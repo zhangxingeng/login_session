@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
@@ -15,28 +17,14 @@ import data.Item_detail_data;
 import connect.DBConnect;
 
 
-
-
-/**
- * Servlet implementation class Item_detail_handler
- */
 @WebServlet("/Item_detail_handler")
 public class Item_detail_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public Item_detail_handler() {
         super();
     }
-
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
@@ -47,10 +35,10 @@ public class Item_detail_handler extends HttpServlet {
 		Item_detail_data item_detail = (Item_detail_data)(session.getAttribute("Item_detail_info"));
 		
 		String title = item_detail.getTitle();
-		String description = item_detail.description();
+		String description = item_detail.getDescription();
 		String model = item_detail.getModel();
 		String brand = item_detail.getBrand();
-		String os = item_detail.Os();
+		String os = item_detail.getOs();
 		int ram = item_detail.getRam();
 		int rom = item_detail.getRom();
 		double start_price = item_detail.getStart_price();

@@ -91,8 +91,6 @@ public class Search_handler extends HttpServlet {
 		session.setAttribute("search_result", item_info);
 		response.sendRedirect("login_control/index.jsp");
 	}
-		
-	
 	
 	private float calc_curr_price(String item_num, Connection conn) throws SQLException {
 		PreparedStatement ps = null;
@@ -105,8 +103,4 @@ public class Search_handler extends HttpServlet {
 		return curr_price;
 	}
 }
-
-
-
-
 

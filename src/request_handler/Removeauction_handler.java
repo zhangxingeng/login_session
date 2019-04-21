@@ -29,13 +29,13 @@ public class Removeauction_handler extends HttpServlet {
         HttpSession session = request.getSession();
         String itemnumber =request.getParameter("item_num");
         int item_num= Integer.parseInt(itemnumber);
-		DBConnect DB = new DBConnect();
-		Connection con = DB.getConn();
+		DBConnect DBC = new DBConnect();
+		Connection conn = DBC.getConn();
 		PreparedStatement prepst = null;
 		
 		try {
 			String deleteAuction = "DELETE FROM item where item_num =?";
-			prepst = con.prepareStatement(deleteAuction);
+			prepst = conn.prepareStatement(deleteAuction);
 			prepst.setInt(1,item_num);
 
 			// execute select SQL statement
@@ -53,8 +53,8 @@ public class Removeauction_handler extends HttpServlet {
 		}catch(SQLException e) {}finally {
 
 			try {
-				if(con != null) {
-					con.close();
+				if(conn != null) {
+					conn.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

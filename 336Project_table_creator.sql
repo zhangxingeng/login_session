@@ -339,5 +339,5 @@ CREATE TABLE Email(
 	to_email VARCHAR(50),
     from_email VARCHAR(50),
     message VARCHAR(200) NOT NULL,
-    PRIMARY KEY (messageId)
+    PRIMARY KEY (mesage_id)
 );

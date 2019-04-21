@@ -1,28 +1,29 @@
 package data;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 public class List_bid_data {
-	private String item_num;
+	private int item_num;
 	private String email;
 	private float price;
-	private java.util.Date date;
+	private Timestamp TIMESTAMP;
 	
 	
 	
-	public List_bid_data(String item_num, String email, float price, Date date) {
+	public List_bid_data(int item_num, String email, float price, Timestamp TIMESTAMP) {
 		super();
 		this.item_num = item_num;
 		this.email = email;
 		this.price = price;
-		this.date = date;
+		this.TIMESTAMP = TIMESTAMP;
 	}
 	
 	
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
 	public String getEmail() {
@@ -37,11 +38,11 @@ public class List_bid_data {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public java.util.Date getDate() {
-		return date;
+	public java.util.Date getTIMESTAMP() {
+		return TIMESTAMP;
 	}
-	public void setDate(java.util.Date date) {
-		this.date = date;
+	public void setTIMESTAMP(Timestamp TIMESTAMP) {
+		this.TIMESTAMP = TIMESTAMP;
 	}
 	
 	

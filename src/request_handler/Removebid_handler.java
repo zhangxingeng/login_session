@@ -2,10 +2,9 @@ package request_handler;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,30 +27,19 @@ public class Removebid_handler extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		    HttpSession session = request.getSession();
-	        String item_number =request.getParameter("item_num");
-	        int item_num= Integer.parseInt(item_number);
-	        
-	        String Email =request.getParameter("email");
-	        
-	        String Date = request.getParameter("date");
-	        
-	       
-			
-			DBConnect DB = new DBConnect();
-			Connection con = DB.getConn();
+			DBConnect DBC = new DBConnect();
+			Connection conn = DBC.getConn();
 			PreparedStatement prepst = null;
 			
 			try {
-				String deleteBid = "DELETE FROM (SELETE item_num,email, max(data) from (SELETE * FROM item i, bids b where i.item_num = b.item_num, i.email= b.email) AS T) AS T1 WHERE item_num=?,email=?,max(date)=?";
-				prepst = con.prepareStatement(deleteBid);
-				prepst.setInt(1,item_num);
-				prepst.setString(2,Email);
-				prepst.setString(3, Date);
+				
+				String deleteBid = "DELETE FROM bids ORDER BY date DESC LIMIT 1";
+				Statement delbid = conn.createStatement();
+				int i =delbid.executeUpdate(deleteBid);
 
 				// execute select SQL statement
-			  int i = prepst.executeUpdate();
-			
-			  if(i != 0 ) {
+			   
+			if(i != 0 ) {
 	          	System.out.println("successed!");//success
 	          	response.sendRedirect("staff_home.jsp");//redirect index
 	          }else {
@@ -63,8 +51,8 @@ public class Removebid_handler extends HttpServlet {
 			}catch(SQLException e) {}finally {
 
 				try {
-					if(con != null) {
-						con.close();
+					if(conn != null) {
+						conn.close();
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

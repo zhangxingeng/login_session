@@ -16,10 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 import data.List_item_data;
-import java.text.NumberFormat; 
-
-
-import java.util.Locale; 
 
 @WebServlet("/Search_Response")
 public class Search_handler extends HttpServlet {
@@ -46,7 +42,14 @@ public class Search_handler extends HttpServlet {
 		String b = request.getParameter("brand");
 		String m = request.getParameter("model");
 		String status = request.getParameter("status");
-		String query = "SELECT * FROM item, phone_type WHERE (title OR description) LIKE '%?%' AND brand LIKE '%?%' AND model LIKE '%?%' AND curr_price > ? AND curr_price < ? AND status = ?";
+		String query = 	"SELECT * "
+					+ 	"FROM item i"
+					+ 	"WHERE (i.title OR i.description) LIKE '%?%' "
+					+ 	"AND i.brand LIKE '%?%' "
+					+ 	"AND i.model LIKE '%?%' "
+					+ 	"AND i.curr_price > ? "
+					+ 	"AND i.curr_price < ? "
+					+ 	"AND i.status = ?";
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, k);
@@ -64,8 +67,8 @@ public class Search_handler extends HttpServlet {
 				List_item_data curr = new List_item_data(rs.getString("email"), 
 						rs.getString("title"), rs.getString("description"), 
 						rs.getString("status"), 
-						rs.getFloat("start_price"), rs.getDate("date"), 
-						rs.getInt("item_bidamount"), rs.getString("item_num"), 
+						rs.getFloat("start_price"), rs.getTimestamp("timestamp"), 
+						rs.getInt("item_bidamount"), rs.getInt("item_num"), 
 						rs.getString("brand"), rs.getString("model"),
 						rs.getInt("ram"), rs.getInt("rom"),
 						rs.getString("os"),
@@ -92,7 +95,6 @@ public class Search_handler extends HttpServlet {
 		}
 		session.setAttribute("search_result", item_info);
 		response.sendRedirect("login_control/index.jsp");
-		
 	}
 		
 	

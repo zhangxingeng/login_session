@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 
@@ -26,9 +25,7 @@ public class Removeauction_handler extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-        HttpSession session = request.getSession();
-        String itemnumber =request.getParameter("item_num");
-        int item_num= Integer.parseInt(itemnumber);
+        int item_num =Integer.parseInt(request.getParameter("item_num"));
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
@@ -37,28 +34,13 @@ public class Removeauction_handler extends HttpServlet {
 			String deleteAuction = "DELETE FROM item where item_num =?";
 			ps = conn.prepareStatement(deleteAuction);
 			ps.setInt(1,item_num);
-
-			// execute select SQL statement
-		  int i = ps.executeUpdate();
-		
-		  if(i != 0 ) {
-          	System.out.println("successed!");//success
-          	response.sendRedirect("staff_home.jsp");//redirect index
-          }else {
-          	System.out.println("error occurred");//error occurred
-          	response.sendRedirect("staff_home.jsp");//redirect register
-          }
-		  
-		  
-		}catch(SQLException e) {}finally {
-
+			ps.executeUpdate();
+			
+		}catch(SQLException e) {}
+		finally {
 			try {
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+				if(conn != null) {conn.close();}
+			} catch (SQLException e) {}
 		}
 	
 	}

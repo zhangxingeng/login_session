@@ -334,3 +334,10 @@ CREATE TABLE watchlist(
     PRIMARY KEY(email, item_num)
 );
 
+CREATE TABLE Email(
+	messageId INT AUTO_INCREMENT,
+	to_username VARCHAR(50),
+    from_username VARCHAR(50),
+    message VARCHAR(200) NOT NULL,
+    PRIMARY KEY (messageId)
+);

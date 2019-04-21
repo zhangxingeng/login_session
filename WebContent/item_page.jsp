@@ -3,8 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.text.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

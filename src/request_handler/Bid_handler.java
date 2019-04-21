@@ -54,11 +54,42 @@ public class Bid_handler extends HttpServlet {
 				ps.setTimestamp(4, now);
 				ps.executeUpdate();
 				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
-				email_alert(String Connection conn);
+				email_alert(curr_item.getItem_num(),conn);
 
 			} catch (SQLException e) {}
-			//TODO: add help method to send email to all people in watchlist and alert
+			finally {
+					try {
+						if(conn != null) {conn.close();}
+					} catch (SQLException e) {}
+			}
 		}
+	}
+
+	private void email_alert(int item_num, Connection conn) {
+		
+		String find_person_to_alert = "("
+				+ "SELECT * "
+				+ "FROM alert a "
+				+ "WHERE a.item_num = ? "
+				+ "ORDER BY date DESC) "
+				+ "INNER JOIN ("
+					+ "SELECT TOP 1 * "
+					+ "FROM bid b "
+					+ "WHERE b.item_num = ? "
+					+ "ORDER BY b.price DESC"
+				+ ") "
+				+ "ON (a.item_num = b.item_num)";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(find_person_to_alert);
+			ps.setInt(1, item_num);
+			ps.setInt(2, item_num);
+			rs = ps.executeQuery();
+			String email = rs.getString("email");
+			
+		} catch (SQLException e) {}
+		
 	}
 
 }

@@ -19,11 +19,9 @@ public class Seller_handler extends HttpServlet {
        
     public Seller_handler() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		HttpSession session = request.getSession();
 		String email = ((Account_data)session.getAttribute("account_info")).getEmail();

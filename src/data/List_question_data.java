@@ -1,13 +1,13 @@
 package data;
 
 public class List_question_data {
-	private String question_num;
-	private String item_num;
+	private int question_num;
+	private int item_num;
 	private String email;
 	private String question;
 	
 	
-	public List_question_data(String question_num, String item_num, String email, String question) {
+	public List_question_data(int question_num, int item_num, String email, String question) {
 		super();
 		this.question_num = question_num;
 		this.item_num = item_num;
@@ -15,16 +15,16 @@ public class List_question_data {
 		this.question = question;
 	}
 	
-	public String getQuestion_num() {
+	public int getQuestion_num() {
 		return question_num;
 	}
-	public void setQuestion_num(String question_num) {
+	public void setQuestion_num(int question_num) {
 		this.question_num = question_num;
 	}
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
 	public String getEmail() {

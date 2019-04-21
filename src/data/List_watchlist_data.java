@@ -2,10 +2,10 @@ package data;
 
 public class List_watchlist_data {
 	private String email;
-	private String item_num;
+	private int item_num;
 	
 	
-	public List_watchlist_data(String email, String item_num) {
+	public List_watchlist_data(String email, int item_num) {
 		super();
 		this.email = email;
 		this.item_num = item_num;
@@ -18,10 +18,10 @@ public class List_watchlist_data {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
 	

@@ -1,12 +1,12 @@
 package data;
 
 public class Buyer_seller_data {
-	private String seller_num;
+	private int seller_num;
 	private String email;
 	private int fdbk;
 	
 	
-	public Buyer_seller_data(String seller_num, String email, int fdbk) {
+	public Buyer_seller_data(int seller_num, String email, int fdbk) {
 		super();
 		this.seller_num = seller_num;
 		this.email = email;
@@ -14,10 +14,10 @@ public class Buyer_seller_data {
 	}
 	
 	
-	public String getSeller_num() {
+	public int getSeller_num() {
 		return seller_num;
 	}
-	public void setSeller_num(String seller_num) {
+	public void setSeller_num(int seller_num) {
 		this.seller_num = seller_num;
 	}
 	public String getEmail() {

@@ -1,5 +1,6 @@
 package data;
 import java.util.Date;
+import java.sql.Timestamp;
 
 public class List_item_data {
 	private String email;
@@ -7,9 +8,9 @@ public class List_item_data {
 	private String description;
 	private String status;
 	private float start_price;
-	private java.util.Date date;
+	private Timestamp TIMESTAMP;
 	private int item_bidamount;
-	private String item_num;
+	private int item_num;
 	
 	private String brand;
 	private String model;
@@ -21,7 +22,7 @@ public class List_item_data {
 	
 
 	public List_item_data(String email, String title, String description, String status,
-			float start_price, Date date, int item_bidamount, String item_num, String brand, String model, int ram,
+			float start_price, Timestamp TIMESTAMP, int item_bidamount, int item_num, String brand, String model, int ram,
 			int rom, String os, float curr_price) {
 		super();
 		this.email = email;
@@ -29,7 +30,7 @@ public class List_item_data {
 		this.description = description;
 		this.status = status;
 		this.start_price = start_price;
-		this.date = date;
+		this.TIMESTAMP = TIMESTAMP;
 		this.item_bidamount = item_bidamount;
 		this.item_num = item_num;
 		this.brand = brand;
@@ -40,10 +41,10 @@ public class List_item_data {
 		this.curr_price = curr_price;
 	}
 	
-	public String getItem_num() {
+	public int getItem_num() {
 		return item_num;
 	}
-	public void setItem_num(String item_num) {
+	public void setItem_num(int item_num) {
 		this.item_num = item_num;
 	}
 	public String getEmail() {
@@ -77,11 +78,11 @@ public class List_item_data {
 	public void setStart_price(float start_price) {
 		this.start_price = start_price;
 	}
-	public java.util.Date getDate() {
-		return date;
+	public Timestamp getTIMESTAMP() {
+		return TIMESTAMP;
 	}
-	public void setDate(java.util.Date date) {
-		this.date = date;
+	public void setTIMESTAMP(Timestamp TIMESTAMP) {
+		this.TIMESTAMP = TIMESTAMP;
 	}
 	public int getItem_bidamount() {
 		return item_bidamount;

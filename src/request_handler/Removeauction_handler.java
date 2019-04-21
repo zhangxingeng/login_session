@@ -31,15 +31,15 @@ public class Removeauction_handler extends HttpServlet {
         int item_num= Integer.parseInt(itemnumber);
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
-		PreparedStatement prepst = null;
+		PreparedStatement ps = null;
 		
 		try {
 			String deleteAuction = "DELETE FROM item where item_num =?";
-			prepst = conn.prepareStatement(deleteAuction);
-			prepst.setInt(1,item_num);
+			ps = conn.prepareStatement(deleteAuction);
+			ps.setInt(1,item_num);
 
 			// execute select SQL statement
-		  int i = prepst.executeUpdate();
+		  int i = ps.executeUpdate();
 		
 		  if(i != 0 ) {
           	System.out.println("successed!");//success

@@ -5,6 +5,9 @@
 <%@page import="java.util.Iterator"%>
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
+<%@ page inport="java.util.*" %>
+<%@ page inport="javax.servlet.*" %>
+<%@ page inport="java.sql.*" %>
 
 <html>
 <head>
@@ -42,7 +45,29 @@ if(session.getAttribute("account_info") != null){
 %>
 	</div>
 
+
+
+
+	<div class="email">
+		<h2>Message Inbox</h2>
+		<table border="1">
+			<tr>
+			<td>From</td>
+			<td>Message</td>
+			</tr>
+			
+<% 
+Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
+String name = 
+%>
+			
+		</table>
+	
+	</div>
+
+
 	<div class="search">
+		<h2>Search</h2>
 		<form action="Search_handler.jsp">
 			keyword:<input type="text" name="keyword"><br>
 			brand: 
@@ -64,7 +89,7 @@ if(session.getAttribute("account_info") != null){
 	</div>
 
 	<div class="item_list">
-
+		
 		<c:forEach items="${search_result}" var="item">
 			<tr>
 				<td>${item.getTitle()}</td>
@@ -76,5 +101,6 @@ if(session.getAttribute("account_info") != null){
 			</tr>
 		</c:forEach>
 	</div>
+	
 </body>
 </html>

@@ -52,11 +52,19 @@ public class AdminCRM_handler extends HttpServlet {
 			ps = conn.prepareStatement(DeleteSQL);
 			ps.setString(1,input_email);
 			ps.executeUpdate();
-			
 		}
 		catch (Exception e){
-			session.setAttribute("failure_message", "Problem occur at AdminCRM_handler.java!");
-			}
-		finally {try {
+
+			session.setAttribute("failure_message", "Problem occurred at 1 AdminCRM_handler.java!");
+		}
+		finally {
+			try {
 				if(conn != null) {conn.close();}
-			} catch (SQLException e) {}}}}
+			} catch (SQLException e) {}
+		}
+	
+	
+	
+	}
+}
+

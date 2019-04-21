@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +52,7 @@ public class Bid_handler extends HttpServlet {
 				ps.setTimestamp(4, now);
 				ps.executeUpdate();
 				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
-				email_alert(curr_item.getItem_num(),conn);
+				email_alert(curr_item.getItem_num(),conn, session);
 
 			} catch (SQLException e) {}
 			finally {
@@ -65,7 +63,7 @@ public class Bid_handler extends HttpServlet {
 		}
 	}
 
-	private void email_alert(int item_num, Connection conn) {
+	private void email_alert(int item_num, Connection conn, HttpSession session) {
 		
 		String find_person_to_alert = "("
 				+ "SELECT * "
@@ -86,10 +84,19 @@ public class Bid_handler extends HttpServlet {
 			ps.setInt(1, item_num);
 			ps.setInt(2, item_num);
 			rs = ps.executeQuery();
-			String email = rs.getString("email");
 			
+			String receiver_email = rs.getString("email");
+			String sender_email = ((Account_data)session.getAttribute("account_info")).getEmail();
+			String message = "Careful! item"+item_num+"has been over bid!";
+			String send_message = "INSERT INTO email(sender_email, receiver_email, message) VALUES (?,?,?)";
+			ps = conn.prepareStatement(send_message);
+			ps.setString(1, sender_email);
+			ps.setString(2, receiver_email);
+			ps.setString(3, message);
+			ps.executeUpdate();
 		} catch (SQLException e) {}
-		
 	}
-
+	
+	
+	
 }

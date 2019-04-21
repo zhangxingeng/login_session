@@ -173,10 +173,10 @@ CREATE TABLE watchlist(
     PRIMARY KEY(email, item_num)
 );
 
-CREATE TABLE Email(
+CREATE TABLE email(
 	message_Id INT AUTO_INCREMENT,
-	to_email VARCHAR(50),
-    from_email VARCHAR(50),
+	sender_email VARCHAR(50),
+    reciver_email VARCHAR(50),
     message VARCHAR(200) NOT NULL,
     PRIMARY KEY (mesage_id)
 );

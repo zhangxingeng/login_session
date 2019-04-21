@@ -1,6 +1,6 @@
 package request_handler;
 
-
+import java.util.*;
 import java.io.IOException;
 import java.sql.*;
 import javax.servlet.*;
@@ -62,6 +62,19 @@ public class Seller_handler extends HttpServlet {
 			ps.setString(6, "a");
 			ps.setFloat(7, start_price);
 			ps.executeUpdate();
+			//
+			Timer timer = new Timer();
+            Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
+            calendar.add(Calendar.SECOND, 5);
+            Date date = calendar.getTime();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    test();
+                }
+            }, date);
+            
+            
 		} catch (SQLException e1) {session.setAttribute("failure_info", "add item has failed. check Seller_handler.java");}
 		finally {
 			session.setAttribute("success_info", "add item is a success!");

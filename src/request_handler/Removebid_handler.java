@@ -29,7 +29,7 @@ public class Removebid_handler extends HttpServlet {
 		    HttpSession session = request.getSession();
 			DBConnect DBC = new DBConnect();
 			Connection conn = DBC.getConn();
-			PreparedStatement prepst = null;
+			
 			
 			try {
 				

@@ -25,7 +25,7 @@ public class Register_handler extends HttpServlet {
 	
     public Register_handler() {
         super();
-        // TODO Auto-generated connstructor stub
+        // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -46,7 +46,7 @@ public class Register_handler extends HttpServlet {
 			prepst = conn.prepareStatement(selectSQL);
 			prepst.setString(1,input_email);
 
-			// execute select SQL stetement
+			// execute select SQL statement
 		   rs = prepst.executeQuery();
 
 			if (!rs.next()) {
@@ -62,32 +62,22 @@ public class Register_handler extends HttpServlet {
                 	response.sendRedirect("index.jsp");//redirect index
                 }else {
                 	System.out.println("error occurred");//error occurred
-                	response.sendRedirect("register.jsp");//redirict register
+                	response.sendRedirect("register.jsp");//redirect register
                 }
 			}else {
-				System.out.println("this email alreay exists!");//this email alreay exists
-				response.sendRedirect("register.jsp");//redirct register
+				System.out.println("this email alreay exists!");//this email already exists
+				response.sendRedirect("register.jsp");//redirect register
 			}
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			session.setAttribute("failure_message", "Problem occured at Register_handler.java!");
+
 
 		}
 		
-	finally {
-
-			try {
-				if(conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-	}
-}
+	finally {try {if(conn != null) {conn.close();}
+			} catch (SQLException e) {}}}}
 		
 		
 		

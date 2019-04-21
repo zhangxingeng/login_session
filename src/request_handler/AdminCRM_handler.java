@@ -54,6 +54,7 @@ public class AdminCRM_handler extends HttpServlet {
 			ps.executeUpdate();
 		}
 		catch (Exception e){
+
 			session.setAttribute("failure_message", "Problem occurred at 1 AdminCRM_handler.java!");
 		}
 		finally {
@@ -66,3 +67,4 @@ public class AdminCRM_handler extends HttpServlet {
 	
 	}
 }
+

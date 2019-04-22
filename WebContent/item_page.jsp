@@ -9,8 +9,7 @@
 <%@page import="data.List_answer_data"%>
 <%@page import="data.List_question_data"%>
 <%@page import="data.Account_data"%>
-
-
+<%@ page import ="java.util.LinkedList" %>
 
 <html>
 	<head>
@@ -21,10 +20,12 @@
 <h1 class="content center big">Item Page</h1>
 
 <div class="Item Info">
- 
+    <% List_item_data detail= (List_item_data)(session.getAttribute("item_detail"));%>
+    
+    
+    
 		<table align="center" cellpadding="5" cellspacing="5" border="1">
 
-		<tr></tr>
 		<tr>
 		<td><b>Title</b></td>
 		<td><b>Description</b></td>
@@ -36,34 +37,42 @@
 		<td><b>Starting Price</b></td>
 
 		</tr>
-			<c:forEach var="item_detail">
-				<tr>			
-					<td>${item_detail.getTitle()}</td>
-					<td>${item_detail.getDescription()}</td>
-					<td>${item_detail.getModel()}</td>
-					<td>${item_detail.getOs()}</td>
-					<td>${item_detail.getBrand()}</td>
-					<td>${item_detail.getRam()}</td>
-					<td>${item_detail.getRom()}</td>
-					<td>${item_detail.getCup_core()}</td>
-					<id>${item_detail.getStart_price()}</id>
-					</tr>
-		</table>
-	<% //QUESITONA DN ANSWERS FOR THE ITEM %>
-	</div>
-	<div class="Questiona and Answers">
 
-		<h2>Question and Anwers</h2>
+		<tr>			
+			<td><%=detail.getTitle()%></td>
+			<td><%=detail.getDescription()%></td>
+			<td><%=detail.getModel()%></td>
+			<td><%=detail.getOs()%></td>
+			<td><%=detail.getBrand()%></td>
+			<td><%=detail.getRam()%></td>
+			<td><%=detail.getRom()%></td>
+			<td><%=detail.getCup_core()%></td>
+			<td><%=detail.getStart_price()%></td>
+		</tr>
+
+		</table>
+	<% Linkedlist<List_question_data> qs = (Linkedlist<List_question_data>)(session.getAttribute("question"));
+	    List_question_data tempq = qs.get();
+	 %>
+	</div>
+	<div class="Question and Answers">
+
+		<h2>Question and Answers</h2>
 			<table border="1">
-				<tr>
-				<td>Question</td>
-				<td>Answer</td>
-				</tr>
-					<c:forEach var="Question">
-					<tr>
-					<td>${item_detail.getQuestion()}</td>
-					<td>${item_detail.getAnswer()}</td>
-					</tr>
+				<c:forEach items="${question}"  var="tempq">
+				<td>
+				    question: ${tempq.getQuestion()}
+					<!-- print question -->
+					<% Linkedlist<List_Answer_data> as = tempq.getAnswer(); %>
+					<c:forEach items=<%= as %> var="tempa">
+						<tr>
+							<td>answer: ${tempa.getAnswer()} %>
+							    email: ${tempa.getEmail()} %>
+							</td>
+						</tr>
+					</c:forEach>
+				</td>
+				</c:forEach>
 			</table>
 
 	</div>

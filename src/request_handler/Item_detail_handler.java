@@ -1,6 +1,6 @@
 package request_handler;
 
-import java.io.*; 
+import java.io.*;
 
 
 import javax.servlet.ServletException;
@@ -16,9 +16,9 @@ import javax.servlet.*;
 
 import data.Account_data;
 import data.Item_detail_data;
-import data.List_item_data;
+import data.List_answer_data;
+import data.List_question_data;
 import connect.DBConnect;
-
 
 @WebServlet("/Item_detail_handler")
 public class Item_detail_handler extends HttpServlet {
@@ -28,26 +28,26 @@ public class Item_detail_handler extends HttpServlet {
         super();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		HttpSession session = request.getSession();
-		
-		List_item_data detail = new List_item_data();
-		
 
-		
+		List_item_data detail = new List_item_data();
+
+
+
 
 		detail.setQuestion();
 		detail.setAnswer();
 		detail.setCurr_bid();
 		detail.setBid_count();
 		detail.setYour_bid();
-		
-   		
-		
+
+
+
 		try {
 			int item_num = Integer.parseInt((String)request.getAttribute("item_num"));
 			Account_data curr_user = (Account_data)session.getAttribute("account_info");
@@ -72,8 +72,8 @@ public class Item_detail_handler extends HttpServlet {
    			String q_item_num = quest.setItem_num();
    			String a_quest_num = ans.setQuestion_num();
     		String item_num = request.setParameter("detail");
-    			
-   			String q_and_a_query = "select q.question, a.answer from item i, question q, answer a whwre i.item_num = ? AND (i.item_num = q.item_num AND (q.question_num = a.question_num))"; 
+
+   			String q_and_a_query = "select q.question, a.answer from item i, question q, answer a whwre i.item_num = ? AND (i.item_num = q.item_num AND (q.question_num = a.question_num))";
    			ps = conn.prepareStatement(q_and_a_query);
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -96,15 +96,13 @@ public class Item_detail_handler extends HttpServlet {
    			ps = conn.prepareStatement(curr_price_query);
    			rs = ps.executeQuery();
    			while(rs.next()){
-   				rs.setString("price");	
+   				rs.setString("price");
    			}
 
    		}catch (Exception e3){
-   			
+
 			session.setAttribute("failure_message", "Problem occured at  Item_detail_handler.java!");
 
-
-   		}}
-   		finally {
+   		}}finally {
    			try {if(conn != null) {conn.close();}
    			} catch (Exception e4) {}}}}}}

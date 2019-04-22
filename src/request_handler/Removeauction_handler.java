@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 
@@ -24,7 +25,7 @@ public class Removeauction_handler extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
         int item_num =Integer.parseInt(request.getParameter("item_num"));
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
@@ -36,7 +37,9 @@ public class Removeauction_handler extends HttpServlet {
 			ps.setInt(1,item_num);
 			ps.executeUpdate();
 
-		}catch(SQLException e) {}
+		}catch(SQLException e) {
+			session.setAttribute("failure_message", "Problem occured at Removeauction_handler.java!");
+		}
 		finally {
 			try {
 				if(conn != null) {conn.close();}

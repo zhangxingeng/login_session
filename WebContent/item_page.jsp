@@ -34,7 +34,7 @@
 		<td><b>Starting Price</b></td>
 
 		</tr>
-			<c:forEach var="item_detail">
+			<c:forEach var="item_detail" >
 				<tr>			
 					<td>${item_detail.getTitle()}</td>
 					<td>${item_detail.getDescription()}</td>
@@ -46,10 +46,11 @@
 					<td>${item_detail.getCup_core()}</td>
 					<td>${item_detail.getStart_price()}</td>
 					</tr>
+					</c:forEach >
 		</table>
 	<% //QUESITONA DN ANSWERS FOR THE ITEM %>
 	</div>
-	<div class="Questiona and Answers">
+	<div class="Question and Answers">
 
 		<h2>Question and Answers</h2>
 			<table border="1">
@@ -57,11 +58,12 @@
 				<td>Question</td>
 				<td>Answer</td>
 				</tr>
-					<c:forEach var="Questiono ">
+					<c:forEach var="Question">
 					<tr>
 					<td>${item_detail.getQuestion()}</td>
 					<td>${item_detail.getAnswer()}</td>
 					</tr>
+					</c:forEach>
 			</table>
 
 	</div>

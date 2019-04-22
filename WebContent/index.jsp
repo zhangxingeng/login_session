@@ -28,6 +28,7 @@ if(session.getAttribute("account_info") != null){
 		</h5>
 		<button onclick="logout_handler">logout</button>
 		<button onclick="item_upload">upload new items</button>
+		<button onclick="message_page">Message</button>
 		<%
 }else{
 %>
@@ -108,7 +109,7 @@ if( ((Account_data)session.getAttribute("account_info")).getType() != null){
 			<button type="submit">Submit</button>
 		</form>
 	</div>
-
+	
 	<div class="item_list">
 		<table>
 			<c:forEach items="${search_result}" var="item">

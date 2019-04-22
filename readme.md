@@ -54,6 +54,13 @@ and a page for customer reps. This jsp file should be uploaded by Haoran. Notice
 options into one form, which means less servlets will need to be created. 
 
 
+What we still need to do: end audition automatically, alert people in watchlist 24h before auction ends
+
+
+
+
+
+
 
 EOF
 created by: XingengZhang on: 04/15/2019

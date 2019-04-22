@@ -96,9 +96,10 @@ public class Bid_handler extends HttpServlet {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			session.setAttribute("failure_message", "Problem occured at 2 Bid_handler.java!");}
-
                    finally {try {
                             if(conn != null) {conn.close();}
-                       } catch (SQLException e) {}}}}
+                       } catch (SQLException e) {}}
+		}
+	}
 
 

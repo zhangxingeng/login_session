@@ -18,7 +18,7 @@ import data.Account_data;
 
 
 @WebServlet("/Seller_handler")
-public class Seller_handler extends HttpServlet {
+public class Item_upload_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static Date addDay(Date date) {
@@ -28,7 +28,7 @@ public class Seller_handler extends HttpServlet {
 	        return cal.getTime();
 	    }
 	
-    public Seller_handler() {
+    public Item_upload_handler() {
         super();
     }
 
@@ -73,8 +73,11 @@ public class Seller_handler extends HttpServlet {
 			ps.setString(6, "a");
 			ps.setFloat(7, start_price);
 			ps.executeUpdate();
-			//
-			
+			/*************ADD 2 TASKS HERE
+			 * 1. set attribute to application: end of auction task,
+			 * 2. 24h before task do st to watchlist
+			 * 
+			 * ******************/
 			 Date now = new Date(System.currentTimeMillis());
 			 TimerTask task = new TimerTask() {
 		           @Override
@@ -92,4 +95,34 @@ public class Seller_handler extends HttpServlet {
 			session.setAttribute("success_info", "add item is a success!");
 				try {
 					if(conn != null) {conn.close();}
-				} catch (SQLException e) {}}}}
+				} catch (SQLException e) {}
+				}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

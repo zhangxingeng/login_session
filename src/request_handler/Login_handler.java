@@ -86,7 +86,9 @@ public class Login_handler extends HttpServlet {
 			try {
 				if(conn != null) {conn.close();}
 			} catch (SQLException e) {}}
-		response.sendRedirect("login_control/index.jsp");}}
+		response.sendRedirect("login_control/index.jsp");
+		}
+	}
 
 
 

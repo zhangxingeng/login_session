@@ -28,7 +28,6 @@ public class Register_handler extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		
 		String input_email=(String)request.getParameter("email");
@@ -76,8 +75,11 @@ public class Register_handler extends HttpServlet {
 
 		}
 		
-	finally {try {if(conn != null) {conn.close();}
-			} catch (SQLException e) {}}}}
+		finally {try {if(conn != null) {conn.close();}
+				} catch (SQLException e) {}
+		}
+	}
+}
 		
 		
 		

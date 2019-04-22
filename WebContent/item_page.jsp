@@ -59,7 +59,7 @@
 				<td>Question</td>
 				<td>Answer</td>
 				</tr>
-					<c:forEach var="Question">
+					<c:forEach var="Questiono ">
 					<tr>
 					<td>${item_detail.getQuestion()}</td>
 					<td>${item_detail.getAnswer()}</td>

@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.Date;
 import java.io.IOException;
 import java.sql.*;
-import java.text.SimpleDateFormat;
+
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -79,7 +79,7 @@ public class Seller_handler extends HttpServlet {
 			 TimerTask task = new TimerTask() {
 		           @Override
 		           public void run() { 
-		          //Ð´º¯Êý
+		          
 		         
 		           }
 		       };

@@ -73,11 +73,7 @@ public class Item_upload_handler extends HttpServlet {
 			ps.setString(6, "a");
 			ps.setFloat(7, start_price);
 			ps.executeUpdate();
-			/*************ADD 2 TASKS HERE
-			 * 1. set attribute to application: end of auction task,
-			 * 2. 24h before task do st to watchlist
-			 * 
-			 * ******************/
+			
 			 Date now = new Date(System.currentTimeMillis());
 			 TimerTask task = new TimerTask() {
 		           @Override
@@ -98,6 +94,34 @@ public class Item_upload_handler extends HttpServlet {
 				} catch (SQLException e) {}
 				}
 		}
+	
+	/*************ADD 2 TASKS HERE
+	 * 1. set attribute to application: end of auction task,
+	 * 2. 24h before task do st to watchlist
+	 * 
+	 * ******************/
+	public static void end_auction(Connection conn, int item_num) {
+		/*query item, change status from a to:
+		 * 1. if sold, s, message buyer
+		 * 2. if max bid < reserve bid, f
+		 *message user about success/failed
+		 */
+		
+	}
+	
+	public static void alert_watchlist(Connection conn, int item_num) {
+	
+	}
+	/*
+	 * send message to watchlister item about to be sold!
+	 */
+	
+	
+	
+	
+	
+	
+	
 	}
 
 

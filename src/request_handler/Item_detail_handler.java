@@ -13,7 +13,10 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.sql.*;
 import javax.servlet.*;
+
+import data.Account_data;
 import data.Item_detail_data;
+import data.List_item_data;
 import connect.DBConnect;
 
 
@@ -32,57 +35,50 @@ public class Item_detail_handler extends HttpServlet {
 		ResultSet rs = null;
 		HttpSession session = request.getSession();
 		
-		Item_detail_data item_detail = (Item_detail_data)(session.getAttribute("Item_detail_info"));
+		List_item_data detail = new List_item_data();
 		
-		String title = item_detail.getTitle();
-		String description = item_detail.getDescription();
-		String model = item_detail.getModel();
-		String brand = item_detail.getBrand();
-		String os = item_detail.getOs();
-		int ram = item_detail.getRam();
-		int rom = item_detail.getRom();
-		double start_price = item_detail.getStart_price();
-		String cpu_core = item_detail.getCpu_core();;
-		String question = item_detail.getQuestion();
-		String answer = item_detail.getAnswer();
-		double curr_bid = item_detail.getCurr_bid();
-		int bid_count = item_detail.getBid_count();
-		double your_bid = item_detail.getYour_bid();
-		List_question_data quest = (List_question_data)(session.getAttribute("List_question_info"));
-    	List_answer_data ans = (List_answer_data)(session.getAttribute("List_answer_info"));
+
+		
+
+		detail.setQuestion();
+		detail.setAnswer();
+		detail.setCurr_bid();
+		detail.setBid_count();
+		detail.setYour_bid();
+		
    		
 		
 		try {
-			String user = curr_user.getName();
-			String item_num = request.getParameter("detail");
-			String itemQuery = "SELECT * FROM item i, phone_type pt WHERE AND item_num = ? pt.brand = i.brand AND pt.model = i.model";
-			ps = conn.prepareStatement(itemQuery);
-			ps.addString(item_num);
+			int item_num = Integer.parseInt((String)request.getAttribute("item_num"));
+			Account_data curr_user = (Account_data)session.getAttribute("account_info");
+			String query_detail = "SELECT * FROM item i, phone_type pt WHERE AND item_num = ? pt.brand = i.brand AND pt.model = i.model";
+			ps = conn.prepareStatement(query_detail);
+			ps.setInt(1, item_num);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				rs.getString("title");
-				rs.getString("description");
-				rs.getString("model");
-				rs.getString("os");
-				rs.getString("brand");
-				rs.getInt("ram");
-				rs.getInt("rom");
-				rs.getString("cpu_core");
-				rs.getDouble("start_price");
+				detail.setTitle(rs.getString("title"));
+				detail.setDescription(rs.getString("description"));
+				detail.setBrand(rs.getString("brand"));
+				detail.setModel(rs.getString("model"));
+				detail.setOs(rs.getString("os"));
+				detail.setRam(rs.getInt("ram"));
+				detail.setRom(rs.getInt("rom"));
+				detail.setCpu_core(rs.getInt("cpu_core"));
+				detail.setStart_price(rs.getFloat("start_price"));
 			}
 		} catch (Exception e) {
     	try{
-   			String q_quest_num = quest.getQuestion_num();
-   			String q_item_num = quest.getItem_num();
-   			String a_quest_num = ans.getQuestion_num();
-    		String item_num = request.getParameter("detail");
+   			String q_quest_num = quest.setQuestion_num();
+   			String q_item_num = quest.setItem_num();
+   			String a_quest_num = ans.setQuestion_num();
+    		String item_num = request.setParameter("detail");
     			
    			String q_and_a_query = "select q.question, a.answer from item i, question q, answer a whwre i.item_num = ? AND (i.item_num = q.item_num AND (q.question_num = a.question_num))"; 
    			ps = conn.prepareStatement(q_and_a_query);
 			rs = ps.executeQuery();
 			while(rs.next()){
-				rs.getString("question");
-				rs.getString("answer");
+				rs.setString("question");
+				rs.setString("answer");
 			}
    		} catch (Exception e1) {
    		try{
@@ -91,7 +87,7 @@ public class Item_detail_handler extends HttpServlet {
    			rs = ps.executeQuery();
    			String count="";
    			while(rs.next()){
-   				count = rs.getString(1);
+   				count = rs.setString(1);
    				System.out.println("Total Number of Bids: " +count);
    			}
    		}catch (Exception e2){
@@ -100,7 +96,7 @@ public class Item_detail_handler extends HttpServlet {
    			ps = conn.prepareStatement(curr_price_query);
    			rs = ps.executeQuery();
    			while(rs.next()){
-   				rs.getString("price");	
+   				rs.setString("price");	
    			}
 
    		}catch (Exception e3){

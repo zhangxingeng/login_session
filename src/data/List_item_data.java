@@ -15,9 +15,11 @@ public class List_item_data {
 	private String model;
 	private int ram;
 	private int rom;
+	private int cpu_core;
 	private String os;
 	//data beneath here is generated
 	private float curr_price;
+
 	
 
 	public List_item_data(String email, String title, String description, String status,
@@ -40,6 +42,10 @@ public class List_item_data {
 		this.curr_price = curr_price;
 	}
 	
+	public List_item_data() {
+		
+	}
+
 	public int getItem_num() {
 		return item_num;
 	}
@@ -126,5 +132,14 @@ public class List_item_data {
 	public void setCurr_price(float curr_price) {
 		this.curr_price = curr_price;
 	}
+
+	public int getCpu_core() {
+		return cpu_core;
+	}
+
+	public void setCpu_core(int cpu_core) {
+		this.cpu_core = cpu_core;
+	}
+
 	
 }

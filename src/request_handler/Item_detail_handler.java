@@ -9,7 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import java.io.*;
 import java.sql.*;
+import java.util.LinkedList;
+
+import data.List_answer_data;
 import data.List_item_data;
+import data.List_question_data;
 import connect.DBConnect;
 
 @WebServlet("/Item_detail_handler")
@@ -26,11 +30,10 @@ public class Item_detail_handler extends HttpServlet {
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		HttpSession session = request.getSession();
-
 		List_item_data detail = new List_item_data();
 
 		try {
-			int item_num = Integer.parseInt((String)request.getAttribute("item_num"));
+			int item_num = Integer.parseInt((String)request.getParameter("id"));
 			String query_detail = "SELECT * FROM item i, phone_type pt WHERE AND item_num = ? pt.brand = i.brand AND pt.model = i.model";
 			ps = conn.prepareStatement(query_detail);
 			ps.setInt(1, item_num);
@@ -51,6 +54,34 @@ public class Item_detail_handler extends HttpServlet {
 			detail.setBid_count(calc_bid_amount(item_num, conn));
 			
 			session.setAttribute("item_detail", detail);
+						
+			/********Then get all the questions and answers*********/
+			String qus_query="SELECT q.question FROM question q WHERE q.item_num = ?";
+			ps = conn.prepareStatement(qus_query);
+			ps.setInt(1, item_num);
+			rs = ps.executeQuery();
+			LinkedList<List_question_data> questions = new LinkedList<List_question_data>();
+			while(rs.next()) {
+				List_question_data question = new List_question_data();
+				question.setQuestion(rs.getString("question"));
+				question.setEmail(rs.getString("email"));
+				
+				String ans_query= "SELECT * FROM answer a, question q WHERE a.question_num = q.question_num = ?";
+				ps = conn.prepareStatement(ans_query);
+				ps.setInt(1, rs.getInt("question_num"));
+				ResultSet rs2 = ps.executeQuery();
+				LinkedList<List_answer_data> answers = new LinkedList<List_answer_data>();
+				while(rs2.next()) {
+					List_answer_data answer = new List_answer_data();
+					answer.setAnswer(rs.getString("answer"));
+					answer.setEmail(rs.getString("email"));
+					answers.add(answer);
+				}
+				question.setAnswers(answers);
+				questions.add(question);
+			}
+			
+			session.setAttribute("questions", questions);		
 		} catch (Exception e) {}
    		finally {
    			try {if(conn != null) {conn.close();}} 

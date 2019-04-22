@@ -10,6 +10,9 @@ public class List_answer_data {
 		this.answer = answer;
 	}
 	
+	public List_answer_data() {
+	}
+
 	public String getEmail() {
 		return email;
 	}

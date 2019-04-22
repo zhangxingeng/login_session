@@ -33,8 +33,8 @@ public class Item_detail_handler extends HttpServlet {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		HttpSession session = request.getSession();
-		
-		Item_detail_data item_detail = (Item_detail_data)(session.getAttribute("Item_detail_info"));
+		Item_detail_data item_detail = new Item_detail_data();
+		 item_detail = (Item_detail_data)(session.getAttribute("Item_detail_info"));
 		
 		String title = item_detail.getTitle();
 		String description = item_detail.getDescription();

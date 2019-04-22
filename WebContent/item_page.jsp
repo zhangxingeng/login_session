@@ -46,14 +46,14 @@
 					<td>${item_detail.getRam()}</td>
 					<td>${item_detail.getRom()}</td>
 					<td>${item_detail.getCup_core()}</td>
-					<id>${item_detail.getStart_price()}</id>
+					<td>${item_detail.getStart_price()}</td>
 					</tr>
 		</table>
 	<% //QUESITONA DN ANSWERS FOR THE ITEM %>
 	</div>
 	<div class="Questiona and Answers">
 
-		<h2>Question and Anwers</h2>
+		<h2>Question and Answers</h2>
 			<table border="1">
 				<tr>
 				<td>Question</td>

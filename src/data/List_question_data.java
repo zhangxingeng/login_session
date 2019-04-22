@@ -1,9 +1,6 @@
 package data;
 import java.util.LinkedList;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
-
-
 public class List_question_data {
 	private int question_num;
 	private int item_num;

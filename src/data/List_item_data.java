@@ -19,6 +19,7 @@ public class List_item_data {
 	private String os;
 	//data beneath here is generated
 	private float curr_price;
+	private int bid_count;
 
 	
 
@@ -42,9 +43,7 @@ public class List_item_data {
 		this.curr_price = curr_price;
 	}
 	
-	public List_item_data() {
-		
-	}
+	public List_item_data() {}
 
 	public int getItem_num() {
 		return item_num;
@@ -140,6 +139,12 @@ public class List_item_data {
 	public void setCpu_core(int cpu_core) {
 		this.cpu_core = cpu_core;
 	}
-
+	public int getBid_count() {
+		return bid_count;
+	}
+	
+	public void setBid_count(int bid_count) {
+		this.bid_count = bid_count;
+	}
 	
 }

@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	isELIgnored="false"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="data.List_item_data"%>
 <%@ page import="data.Account_data"%>
 <%@ page import="connect.DBConnect"%>
@@ -49,9 +47,6 @@ if(session.getAttribute("account_info") != null){
 }
 %>
 	</div>
-
-
-
 <%
 if( ((Account_data)session.getAttribute("account_info")).getType() != null){
 %>
@@ -77,12 +72,10 @@ if( ((Account_data)session.getAttribute("account_info")).getType() != null){
 		rs = ps.executeQuery();
 		while(rs.next()){
 			%>
-
 			<tr>
 			<td><%=rs.getString("from_email") %></td>
 			<td><%=rs.getString("message") %></td>
 			</tr>
-
 			<%
 		}
 		conn.close();
@@ -90,14 +83,11 @@ if( ((Account_data)session.getAttribute("account_info")).getType() != null){
 		e.printStackTrace();
 	}
 %>
-
 		</table>
-
 	</div>
 <%
 }
 %>
-
 	<div class="search">
 		<form action="Search_handler.jsp" method="post">
 			keyword:<input type="text" name="keyword"><br>

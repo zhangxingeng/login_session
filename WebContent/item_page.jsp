@@ -10,8 +10,6 @@
 <%@page import="data.List_question_data"%>
 <%@page import="data.Account_data"%>
 
-
-
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

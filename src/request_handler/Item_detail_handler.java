@@ -18,7 +18,6 @@ import data.List_answer_data;
 import data.List_question_data;
 import connect.DBConnect;
 
-
 @WebServlet("/Item_detail_handler")
 public class Item_detail_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -109,8 +108,9 @@ public class Item_detail_handler extends HttpServlet {
    			
 			session.setAttribute("failure_message", "Problem occured at  Item_detail_handler.java!");
 
-
-   		}}
-   		finally {
+   		}}finally {
    			try {if(conn != null) {conn.close();}
    			} catch (Exception e4) {}}}}}}
+
+
+

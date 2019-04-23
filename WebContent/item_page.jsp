@@ -80,8 +80,8 @@ while(!questions.isEmpty()){
 		</div>
 	
 		<div class="actions">
-			<button onclick="set_alert.java">Set Alert</button>
-			<button onclick="add_to_watch_list.java">Add to watch list</button>
+			<button onclick="Set_alert_handler" name="set_alert" value=<%=detail.getItem_num()%>>Set Alert</button>
+			<button onclick="Add_to_watchlist_handler" name="watchlist" value=<%=detail.getItem_num()%>>Add to watch list</button>
 		</div>
 	</body>
 </html>

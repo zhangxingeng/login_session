@@ -109,12 +109,7 @@ public class Item_upload_handler extends HttpServlet {
 		
 	}
 	
-	public static void alert_watchlist(Connection conn, int item_num) {
 	
-	}
-	/*
-	 * send message to watchlister item about to be sold!
-	 */
 	
 	
 	

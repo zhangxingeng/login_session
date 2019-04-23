@@ -5,7 +5,6 @@ import java.util.Date;
 import java.io.IOException;
 import java.sql.*;
 
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +19,8 @@ import data.Account_data;
 @WebServlet("/Seller_handler")
 public class Item_upload_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	application.setAttribute("", );
 	
 	public static Date addDay(Date date) {
 	        Calendar cal = Calendar.getInstance();

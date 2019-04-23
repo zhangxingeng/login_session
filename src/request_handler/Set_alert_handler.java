@@ -32,12 +32,29 @@ public class Set_alert_handler extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int item_num = (int)request.getAttribute("set_alert");
+		
 		//get email from session
-		//INSERT INTO alert () VALUE(?,?)
-		
-		
-		
-		
+		HttpSession session = request.getSession();
+		String email=(String)request.getParameter("email");
+		DBConnect DBC = new DBConnect();
+		Connection conn = DBC.getConn();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			//INSERT INTO alert () VALUE(?,?)
+			String query = 	"INSERT INTO alert(email, item_num) VALUES (?, ?)";
+			ps = conn.prepareStatement(query);
+			ps.setString(1,email);
+			ps.setInt(2,item_num);
+			ps.executeQuery();
+			
+			response.sendRedirect("item_page.jsp");
+		}catch (SQLException e) {
+			session.setAttribute("failure_message", "Problem occured at Set_alert_handler.java!");
+		}		
+		finally {try {if(conn != null) {conn.close();}
+				} catch (SQLException e) {}
+		}
 	}
 	
 }

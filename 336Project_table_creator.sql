@@ -174,9 +174,9 @@ CREATE TABLE watchlist(
 );
 
 CREATE TABLE email(
-	message_Id INT AUTO_INCREMENT,
+	message_id int auto_increment,
 	sender_email VARCHAR(50),
     reciver_email VARCHAR(50),
     message VARCHAR(200) NOT NULL,
-    PRIMARY KEY (mesage_id)
+    PRIMARY KEY (message_id)
 );

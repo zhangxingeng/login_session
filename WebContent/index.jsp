@@ -91,30 +91,6 @@ else{
 			</form>
 		</div>
 		
-		<div class="item_list">
-			<table>
-				<c:forEach items="${search_result}" var="item">
-					<tr>
-					    <td>email: ${item.getEmail()}</td>
-						<td>title: ${item.getTitle()}</td>
-						<td>description: ${item.getDescription}</td>
-						<td>status: ${item.getStatus}</td>
-						<td>start_price: ${item.getStart_price}</td>
-						<td>date: ${item.getDate()}</td>
-						<td>item_bidamount: ${item.getItem_bidamount()}</td>
-						<td>item_num: ${item.getItem_num()}</td>
-						<td>brand: ${item.getBrand()}</td>
-						<td>model: ${item.getModel()}</td>
-						<td>ram: ${item.getRam()}</td>
-						<td>rom: ${item.getRom()}</td>
-						<td>os: ${item.getOs()}</td>
-						<td>curr_price: ${item.getCurr_price()}</td>
-						<td>
-							<button onclick="item_detail_handler?id=${item.getItem_num()}" name="submit" value="${item.getItem_num()}">view</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
+		
 	</body>
 </html>

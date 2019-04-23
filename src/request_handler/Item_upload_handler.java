@@ -19,15 +19,8 @@ import data.Account_data;
 @WebServlet("/Seller_handler")
 public class Item_upload_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	application.setAttribute("", );
-	
-	public static Date addDay(Date date) {
-	        Calendar cal = Calendar.getInstance();
-	        cal.setTime(date);
-	        cal.add(Calendar.DAY_OF_YEAR, 7);
-	        return cal.getTime();
-	    }
+	DBConnect dbc = new DBConnect();
+	Connection conn = dbc.getConn();
 	
     public Item_upload_handler() {
         super();
@@ -48,9 +41,8 @@ public class Item_upload_handler extends HttpServlet {
 		int rom=Integer.parseInt(request.getParameter("ram"));
 		int ram=Integer.parseInt(request.getParameter("rom"));
 
-		DBConnect dbc = new DBConnect();
-		Connection conn = dbc.getConn();
 		PreparedStatement ps = null;
+		ResultSet rs = null;
 
 		try {
 			String query_add_new_phone_type = "INSERT INTO phone_type (brand, model, ram, rom, cpu_core, os) VALUES (?,?,?,?,?,?)";
@@ -74,18 +66,24 @@ public class Item_upload_handler extends HttpServlet {
 			ps.setString(6, "a");
 			ps.setFloat(7, start_price);
 			ps.executeUpdate();
+			String query_item_num ="SELECT TOP 1 item_num FROM item ORDER BY date DESC";
+			ps = conn.prepareStatement(query_item_num);
+			rs = ps.executeQuery();
+			int item_num = rs.getInt("ite_num");
+			
 			
 			 Date now = new Date(System.currentTimeMillis());
 			 TimerTask task = new TimerTask() {
 		           @Override
 		           public void run() { 
-		          
-		         
+		        	   end_auction(conn, item_num);
 		           }
 		       };
 		       Timer timer = new Timer();		     
-			   timer.schedule(task, addDay(now));
-		 
+			   timer.schedule(task, addDay(now,7));
+			   request.getServletContext().setAttribute("task"+item_num,timer);
+			   
+			   
 	      
 		} catch (SQLException e1) {session.setAttribute("failure_info", "add item has failed. check Seller_handler.java");}
 		finally {
@@ -96,29 +94,24 @@ public class Item_upload_handler extends HttpServlet {
 				}
 		}
 	
-	/*************ADD 2 TASKS HERE
-	 * 1. set attribute to application: end of auction task,
-	 * 2. 24h before task do st to watchlist
-	 * 
-	 * ******************/
 	public static void end_auction(Connection conn, int item_num) {
-		/*query item, change status from a to:
-		 * 1. if sold, s, message buyer
-		 * 2. if max bid < reserve bid, f
-		 *message user about success/failed
-		 */
-		
+		String end_auction = "UPDATE item i SET i.status = ? WHERE i.item_num =?";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(end_auction);
+			ps.setString(1, "s");
+			ps.setInt(2, item_num);
+			ps.executeQuery();
+		} catch (SQLException e) {}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	}
+	public static Date addDay(Date date, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DAY_OF_YEAR, day);
+        return cal.getTime();
+    }
+}
 
 
 

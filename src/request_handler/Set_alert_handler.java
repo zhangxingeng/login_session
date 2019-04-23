@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import connect.DBConnect;
-import data.Account_data;
 
 
 @WebServlet("/Set_alert_handler")
@@ -39,7 +38,6 @@ public class Set_alert_handler extends HttpServlet {
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		try {
 			//INSERT INTO alert () VALUE(?,?)
 			String query = 	"INSERT INTO alert(email, item_num) VALUES (?, ?)";

@@ -1,25 +1,70 @@
-<div class="item_list">
-			<table>
-				<c:forEach items="${search_result}" var="item">
-					<tr>
-					    <td>email: ${item.getEmail()}</td>
-						<td>title: ${item.getTitle()}</td>
-						<td>description: ${item.getDescription}</td>
-						<td>status: ${item.getStatus}</td>
-						<td>start_price: ${item.getStart_price}</td>
-						<td>date: ${item.getDate()}</td>
-						<td>item_bidamount: ${item.getItem_bidamount()}</td>
-						<td>item_num: ${item.getItem_num()}</td>
-						<td>brand: ${item.getBrand()}</td>
-						<td>model: ${item.getModel()}</td>
-						<td>ram: ${item.getRam()}</td>
-						<td>rom: ${item.getRom()}</td>
-						<td>os: ${item.getOs()}</td>
-						<td>curr_price: ${item.getCurr_price()}</td>
-						<td>
-							<button onclick="item_detail_handler?id=${item.getItem_num()}" name="submit" value="${item.getItem_num()}">view</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
+	/********Then get all the questions and answers*********/
+			String qus_query="SELECT q.question FROM question q WHERE q.item_num = ?";
+			ps = conn.prepareStatement(qus_query);
+			ps.setInt(1, item_num);
+			rs = ps.executeQuery();
+			LinkedList<List_question_data> questions = new LinkedList<List_question_data>();
+			while(rs.next()) {
+				List_question_data question = new List_question_data();
+				question.setQuestion(rs.getString("question"));
+				question.setEmail(rs.getString("email"));
+				
+				String ans_query= "SELECT * FROM answer a, question q WHERE a.question_num = q.question_num = ?";
+				ps = conn.prepareStatement(ans_query);
+				ps.setInt(1, rs.getInt("question_num"));
+				ResultSet rs2 = ps.executeQuery();
+				LinkedList<List_answer_data> answers = new LinkedList<List_answer_data>();
+				while(rs2.next()) {
+					List_answer_data answer = new List_answer_data();
+					answer.setAnswer(rs.getString("answer"));
+					answer.setEmail(rs.getString("email"));
+					answers.add(answer);
+				}
+				question.setAnswers(answers);
+				questions.add(question);
+			}
+			
+			session.setAttribute("questions", questions);	
+			
+			
+			
+			
+			
+					<div class="Question and Answers">
+			<h2>Question and Answers</h2>
+<% 
+//@SuppressWarnings("unchecked")
+LinkedList<List_question_data> questions = (LinkedList<List_question_data>)(session.getAttribute("question"));
+while(!questions.isEmpty()){
+	List_question_data curr_question = questions.pop();
+	//print out questions here
+	LinkedList<List_answer_data> answers = curr_question.getAnswers();
+	while(!answers.isEmpty()){
+		List_answer_data curr_answer = answers.pop();
+		//print out answers here
+	}
+}
+%>
 		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+				

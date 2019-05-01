@@ -7,17 +7,13 @@
 <title>BuyMe_User_Register</title>
 </head>
 <body>
-  <h1 class="content center big">BuyMe</h1>
-    <div class="centent leftpad">
-        <form action="Register_handler" method="POST">
+  <h1>BuyMe</h1>
+    <div>
+        <form action="Register_handler" method="post">
             Email<input type="text" name="email" required><br>
-    		    Address<input type="text" name="address"><br>
-            User_name<input type="text" name="username"><br>
-    		    Password <input type="password" name="password" required><br>
-    		    confirm_password<input type="password" name="confirm_password"><br>
+    	Password <input type="password" name="password" required><br>
             <input type="submit" value="Register">
         </form>
     </div>
-	
 </body>
 </html>

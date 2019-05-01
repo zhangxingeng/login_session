@@ -8,19 +8,22 @@
 <title>BuyMe_Admin_Home</title>
 </head>
 <body>
-	<%
-if(((Account_data)session.getAttribute("Account_data")).getType().equals("admin")){
+<%
+if(session.getAttribute("account_info")!=null && 
+	((Account_data)session.getAttribute("account_info")).getType().equals("admin")){
 %>
 	<h5>Hello, Administrator!</h5>
-	<button onclick="logout_handler">logout</button>
+	<form name="account_management" action="Logout_handler" method="post">
+		<input type="submit" value="logout">
+	</form>
 
 
 	<h2>Customer Representative Management</h2>
 	<form action="AdminCRM_handler" method="post">
-		<input type="radio" name="action" value="add">add <input
-			type="radio" name="action" value="del">delete Email<input
-			type="text" name="email"> Password<input type="text"
-			name="password"> <br>
+		<input type="radio" name="action" value="add">add 
+		<input type="radio" name="action" value="del">delete 
+		Email<input type="text" name="email"> 
+		Password<input type="text" name="password"> <br>
 		<button type="submit" name="button" value="CR">Submit</button>
 	</form>
 	<br>
@@ -35,14 +38,12 @@ if(((Account_data)session.getAttribute("Account_data")).getType().equals("admin"
 		<input type="radio" name="report" value="bestuser">Best Buyers<br> 
 		<input type="submit" value=Submit>
 	</form>
-
+	
 	<%
 }else{
 %>
-	<script type="text/javascript">
-	 window.location.href="index.jsp"
-	</script>
-	<%
+<jsp:forward page = "index.jsp" />
+<%
 }
 %>
 

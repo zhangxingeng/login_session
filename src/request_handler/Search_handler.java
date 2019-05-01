@@ -17,90 +17,79 @@ import javax.servlet.http.HttpSession;
 import connect.DBConnect;
 import data.List_item_data;
 
-@WebServlet("/Search_Response")
+@WebServlet("/Search_handler")
 public class Search_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
     public Search_handler() {
         super();
     }
 
-	/**
-	 * This function takes the input String and query it from database
-	 * attribute "search_result" is updated per request
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<List_item_data> item_info=new ArrayList<List_item_data>();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Float min_price = Float.parseFloat(request.getParameter("min_price"));
-		Float max_price = Float.parseFloat(request.getParameter("max_price"));
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String k = request.getParameter("keyword");
-		String b = request.getParameter("brand");
-		String m = request.getParameter("model");
-		String status = request.getParameter("status");
-		String query = 	"SELECT * "
-					+ 	"FROM item i"
-					+ 	"WHERE (i.title OR i.description) LIKE '%?%' "
-					+ 	"AND i.brand LIKE '%?%' "
-					+ 	"AND i.model LIKE '%?%' "
-					+ 	"AND i.curr_price > ? "
-					+ 	"AND i.curr_price < ? "
-					+ 	"AND i.status = ?";
+		String query_search = "SELECT * FROM item i , phone_type t WHERE "
+				+ "i.brand = t.brand AND i.model = t.model AND i.title LIKE ? ";
+		String keyword = "%" + (String)request.getParameter("keyword") + "%";
+		ArrayList<List_item_data> search_result = new ArrayList<List_item_data> ();
 		try {
-			ps = conn.prepareStatement(query);
-			ps.setString(1, k);
-			ps.setString(2, b);
-			ps.setString(3, m);
-			ps.setFloat(4, min_price);
-			ps.setFloat(5, max_price);
-			ps.setString(6, status);
+			ps = conn.prepareStatement(query_search);
+			ps.setString(1, keyword);
 			rs = ps.executeQuery();
+			
 			while(rs.next()) {
+				float curr_price = calc_curr_price(rs.getInt("item_num"), conn);
+				List_item_data curr = new List_item_data();
+						curr.setEmail(rs.getString("email"));
+						curr.setTitle(rs.getString("title"));
+						curr.setDescription(rs.getString("description"));
+						curr.setStatus(rs.getString("status"));
+						curr.setStart_price(rs.getFloat("start_price"));
+						curr.setTimestamp(rs.getTimestamp("timestamp"));
+						//curr.setBid_count(rs.getInt("item_bidamount"));
+						curr.setItem_num(rs.getInt("item_num"));
+						curr.setBrand(rs.getString("brand"));
+						curr.setModel(rs.getString("model"));
+						curr.setRam(rs.getInt("ram"));
+						curr.setRom(rs.getInt("rom"));
+						curr.setOs(rs.getString("os"));
+						curr.setCurr_price(curr_price);
+						System.out.println("os is : " + curr.getOs());
+				search_result.add(curr);
 				
-				//todo:query from bid for highest price save into curr_price
-				float curr_price = calc_curr_price(rs.getString("item_num"), conn);
 				
-				List_item_data curr = new List_item_data(rs.getString("email"), 
-						rs.getString("title"), rs.getString("description"), 
-						rs.getString("status"), 
-						rs.getFloat("start_price"), rs.getTimestamp("timestamp"), 
-						rs.getInt("item_bidamount"), rs.getInt("item_num"), 
-						rs.getString("brand"), rs.getString("model"),
-						rs.getInt("ram"), rs.getInt("rom"),
-						rs.getString("os"),
-						curr_price);
-				item_info.add(curr);//add the object into Linked List
 			}
 		}
-
  		catch (SQLException e1) {
- 			session.setAttribute("failure_message", "Problem occured at Search_handler.java!");
+ 			session.setAttribute("message", "Problem occured at Search_handler.java!");
  			}finally {
 			try {
-				if(conn != null) {conn.close();}} 
-			catch (SQLException e2) {}}
-		
-		
-		if(session.getAttribute("search_result") != null) {
-			session.removeAttribute("search_result");
-		}
-		session.setAttribute("search_result", item_info);
-		response.sendRedirect("login_control/index.jsp");
+				if(conn != null) {conn.close();}
+			} 
+			catch (SQLException e2) {}
+			}
+		session.setAttribute("search_result", search_result);
+		response.sendRedirect("index.jsp");
 	}
 	
-	private float calc_curr_price(String item_num, Connection conn) throws SQLException {
+	private float calc_curr_price(int item_num, Connection conn) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String query = "SELECT MAX(price) FROM bids WHERE item_num = ?";
+		String query = "SELECT MAX(price) price FROM bids WHERE item_num = ?";
 		ps = conn.prepareStatement(query);
-		ps.setString(1, item_num);
+		ps.setInt(1, item_num);
 		rs = ps.executeQuery();
-		float curr_price = rs.getFloat("price");
+		float curr_price = (float)(-1);
+		if(rs.next()) {
+			curr_price = rs.getFloat("price");
+		}
 		return curr_price;
 	}
-}
 
+}

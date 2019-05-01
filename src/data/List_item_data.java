@@ -22,28 +22,9 @@ public class List_item_data {
 	private int bid_count;
 
 	
-
-	public List_item_data(String email, String title, String description, String status,
-			float start_price, Timestamp timestamp, int item_bidamount, int item_num, String brand, String model, int ram,
-			int rom, String os, float curr_price) {
-		super();
-		this.email = email;
-		this.title = title;
-		this.description = description;
-		this.status = status;
-		this.start_price = start_price;
-		this.timestamp = timestamp;
-		this.item_bidamount = item_bidamount;
-		this.item_num = item_num;
-		this.brand = brand;
-		this.model = model;
-		this.ram = ram;
-		this.rom = rom;
-		this.os = os;
-		this.curr_price = curr_price;
+	public List_item_data() {
+		
 	}
-	
-	public List_item_data() {}
 
 	public int getItem_num() {
 		return item_num;

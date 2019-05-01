@@ -38,45 +38,38 @@ public class Login_handler extends HttpServlet {
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		String login_query = "";
+		String accountinfo = (String)request.getParameter("identity");
+		String redirect_url = "index.jsp";
 		
+		if(accountinfo.equals("staff")) {
+			login_query = "SELECT * FROM staff WHERE staff_email=? AND password=?";	
+		}else if(accountinfo.equals("admin")) {
+			login_query = "SELECT * FROM admin WHERE admin_email=? AND password=?";
+		}else { //user
+			login_query = "SELECT * FROM user WHERE email=? AND password=?";
+		}	
 		try {
-			String query = "SELECT * FROM ? WHERE email=? AND password=?";
-			ps = conn.prepareStatement(query);
-			String accountinfo = null;
-			
-			if( ((String)request.getParameter("identity")).equals("staff") ) {
-				ps.setString(1, request.getParameter("cus_rep"));
-				accountinfo = "staff";
-			}else if( ((String)request.getParameter("identity")).equals("admin") ) {
-				ps.setString(1, request.getParameter("admin"));
-				accountinfo = "admin";
-			}else { //user
-				ps.setString(1, request.getParameter("user"));
-				accountinfo = "user";	
-			}
-			
-			ps.setString(2, request.getParameter("email"));
-			ps.setString(3, request.getParameter("password"));
+			ps = conn.prepareStatement(login_query);
+			ps.setString(1, request.getParameter("email"));
+			ps.setString(2, request.getParameter("password"));
 			rs = ps.executeQuery();
 			
 			
 			if(rs.next()) {	
-				String email = rs.getString("email");
-				String password = rs.getString("password");
+				Account_data account = null;
 				if(accountinfo.equals("staff")){
-					Account_data stf = new Account_data(email,password,"staff");
-					session.setAttribute("account_info", stf);
-					response.sendRedirect("login_control/staff_home.jsp");
+					account = new Account_data(rs.getString("staff_email"),rs.getString("password"),"staff");
+					redirect_url = "staff_home.jsp";
 				}else if(accountinfo.equals("admin")){
-					Account_data adm = new Account_data(email,password,"admin");
-					session.setAttribute("account_info", adm);
-					response.sendRedirect("login_control/admin_home.jsp");
+					account = new Account_data(rs.getString("admin_email"), rs.getString("password"), "admin");
+					redirect_url = "admin_home.jsp";
 				}else{
-					Account_data usr = new Account_data(email, password,rs.getString("name"), 
-						rs.getString("address"), rs.getString("state"), 
-						rs.getString("zip"), rs.getString("phone_num"));
-					session.setAttribute("account_info", usr);
+					account = new Account_data(rs.getString("email"), rs.getString("password"),rs.getString("name"), 
+							rs.getString("address"), rs.getString("state"), rs.getString("zip"), rs.getString("phone_num"));
+					redirect_url = "index.jsp";
 				}
+				session.setAttribute("account_info", account);
 				
 			}
 		} catch (SQLException e1) {
@@ -85,8 +78,9 @@ public class Login_handler extends HttpServlet {
 		finally {
 			try {
 				if(conn != null) {conn.close();}
-			} catch (SQLException e) {}}
-		response.sendRedirect("login_control/index.jsp");
+			} catch (SQLException e) {}
+			}
+		response.sendRedirect(redirect_url);
 		}
 	}
 

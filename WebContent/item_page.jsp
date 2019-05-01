@@ -13,75 +13,83 @@
 <%@page import="java.util.Collections"%>
 
 
-
-
-
-
-
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>BuyMe Item</title>
 	</head>
 	<body>
-		<h1 class="content center big">Item Page</h1>
-		<div class="Item Info">
-		    <% List_item_data detail= (List_item_data)(session.getAttribute("item_detail"));%> 
-			<table align="center" cellpadding="5" cellspacing="5" border="1">
-				<tr>
-					<td><b>Title</b></td>
-					<td><b>Description</b></td>
-					<td><b>Brand</b></td>
-					<td><b>Model</b></td>
-					<td><b>RAM</b></td>
-					<td><b>ROM</b></td>
-					<td><b>OS</b></td>
-					<td><b>Starting Price</b></td>
-				</tr>
-				<tr>			
-					<td><%=detail.getTitle()%></td>
-					<td><%=detail.getDescription()%></td>
-					<td><%=detail.getModel()%></td>
-					<td><%=detail.getOs()%></td>
-					<td><%=detail.getBrand()%></td>
-					<td><%=detail.getRam()%></td>
-					<td><%=detail.getRom()%></td>
-					<td><%=detail.getCpu_core()%></td>
-					<td><%=detail.getStart_price()%></td>
-				</tr>
-			</table>
-		</div>
-		<div class="Question and Answers">
-			<h2>Question and Answers</h2>
-<% 
-//@SuppressWarnings("unchecked")
-LinkedList<List_question_data> questions = (LinkedList<List_question_data>)(session.getAttribute("question"));
-while(!questions.isEmpty()){
-	List_question_data curr_question = questions.pop();
-	//print out questions here
-	LinkedList<List_answer_data> answers = curr_question.getAnswers();
-	while(!answers.isEmpty()){
-		List_answer_data curr_answer = answers.pop();
-		//print out answers here
-	}
+		<h1>Item Page</h1>
+		<div>
+   <% 
+   DBConnect DBC = new DBConnect();
+Connection conn = DBC.getConn();
+PreparedStatement ps = null;
+ResultSet rs = null;
+
+int item_num = Integer.parseInt(request.getParameter("item_num"));
+String query = "SELECT * FROM item i, phone_type t WHERE i.item_num = ? AND t.brand = i.brand AND t.model = i.model";
+ps = conn.prepareStatement(query);
+ps.setInt(1, item_num);
+
+rs = ps.executeQuery();
+if(rs.next()){
+	out.println("Title: "+(rs.getString("title"))+"<br>");
+	out.println("Description: "+(rs.getString("description"))+"<br>");
+	out.println("Brand: "+(rs.getString("brand"))+"<br>");
+	out.println("Model: "+(rs.getString("model"))+"<br>");
+	out.println("Status: "+(rs.getString("status"))+"<br>");
+	out.println("Start_price: "+(rs.getFloat("start_price"))+"<br>");
+	out.println("Ram: "+(rs.getInt("ram"))+"<br>");
+	out.println("Rom: "+(rs.getInt("rom"))+"<br>");
+	out.println("Cpu_core: "+(rs.getInt("cpu_core"))+"<br>");
+	out.println("Os: "+(rs.getString("os"))+"<br>");
+	out.println("Email: "+rs.getString("email")+"<br>");
+	
+	String bid_count_query = "SELECT count(*) FROM bids b, item i WHERE i.item_num = b.item_num = ?";
+	ps = conn.prepareStatement(bid_count_query);
+	ps.setInt(1, item_num);
+	rs = ps.executeQuery();
+	int bid_amount = 0;
+	if(rs.next()) {
+		bid_amount = rs.getInt(1);
+	}else bid_amount = -1;
+	
+	float curr_price = 0;
+	String curr_price_query = "SELECT MAX(price) FROM bids WHERE item_num = ?";
+	ps = conn.prepareStatement(curr_price_query);
+	ps.setInt(1, item_num);
+	rs = ps.executeQuery();
+	if(rs.next()) {
+		curr_price = rs.getFloat(1);
+	}else curr_price = -1;
+
+	
+	out.println("Curr_price"+(curr_price)+"<br>");
+	out.println("setBid_count"+(bid_amount)+"<br>");
 }
+
+			try {if(conn != null) {conn.close();}} 
+			catch (Exception e4) {System.out.println("Problem occured at 2!");}
 %>
 		</div>
-	
-		<% //BID FOR THIS ITEM %>
+
 		<div>
 			<h1>Bid Information:</h1>
-			current price <label>${item_detail.getCurr_price()}</label>
-			<form action="Bid_handler" method="POST">
+			<form action="Bid_handler2" method="POST">
 				Place Your Bid :$
-				<input type="number" name="bid_price"></input>
+				<input type="text" name="bid_price"></input>
 				<input type="submit" value="Submit">
 			</form>
 		</div>
 	
 		<div class="actions">
-			<button onclick="Set_alert_handler" name="set_alert" value=<%=detail.getItem_num()%>>Set Alert</button>
-			<button onclick="Add_to_watchlist_handler" name="watchlist" value=<%=detail.getItem_num()%>>Add to watch list</button>
+			<form name="_alert" action="_alert_handler?item_num=<%=item_num%>" method="post">
+			<input type="submit" value="_alert">
+			</form>
+			<form name="watchlist" action="Add_to_watchlist_handler?item_num=<%=item_num%>" method="post">
+			<input type="submit" value="watchlist">
+			</form>
 		</div>
 	</body>
 </html>

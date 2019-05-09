@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
  <%@ page import="java.util.ArrayList" %>
 <%@ page import="javax.servlet.*"%>
 <%@ page import="java.sql.*"%>
@@ -22,16 +23,20 @@
 		<div class="account">
 		
 <%
+if(session.getAttribute("message") != null){
+	out.println((String)session.getAttribute("message"));
+}
 if(session.getAttribute("account_info") != null){
 %>
 			<h5>Hello, <%=((Account_data)session.getAttribute("account_info")).getType()%>!</h5>
 			<form name="account_management" action="Logout_handler" method="post">
 				<input type="submit" value="logout">
 			</form>
-			<form name="account_management" action="item_upload" method="post">
+			<form name="item_upload
+			" action="item_upload.jsp" method="post">
 				<input type="submit" value="upload new items">
 			</form>
-			<form name="account_management" action="message_page" method="post">
+			<form name="Message" action="message_page" method="post">
 				<input type="submit" value="Message">
 			</form>
 						
@@ -82,28 +87,16 @@ else{
 		</div>
 	
 		<div class="item_list">
-<%
-if(session.getAttribute("search_result") != null){
-		ArrayList<?> search_result = (ArrayList<?>)session.getAttribute("search_result");
-		while(!search_result.isEmpty()){
-			List_item_data curr_item = (List_item_data)search_result.remove(0);
-			out.println(curr_item.getTitle()+"<br>");
-			out.println(curr_item.getCurr_price()+"<br>");
-%>
-			<form action="item_page.jsp?item_num=<%=curr_item.getItem_num()%>" method="post">
-				<input type="submit" value="Check This Out!">
-			</form>
-<% 
-		}
-}
-%>
-		
-		
-<%
-if(session.getAttribute("failure_message") != null){
-	System.out.println((String)session.getAttribute("failure_message"));
-}
-%>
+
+			<c:forEach var = "curr_item" items="${search_result}">
+				Title: <c:out value="${curr_item.getTitle()}"/><br>
+				Price: <c:out value="${curr_item.getCurr_price()}"/><br>
+				Bids: <c:out value="${curr_item.getBid_count()}"/><br>
+				
+				<form action="item_page.jsp?item_num=${curr_item.getItem_num()}" method="post">
+					<input type="submit" value="Check This Out!">
+				</form>
+			</c:forEach>
 		
 		</div>
 	</body>

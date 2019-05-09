@@ -22,55 +22,7 @@
 		<h1>Item Page</h1>
 		<div>
    <% 
-   DBConnect DBC = new DBConnect();
-Connection conn = DBC.getConn();
-PreparedStatement ps = null;
-ResultSet rs = null;
-
-int item_num = Integer.parseInt(request.getParameter("item_num"));
-String query = "SELECT * FROM item i, phone_type t WHERE i.item_num = ? AND t.brand = i.brand AND t.model = i.model";
-ps = conn.prepareStatement(query);
-ps.setInt(1, item_num);
-
-rs = ps.executeQuery();
-if(rs.next()){
-	out.println("Title: "+(rs.getString("title"))+"<br>");
-	out.println("Description: "+(rs.getString("description"))+"<br>");
-	out.println("Brand: "+(rs.getString("brand"))+"<br>");
-	out.println("Model: "+(rs.getString("model"))+"<br>");
-	out.println("Status: "+(rs.getString("status"))+"<br>");
-	out.println("Start_price: "+(rs.getFloat("start_price"))+"<br>");
-	out.println("Ram: "+(rs.getInt("ram"))+"<br>");
-	out.println("Rom: "+(rs.getInt("rom"))+"<br>");
-	out.println("Cpu_core: "+(rs.getInt("cpu_core"))+"<br>");
-	out.println("Os: "+(rs.getString("os"))+"<br>");
-	out.println("Email: "+rs.getString("email")+"<br>");
-	
-	String bid_count_query = "SELECT count(*) FROM bids b, item i WHERE i.item_num = b.item_num = ?";
-	ps = conn.prepareStatement(bid_count_query);
-	ps.setInt(1, item_num);
-	rs = ps.executeQuery();
-	int bid_amount = 0;
-	if(rs.next()) {
-		bid_amount = rs.getInt(1);
-	}else bid_amount = -1;
-	
-	float curr_price = 0;
-	String curr_price_query = "SELECT MAX(price) FROM bids WHERE item_num = ?";
-	ps = conn.prepareStatement(curr_price_query);
-	ps.setInt(1, item_num);
-	rs = ps.executeQuery();
-	if(rs.next()) {
-		curr_price = rs.getFloat(1);
-	}else curr_price = -1;
-
-	
-	out.println("Curr_price"+(curr_price)+"<br>");
-	out.println("setBid_count"+(bid_amount)+"<br>");
-}
-
-			try {if(conn != null) {conn.close();}} 
-			catch (Exception e4) {System.out.println("Problem occured at 2!");}
+  
 %>
 		</div>
 

@@ -30,25 +30,31 @@ public class Item_detail_handler extends HttpServlet {
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
 		if(session.getAttribute("search_result") != null) {
 			ArrayList<List_item_data> search_result = (ArrayList<List_item_data>) session.getAttribute("search_result");
-			Iterator<List_item_data> i = search_result.iterator();
-			List_item_data current_item = null;
-			while(i.hasNext()) {
-				current_item = i.next();
-				if(item_num == current_item.getItem_num()) {
-					
-					try {
-						current_item.setBid_count(Global_functions.calc_bid_num(item_num,conn));
-						current_item.setCurr_price(Global_functions.calc_curr_price(item_num, conn));
-					} catch (SQLException e) {}
-					session.setAttribute("current_item", current_item);
-					response.sendRedirect("item_page.jsp");
-					return;
-				}
+			List_item_data current_item = pick_item(item_num, search_result);
+			if(current_item != null) {
+				try {
+					current_item.setBid_count(Global_functions.calc_bid_num(item_num,conn));
+					current_item.setCurr_price(Global_functions.calc_curr_price(item_num, conn));
+				} catch (SQLException e) {}
+				session.setAttribute("current_item", current_item);
+				response.sendRedirect("item_page.jsp");
+				return;
+			}else {
+				session.setAttribute("message", "This item does not exist.");
+				response.sendRedirect("index.jsp");
 			}
-		}else {
-			session.setAttribute("message", "this item does not exist.");
-			response.sendRedirect("item_page.jsp");
 		}
-		return;
+	}
+	
+	public static List_item_data pick_item(int item_num, ArrayList<List_item_data> list) {
+		Iterator<List_item_data> i = list.iterator();
+		List_item_data current_item = null;
+		while(i.hasNext()) {
+			current_item = i.next();
+			if(item_num == current_item.getItem_num()) {
+				return current_item;
+			}
+		}
+		return null;
 	}
 }

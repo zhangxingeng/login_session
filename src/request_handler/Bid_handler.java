@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import connect.DBConnect;
 import data.Account_data;
+import data.List_item_data;
 import request_handler.Global_functions;
 
 @WebServlet("/Bid_handler")
@@ -38,6 +39,8 @@ public class Bid_handler extends HttpServlet {
 			if(add_bid(conn, item_num, bid_price, email)) {
 				session.setAttribute("message", "your bid is a success!");
 				email_alert(item_num,conn, session, email);
+				List_item_data current_item = (List_item_data) session.getAttribute("current_item");
+				update_price_bid(current_item, bid_price);
 			}else {
 				session.setAttribute("message", "your bid is a failure.");
 			}
@@ -82,8 +85,14 @@ public class Bid_handler extends HttpServlet {
 		}else {
 			return false;//failed
 		}
-		
 	}
+	
+	private void update_price_bid(List_item_data current_item, float bid_price) {
+		current_item.setCurr_price(bid_price);
+		int bid_count = current_item.getBid_count() + 1;
+		current_item.setBid_count(bid_count);	
+	}
+	
 }
 
 

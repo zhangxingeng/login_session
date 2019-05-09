@@ -20,6 +20,9 @@
 	</head>
 	<body>
 <% 
+if(session.getAttribute("current_item") == null){
+	response.sendRedirect("index.jsp");
+}
 if(session.getAttribute("message") != null){
 	out.println((String)session.getAttribute("message"));
 	session.removeAttribute("message");
@@ -51,10 +54,12 @@ if(session.getAttribute("message") != null){
 		</div>
 	
 		<div class="actions">
-			<form name="set alert" action="alert_handler" method="post">
+			<form name="set alert" action="Set_alert_handler" method="post">
+				<input type="hidden" name="item_num" value="${current_item.getItem_num()}"/>
 				<input type="submit" value="set alert">
 			</form>
-			<form name="add to watchlist" action="Add_to_watchlist_handler?item_num=" method="post">
+			<form name="add to watchlist" action="Add_to_watchlist_handler" method="post">
+			<input type="hidden" name="item_num" value="${current_item.getItem_num()}"/>
 			<input type="submit" value="add to watchlist">
 			</form>
 		</div>

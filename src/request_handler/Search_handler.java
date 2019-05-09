@@ -56,7 +56,6 @@ public class Search_handler extends HttpServlet {
 						curr.setRom(rs.getInt("rom"));
 						curr.setOs(rs.getString("os"));
 						curr.setCurr_price(curr_price);
-						System.out.println("os is : " + curr.getOs());
 				search_result.add(curr);
 				
 				

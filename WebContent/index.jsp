@@ -25,6 +25,7 @@
 <%
 if(session.getAttribute("message") != null){
 	out.println((String)session.getAttribute("message"));
+	session.removeAttribute("message");
 }
 if(session.getAttribute("account_info") != null){
 %>
@@ -93,7 +94,7 @@ else{
 				Price: <c:out value="${curr_item.getCurr_price()}"/><br>
 				Bids: <c:out value="${curr_item.getBid_count()}"/><br>
 				
-				<form action="item_page.jsp?item_num=${curr_item.getItem_num()}" method="post">
+				<form action="Item_detail_handler?item_num=${curr_item.getItem_num()}" method="post">
 					<input type="submit" value="Check This Out!">
 				</form>
 			</c:forEach>

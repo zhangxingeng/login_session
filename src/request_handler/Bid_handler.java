@@ -17,7 +17,7 @@ import connect.DBConnect;
 import data.Account_data;
 import request_handler.Global_functions;
 
-@WebServlet("/bid_handler")
+@WebServlet("/Bid_handler")
 public class Bid_handler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,11 +42,13 @@ public class Bid_handler extends HttpServlet {
 				session.setAttribute("message", "your bid is a failure.");
 			}
 		} catch (SQLException e) {}
+		response.sendRedirect("item_page.jsp");
+		return;
 	}
 
 	private boolean email_alert(int item_num, Connection conn, HttpSession session, String email) throws SQLException{
 		
-		String find_person_to_alert = "SELECT email FROM alert a INNER JOIN bids b ON a.item_num = b.item_num WHERE a.item_num = ?  ORDER BY b.price DESC LIMIT 1, 1";
+		String find_person_to_alert = "SELECT a.email FROM alert a INNER JOIN bids b ON a.item_num = b.item_num WHERE a.item_num = ?  ORDER BY b.price DESC LIMIT 1, 1";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ps = conn.prepareStatement(find_person_to_alert);
@@ -56,7 +58,7 @@ public class Bid_handler extends HttpServlet {
 			String receiver_email = rs.getString("email");
 			String sender_email = email;
 			String message = "Careful! item"+item_num+"has been over bid!";
-			String send_message = "INSERT INTO email(sender_email, receiver_email, message) VALUES (?,?,?)";
+			String send_message = "INSERT INTO email(sender_email, reciver_email, message) VALUES (?,?,?)";
 			ps = conn.prepareStatement(send_message);
 			ps.setString(1, sender_email);
 			ps.setString(2, receiver_email);
@@ -70,7 +72,7 @@ public class Bid_handler extends HttpServlet {
 		float curr_price = Global_functions.calc_curr_price(item_num, conn);
 		if(bid_price > curr_price) {
 			PreparedStatement ps = null;
-			String query = "INSERT INTO bid(item_num, email, price) value(?, ?, ?)";
+			String query = "INSERT INTO bids(item_num, email, price) value(?, ?, ?)";
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, item_num);
 			ps.setString(2, email);

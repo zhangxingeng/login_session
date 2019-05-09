@@ -19,28 +19,43 @@
 		<title>BuyMe Item</title>
 	</head>
 	<body>
-		<h1>Item Page</h1>
-		<div>
-   <% 
-  
+<% 
+if(session.getAttribute("message") != null){
+	out.println((String)session.getAttribute("message"));
+	session.removeAttribute("message");
+}
 %>
-		</div>
+		<h1>Item Detail</h1>
+		<div>
+			${current_item.getTitle()}<br>
+			${current_item.getDescription()}<br>
+			${current_item.getModel()}<br>
+			${current_item.getOs()}<br>
+			${current_item.getBrand()}<br>
+			${current_item.getRam()}<br>
+			${current_item.getRom()}<br>
+			${current_item.getCpu_core()}<br>
+			${current_item.getStart_price()}<br>
+			${current_item.getCurr_price()}<br>
+			${current_item.getBid_count()}<br>
 
+		</div>
 		<div>
 			<h1>Bid Information:</h1>
-			<form action="Bid_handler2" method="POST">
+			<form action="Bid_handler" method="POST">
 				Place Your Bid :$
+				<input type="hidden" name="item_num" value="${current_item.getItem_num()}"/>
 				<input type="text" name="bid_price"></input>
-				<input type="submit" value="Submit">
+				<input type="submit" value="bid"></input>
 			</form>
 		</div>
 	
 		<div class="actions">
-			<form name="_alert" action="_alert_handler?item_num=<%=item_num%>" method="post">
-			<input type="submit" value="_alert">
+			<form name="set alert" action="alert_handler" method="post">
+				<input type="submit" value="set alert">
 			</form>
-			<form name="watchlist" action="Add_to_watchlist_handler?item_num=<%=item_num%>" method="post">
-			<input type="submit" value="watchlist">
+			<form name="add to watchlist" action="Add_to_watchlist_handler?item_num=" method="post">
+			<input type="submit" value="add to watchlist">
 			</form>
 		</div>
 	</body>

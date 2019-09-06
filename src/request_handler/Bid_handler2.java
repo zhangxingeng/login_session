@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,15 +18,27 @@ import data.Account_data;
 import data.List_item_data;
 
 /**
- * Servlet implementation class Bid_handler
+ * Servlet implementation class bid_handler2
  */
-@WebServlet("/Bid_handler")
-public class Bid_handler extends HttpServlet {
+@WebServlet("/bid_handler2")
+public class Bid_handler2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public Bid_handler() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Bid_handler2() {
         super();
+        // TODO Auto-generated constructor stub
     }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBConnect DBC = new DBConnect();
@@ -35,33 +46,50 @@ public class Bid_handler extends HttpServlet {
 		PreparedStatement ps = null;
 		
 		HttpSession session = request.getSession();
-		List_item_data curr_item = (List_item_data)(session.getAttribute("item_info"));
+		int item_num = Integer.parseInt(request.getParameter("item_num"));
 		Account_data curr_user = (Account_data)(session.getAttribute("account_info"));
-
-
-		float curr_price = curr_item.getCurr_price();
-		float bid_price = Float.parseFloat((String) request.getAttribute("bid_price"));
-		if(bid_price > curr_price) {
-			Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
-			String query = "INSERT INTO bid(item_num, email, price, date) value(?, ?, ?, ?)";
-			try {
-				ps = conn.prepareStatement(query);
-				ps.setInt(1, curr_item.getItem_num());
+		String query = "SELECT TOP 1 price FROM bid WHERE item_num = ?";
+		try {
+			ps = conn.prepareStatement(query);
+		
+			ps.setInt(1, item_num);
+			ResultSet rs = ps.executeQuery();
+			float curr_price = -1;
+			if(rs.next()) {
+				 curr_price = rs.getFloat("price");
+			}
+			String query2 = "SELECT start_price FROM item WHERE item_num = ?";
+			ps = conn.prepareStatement(query2);
+			ps.setInt(1, item_num);
+			ResultSet rs2 = ps.executeQuery();
+			float start_price = -1;
+			if(rs2.next()) {
+				start_price = rs2.getFloat("start_price");
+			}
+			if(start_price > curr_price) {
+				curr_price = start_price;
+			}
+		
+			System.out.println("curr_price: "+curr_price);
+			float bid_price = Float.parseFloat((String) request.getParameter("bid_price"));
+			System.out.println("bid_price: "+bid_price);
+			if(bid_price > curr_price) {
+				String query3 = "INSERT INTO bid(item_num, email, price) value(?, ?, ?)";
+				ps = conn.prepareStatement(query3);
+				ps.setInt(1, item_num);
 				ps.setString(2, curr_user.getEmail());
 				ps.setFloat(3, bid_price);
-				ps.setTimestamp(4, now);
 				ps.executeUpdate();
-				curr_item.setCurr_price(bid_price);  //current price is updated when a new bid comes
-				email_alert(curr_item.getItem_num(),conn, session);
-
-			} catch (SQLException e) {
-				session.setAttribute("failure_message", "Problem occured at 1 Bid_handler.java!");
+				email_alert(item_num,conn, session);
+			}
+		} catch (SQLException e) {
+			session.setAttribute("failure_message", "Problem occured at 1 Bid_handler.java!");
 				
 			}
 			finally {
 					try {
 						if(conn != null) {conn.close();}} 
-					catch (SQLException e) {}}}}
+					catch (SQLException e) {}}}
 
 	private void email_alert(int item_num, Connection conn, HttpSession session) {
 		
@@ -99,7 +127,8 @@ public class Bid_handler extends HttpServlet {
                    finally {try {
                             if(conn != null) {conn.close();}
                        } catch (SQLException e) {}}
-		}
 	}
 
 
+
+}

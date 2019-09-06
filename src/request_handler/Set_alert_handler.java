@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import connect.DBConnect;
-import data.Account_data;
-import data.List_item_data;
 
 
 @WebServlet("/Set_alert_handler")
@@ -32,38 +30,28 @@ public class Set_alert_handler extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int item_num = (int)request.getAttribute("set_alert");
 		
+		//get email from session
 		HttpSession session = request.getSession();
-		String redirect = "item_page.jsp";
-		int item_num = (int)((List_item_data)session.getAttribute("current_item")).getItem_num();
-		if(session.getAttribute("account_info") == null) {
-			request.setAttribute("message", "please log in first.");
-			response.sendRedirect("index.jsp");
-			return;
-		}
-		String email = ((Account_data)session.getAttribute("account_info")).getEmail();
+		String email=(String)request.getParameter("email");
 		DBConnect DBC = new DBConnect();
 		Connection conn = DBC.getConn();
 		PreparedStatement ps = null;
 		try {
-			String query = 	"INSERT IGNORE INTO alert(email, item_num) VALUES (?, ?)";
+			//INSERT INTO alert () VALUE(?,?)
+			String query = 	"INSERT INTO alert(email, item_num) VALUES (?, ?)";
 			ps = conn.prepareStatement(query);
 			ps.setString(1,email);
 			ps.setInt(2,item_num);
-			ps.executeUpdate();
-			request.setAttribute("message", "Your alert is successfully set.");
+			ps.executeQuery();
 			
+			response.sendRedirect("item_page.jsp");
 		}catch (SQLException e) {
-			session.setAttribute("message", "Problem occured at Set_alert_handler.java!");
+			session.setAttribute("failure_message", "Problem occured at Set_alert_handler.java!");
 		}		
-		finally {
-			try {
-				if(conn != null) {
-					conn.close();
-					response.sendRedirect(redirect);
-				}
-			} catch (SQLException e) {}
+		finally {try {if(conn != null) {conn.close();}
+				} catch (SQLException e) {}
 		}
 	}
 	

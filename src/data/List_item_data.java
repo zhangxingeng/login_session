@@ -8,6 +8,7 @@ public class List_item_data {
 	private String status;
 	private float start_price;
 	private Timestamp timestamp;
+	private int item_bidamount;
 	private int item_num;
 	
 	private String brand;
@@ -67,6 +68,12 @@ public class List_item_data {
 	}
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+	public int getItem_bidamount() {
+		return item_bidamount;
+	}
+	public void setItem_bidamount(int item_bidamount) {
+		this.item_bidamount = item_bidamount;
 	}
 	public String getBrand() {
 		return brand;
